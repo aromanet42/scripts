@@ -1,44 +1,44 @@
 [user]
-	email = audrey.romanet-prestataire@fia-net.com
-	name = aromanet
-	
+  email = audrey.romanet-prestataire@fia-net.com
+  name = aromanet
+
 [color]
-    ui = true
+  ui = true
 [color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
+  current = yellow reverse
+  local = yellow
+  remote = green
 [color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
 [color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
+  added = yellow
+  changed = green
+  untracked = cyan
 
 [format]
-	pretty = "%C(yellow)%h%C(auto)%d %Creset%s %C(green)<%an>"
+  pretty = "%C(yellow)%h%C(auto)%d %Creset%s %C(green)<%an>"
 
 [alias]
-    lola = log --graph --decorate --abbrev-commit --all
-	loln = log --graph --decorate --abbrev-commit -n20 HEAD
-	chk = checkout
-	co = commit
-	com = commit --amend
-	st = status
-	ppik = cherry-pick
-	undo = reset HEAD^
-	pr = pull --rebase
-	pushmaster = push origin master:aromanet
-	
+  lola = log --graph --decorate --abbrev-commit --all
+  loln = log --graph --decorate --abbrev-commit -n20 HEAD
+  chk = checkout
+  co = commit
+  com = commit --amend
+  st = status
+  ppik = cherry-pick
+  undo = reset HEAD^
+  pr = pull --rebase
+  pushmaster = push origin master:aromanet
+
 [core]
-	editor = vim
-	pager = less -XF
-	
+  editor = vim
+  pager = less -XF
+
 [push]
-	default = upstream  #pour ne pusher que la branche courante
+  default = upstream  #pour ne pusher que la branche courante
 
 
 [diff]
@@ -53,4 +53,4 @@
 
 
 [credential]
-	helper = cache
+  helper = cache
