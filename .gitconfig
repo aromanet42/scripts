@@ -52,3 +52,5 @@
   keepBackup = false
 
 
+[credential]
+	helper = cache
