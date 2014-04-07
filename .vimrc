@@ -11,6 +11,9 @@
 " incremental search : display the match for the string while you are still typing it.
 :set incsearch
 
+" automatically change working directory to the directory of editing file
+:set autochdir
+
 " change extension for backup files
 :set backupext=.bak
 
