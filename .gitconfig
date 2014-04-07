@@ -38,5 +38,17 @@
 	pager = less -XF
 	
 [push]
-	default = upstream
+	default = upstream  #pour ne pusher que la branche courante
+
+
+[diff]
+  external=~/workspace/myscripts/Git/git-diff-diffmerge-wrapper.sh
+
+[merge]
+  tool=diffmerge
+[mergetool "diffmerge"]
+  cmd = ~/workspace/myscripts/Git/git-merge-diffmerge-wrapper.sh "$PWD/$LOCAL", "$PWD/$BASE" "$PWD/$REMOTE" "$PWD/$MERGED"
+  trustExitCode = false
+  keepBackup = false
+
 
