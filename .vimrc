@@ -35,4 +35,8 @@ set omnifunc=syntaxcomplete#Complete
 
 " in splitted mode : switch split
 :nmap <C-X> <C-W><C-W>   
+" in splitted mode : resize -10. Key = Alt-D
+:noremap ^[d :vertical resize -10<CR>
+" in splitted mode : resize +10. Key = Alt-F
+:noremap f :vertical resize +10<CR>
 
