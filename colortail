@@ -1,0 +1,51 @@
+#! /usr/bin/env ruby
+
+if(ARGV.length < 2)
+  prog_name = File.basename($0)
+   puts "Usage : %s <fichier> <pattern>" % prog_name
+   puts "\tou %s <fichier> (<color>=<pattern>)+" % prog_name
+   puts "Tail le fichier en mettant en valeur le(s) pattern(s)"
+   abort
+end
+
+$filename = ARGV[0]
+
+ARGV.shift
+
+def get_sed(color_code, pattern)
+  return "s#%s#\x1b[%dm&\x1b[0m#" % [ pattern, color_code ]
+end
+
+$sed_command = ""
+if(ARGV.length == 1)
+  #simple pattern
+  $sed_command= get_sed(33, ARGV[0])
+else
+  color_map = {
+    "--yellow" => 33,
+    "--red" => 31,
+    "--green" => 32,
+    "--blue" => 34,
+    "--magenta" => 35,
+    "--cyan" => 36
+  }
+
+  liste_sed = []
+  while (ARGV.length >= 2)
+    arg = ARGV[0]
+    if(color_map.has_key?(arg))
+      sed = get_sed(color_map[arg], ARGV[1])
+      liste_sed << sed
+    else
+      abort("Couleur non reconnue : %s" % arg)
+    end
+    ARGV.shift(2)
+  end
+
+  $sed_command = liste_sed * "; "
+
+end
+
+command = "tail -f %s | sed \"%s\"" % [ $filename, $sed_command ]
+system(command)
+
