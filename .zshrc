@@ -51,6 +51,10 @@ if [ -n "$DESKTOP_SESSION" ];then
   fi
 fi
 
+if [ -f ~/.env ];then
+  source ~/.env
+  alias srcenv="source ~/.env"
+fi
 
 
 # Customize to your needs...
@@ -59,7 +63,3 @@ alias -s xml="vim"
 alias -s log="tail -n500 -f"
 alias resource="source ~/.zshrc"
 
-export JAVA_HOME=~/devtools/jdk1.6.0_45
-export MAVEN_HOME=~/devtools/apache-maven-3.2.1
-export SIGMAPLUS_HOME=/sources/sigmaplus
-export PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:~/bin:$PATH
