@@ -1,0 +1,20 @@
+Config {font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = TopW L 96
+       --, position = Static { xpos = 0 , ypos = 0 , width = 96 , height = 16 }
+       , lowerOnStart = False
+       , commands = [ Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Date "%a %b %_d %k:%M" "date" 10
+                    , Run StdinReader
+                    , Run Com "/home/aromanet/bin/hudsonStatus.sh" [""]  "hudson" 10
+
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       --, template = "%StdinReader% }{ %hudson% | %cpu% | %memory% * %swap% | %eth0% | <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ %hudson% | %cpu% | %memory% * %swap% | <fc=#ee9a00>%date%</fc>"
+}
