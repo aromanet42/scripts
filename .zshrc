@@ -56,6 +56,7 @@ if [ -f ~/.env ];then
   alias srcenv="source ~/.env"
 fi
 
+source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs...
 alias -s properties="vim"
@@ -63,3 +64,5 @@ alias -s xml="vim"
 alias -s log="tail -n500 -f"
 alias resource="source ~/.zshrc"
 
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
