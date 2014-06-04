@@ -1,7 +1,7 @@
-scripts
-=======
+Config
+======
 
-Fichiers de config de différents outils.
+Pour utiliser les fichers de config, utiliser des liens symboliques
 
     ln -s <path_to_git_repo>/.gitconfig ~/.gitconfig
 
@@ -24,7 +24,6 @@ Xmonad
 
 Git
 ---
-
 - .gitconfig
 - dossier Git/
 
@@ -36,3 +35,11 @@ Vim
 Bash
 ----
 - .zshrc
+
+Scripts utilitaires
+===================
+
+colortail
+---------
+Permet de tail un fichier tout en mettant en valeur certains patterns
+
