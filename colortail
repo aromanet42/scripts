@@ -74,6 +74,6 @@ else
 
 end
 
-command = "tail -f %s | sed \"%s\"" % [ $filename, $sed_command ]
+command = "tail -n500 -f %s | sed \"%s\"" % [ $filename, $sed_command ]
 system(command)
 
