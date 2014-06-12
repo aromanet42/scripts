@@ -19,7 +19,7 @@
   untracked = cyan
 
 [format]
-  pretty = "%C(yellow)%h%C(auto)%d %Creset%s %C(green)<%an>"
+  pretty = "%C(yellow)%h%C(auto)%d %Creset%s %C(green)<%an - %ar>"
 
 [alias]
   lola = log --graph --decorate --abbrev-commit --all
