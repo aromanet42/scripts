@@ -10,6 +10,7 @@ Xmonad
 
 - .xmonad/xmonad.hs
 - .xmobarrc (pour la barre d'infos)
+- `ln -s <path_to_git_repo>/bin ~/.xmonad/bin`
 - dans .xsession :
 
 <!-- -->

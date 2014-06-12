@@ -10,7 +10,7 @@ Config {font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
                     , Run Swap [] 10
                     , Run Date "%a %b %_d %k:%M" "date" 10
                     , Run StdinReader
-                    , Run Com "/home/aromanet/bin/hudsonStatus.sh" [""]  "hudson" 10
+                    , Run Com "~/.xmonad/bin/hudsonStatus.rb" [""]  "hudson" 10
 
                     ]
        , sepChar = "%"
