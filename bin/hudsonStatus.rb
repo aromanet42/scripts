@@ -4,17 +4,35 @@ require 'net/http'
 require 'json'
 
 
-host = 'http://10.199.54.202/hudson/'
-jobs = JSON.parse(Net::HTTP.get(URI(host + "view/Sigmaplus/api/json?tree=jobs[name]")))
+@host = 'http://10.199.54.202/hudson/'
+
+def get_or_error(page)
+  url = URI(@host + page)
+
+  http = Net::HTTP.new(url.host, url.port)
+  http.read_timeout = 5
+  http.open_timeout = 5
+  resp = http.start() { |http|
+    http.get(url.path)
+  }
+
+  if (resp.code.to_i >= 400)
+    puts '<fc=#FF0033> unavailable </fc>'
+    exit 
+  end
+  return JSON.parse(resp.body)
+end
+
+
+jobs = get_or_error("view/Sigmaplus/api/json?tree=jobs[name]")
 
 
 remaining_times = []
 building = false
 
 jobs['jobs'].each do |job|
-  uri = URI(host + "job/#{job['name']}/lastBuild/api/json?tree=timestamp,estimatedDuration,building")
 
-  json = JSON.parse(Net::HTTP.get(uri))
+  json = get_or_error("job/#{job['name']}/lastBuild/api/json?tree=timestamp,estimatedDuration,building")
 
   current_building = json['building']
   building = current_building || building
