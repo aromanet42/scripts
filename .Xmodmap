@@ -1,9 +1,11 @@
 clear mod3
 clear mod5
+clear mod4
 !134 = Super_R
 keycode 134 = Mode_switch
 add mod3 = Mode_switch
 add mod5 = ISO_Level3_Shift
+add mod4 = Super_L Hyper_L
 
 !ISO_Level3_Shift = AltGr
 
@@ -37,4 +39,6 @@ add mod5 = ISO_Level3_Shift
 keycode 94 = less greater U2264 U2265 bar brokenbar
 != + ≠ + } ˛
 keycode 21 = equal plus U2260 plus braceright dead_ogonek
+!c C ç Ç ¢ © 
+keycode 54 = c C ccedilla Ccedilla cent copyright
 

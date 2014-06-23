@@ -29,13 +29,20 @@ Gestionnaire du clavier : [Xmodmap](https://wiki.archlinux.org/index.php/xmodmap
 - .Xmodmap
 
 
-Liste des definitions des touches :
+### Definitions des touches
 
     /usr/include/X11/keysymdef.h
 
 Pour trouver une lettre :
 
     grep -i "CEDILLA" /usr/include/X11/keysymdef.h
+
+### Trouver la touche associée à une lettre
+
+    xmodmap -pke | grep ccedilla
+    xmodmap -pke | grep "c "
+
+
 
 Git
 ---
