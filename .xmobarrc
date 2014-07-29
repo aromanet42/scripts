@@ -11,10 +11,11 @@ Config {font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
                     , Run Date "%a %b %_d %k:%M" "date" 10
                     , Run StdinReader
                     , Run Com "~/.xmonad/bin/hudsonStatus.rb" [""]  "hudson" 10
+                    , Run Com "~/.xmonad/bin/internetStatus.rb" [""]  "internet" 100
 
                     ]
        , sepChar = "%"
        , alignSep = "}{"
        --, template = "%StdinReader% }{ %hudson% | %cpu% | %memory% * %swap% | %eth0% | <fc=#ee9a00>%date%</fc>"
-       , template = "%StdinReader% }{ %hudson% | %cpu% | %memory% * %swap% | <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ %hudson% %internet% | %cpu% | %memory% * %swap% | <fc=#ee9a00>%date%</fc>"
 }
