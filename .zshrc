@@ -64,5 +64,7 @@ alias -s xml="vim"
 alias -s log="tail -n500 -f"
 alias resource="source ~/.zshrc"
 
+alias nautilus="nautilus --no-desktop"
+
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
