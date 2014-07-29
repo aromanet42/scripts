@@ -37,7 +37,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
 
     
     --, ((modMask .|. shiftMask, xK_twosuperior), spawn "setxkbmap fr bepo") -- with bepo keyboard
-    , ((modMask .|. shiftMask, xK_twosuperior), spawn "~/bin/swith-keyboard-layout") -- Switch bepo <-> azerty
     --, ((modMask .|. controlMask, xK_1), spawn "setxkbmap fr") -- with azerty keyboard
     , ((modMask .|. shiftMask, xK_b), goToSelected defaultGSConfig)
     , ((mod1Mask, xK_F2), spawn "synapse") --mod1Mask = left alt
