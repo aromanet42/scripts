@@ -18,7 +18,7 @@
 :set backupext=.bak
 
 " display file name in status line
-:set statusline+=%F
+:set statusline+=%F\ %l\:%c
 :set laststatus=2
 
 syntax on             " Enable syntax highlighting
