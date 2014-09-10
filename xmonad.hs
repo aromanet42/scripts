@@ -78,7 +78,7 @@ myIDE = "sh /home/aromanet/devtools/idea/bin/idea.sh"
 myMail = "thunderbird"
 myIM = "launch-pidgin.sh"
 -- terminal
-myTerminal = "gnome-terminal --hide-menubar"
+myTerminal = "terminator"
 
 
 
