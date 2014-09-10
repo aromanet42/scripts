@@ -58,6 +58,16 @@ Bash
 ----
 - .zshrc
 
+installer avec le lien fourni par :
+
+    https://github.com/lucmazon/custom-zsh
+
+si le nouveau terminal utilise toujours bash, vérifier que le fichier `/etc/passwd` contienne bien :
+
+    <username>:.....:/bin/zsh
+
+
+
 Scripts utilitaires
 ===================
 
