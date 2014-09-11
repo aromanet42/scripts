@@ -33,6 +33,7 @@
   pr = pull --rebase
   pushmaster = push origin master:aromanet
   mt = mergetool --tool=diffmerge -y
+  dt = difftool --tool=diffmerge -y
 
 [core]
   editor = vim
@@ -43,12 +44,13 @@
 
 
 [diff]
-  external=~/workspace/myscripts/Git/git-diff-diffmerge-wrapper.sh
+  tool=diffmerge 
+[difftool "diffmerge"]
+  cmd=diffmerge $LOCAL $REMOTE
 
 [merge]
   tool=diffmerge
 [mergetool "diffmerge"]
-#  cmd = ~/workspace/myscripts/Git/git-merge-diffmerge-wrapper.sh "$PWD/$LOCAL", "$PWD/$BASE" "$PWD/$REMOTE" "$PWD/$MERGED"
   cmd=diffmerge --merge --result=$MERGED $LOCAL $BASE $REMOTE
   trustExitCode=false
   keepBackup=false
