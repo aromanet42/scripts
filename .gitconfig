@@ -58,3 +58,5 @@
 
 [credential]
   helper = cache
+[url "https://"]
+  insteadOf = git:// #utilisation du protocole https au lieu de git lors d'un clone
