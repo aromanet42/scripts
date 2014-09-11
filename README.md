@@ -5,6 +5,18 @@ Pour utiliser les fichers de config, utiliser des liens symboliques
 
     ln -s <path_to_git_repo>/.gitconfig ~/.gitconfig
 
+Synapse
+-------
+
+Synapse est un launcher. Dans la config Xmonad de ce repo, il est activé avec Alt+F2
+
+Pour l'installer :
+
+    sudo add-apt-repository ppa:noobslab/apps
+    sudo apt-get update
+    sudo apt-get install synapse
+
+
 Xmonad
 ------
 
@@ -66,6 +78,8 @@ si le nouveau terminal utilise toujours bash, vérifier que le fichier `/etc/pas
 
     <username>:.....:/bin/zsh
 
+
+Pour avoir la coloration de la ligne de commande (en vert quand la commande existe, etc), utiliser [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
 
 Scripts utilitaires
