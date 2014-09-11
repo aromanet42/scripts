@@ -59,7 +59,6 @@ Pour trouver une lettre :
 Git
 ---
 - .gitconfig
-- dossier Git/
 
 Vim
 ---
