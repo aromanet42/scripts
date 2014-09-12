@@ -50,10 +50,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 -- Layouts
--- default
-myLayout = (toggleLayouts $ noBorders Full) $ -- toggle fullscreen
-  (noBorders tabbed ||| Grid ||| layoutHook defaultConfig)
-  where tabbed = named "Tabbed" $ simpleTabbed
+myLayout = tiled ||| Mirror tiled ||| simpleTabbed
+    where
+    	tiled = Tall nmaster delta ratio
+	nmaster = 1
+	ratio = 1/2
+	delta = 3/100
 
 --------------
 --Tab Colors--
