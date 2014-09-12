@@ -21,6 +21,11 @@
 :set statusline+=%F\ %l\:%c
 :set laststatus=2
 
+" when opening a new file, first tab will complete as much as possible, second
+" Tab hit will provide a list, and subsequent tabs will cycle through
+" completion options
+:set wildmode=longest,list,full
+
 syntax on             " Enable syntax highlighting
 filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
