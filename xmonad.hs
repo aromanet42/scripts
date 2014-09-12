@@ -107,7 +107,7 @@ main = do
 			      spawnOn w1Id myInternet  --this line and following : start apps on given workspace
 			      spawnOn w2Id myTerminal
 			      spawnOn w3Id myIDE
-			      spawnOn w8Id myMail
+			      --spawnOn w8Id myMail
 			      spawnOn w9Id myIM
 			  ,
                           terminal = myTerminal,
