@@ -17,6 +17,16 @@ Pour l'installer :
     sudo apt-get install synapse
 
 
+Pour ajouter des lanceurs Synapse, créer un fichier `~∕.local/share/applications/<appName>.desktop` contenant :
+
+    [Desktop Entry]
+    Name=IntelliJ
+    Exec=/devtools/idea/bin/idea.sh
+    Icon=/devtools/idea/bin/idea.png
+    Type=Application
+    Categories=Utility;
+
+
 Xmonad
 ------
 
@@ -29,9 +39,18 @@ Xmonad
 
     #!/bin/bash
 
-    /usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  -    -widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 15 --monitor 0 &
-    
-    exec ck-launch-session xmonad
+    xmonad
+
+
+- dans .xsessionrc :
+
+<!-- -->
+
+    . ~/.env
+
+    /usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  --widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 15 --monitor 0 &
+
+
 
 
 Xmodmap
