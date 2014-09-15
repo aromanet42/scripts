@@ -67,7 +67,7 @@ sudo apt-get update
 sudo apt-get install synapse -y
 
 echo "GIT..."
-sudo apt-get install git -y
+sudo apt-get install git gitk -y
 ln -s $SCRIPTPATH/.gitconfig ~/.gitconfig
 
 
