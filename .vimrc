@@ -26,13 +26,16 @@
 " completion options
 :set wildmode=longest,list,full
 
+" Pathogen is a plugin manager : https://github.com/tpope/vim-pathogen
+execute pathogen#infect()
+
+
 syntax on             " Enable syntax highlighting
 filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 
 set omnifunc=syntaxcomplete#Complete
-
 
 " ------------- maps ---------------
 "  nmap : add a mapping in normal mode

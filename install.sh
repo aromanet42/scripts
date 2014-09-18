@@ -26,6 +26,12 @@ echo "VIM..."
 sudo apt-get install vim -y
 ln -s $SCRIPTPATH/.vimrc ~/.vimrc
 ln -s $SCRIPTPATH/Vim/plugin ~/.vim/plugin
+ln -s $SCRIPTPATH/Vim/autoload ~/.vim/autoload
+mkdir -p ~/.vim/bundle
+cd ~/.vim/bundle
+git clone https://github.com/tomtom/tcomment_vim.git
+
+cd -
 
 
 echo "CHROME..."
