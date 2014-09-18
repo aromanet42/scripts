@@ -69,3 +69,6 @@ alias nautilus="nautilus --no-desktop"
 alias gw="./gradlew --daemon"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+export HISTTIMEFORMAT='%F %T ' # show history with datetime
+
