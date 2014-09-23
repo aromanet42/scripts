@@ -75,6 +75,8 @@ sudo apt-get install synapse -y
 echo "GIT..."
 sudo apt-get install git gitk -y
 ln -s $SCRIPTPATH/.gitconfig ~/.gitconfig
+mkdir -p ~/.config/git
+ln -s $SCRIPTPATH/gitIgnore ~/.config/git/ignore
 
 
 echo "all done !"
