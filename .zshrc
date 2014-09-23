@@ -68,6 +68,8 @@ alias nautilus="nautilus --no-desktop"
 
 alias gw="./gradlew --daemon"
 
+alias git="LANGUAGE=en_US.UTF-8 git" # Toujours utiliser l'anglais pour Git
+
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export HISTTIMEFORMAT='%F %T ' # show history with datetime
