@@ -20,6 +20,11 @@ function ask_for_install
   fi
 } 
 
+echo "SSHRC..."
+wget https://raw.githubusercontent.com/Russell91/sshrc/master/sshrc
+chmod +x sshrc
+sudo mv sshrc /usr/local/bin
+ln -s $SCRIPTPATH/.sshrc ~/.sshrc
 
 
 echo "VIM..."

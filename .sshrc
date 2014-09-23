@@ -1,0 +1,9 @@
+echo ""
+echo "Connected to `whoami`@`hostname`"
+
+export PS1="\e[1;37m\u@\h:\e[0;36m[\w]\e[1;37m\$\e[m "
+
+alias ..='cd ..'
+alias la='ls -la'
+alias ll='ls -l'
+
