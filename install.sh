@@ -55,6 +55,9 @@ source ~/.zshrc
 
 cd -
 
+echo "Some useful tools..."
+# libxml2-utils for xmllint
+sudo apt-get install libxml2-utils -y 
 
 # TODO : if xmonad
 if ask_for_install "xmonad" ; then
