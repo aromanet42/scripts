@@ -1,1 +1,7 @@
 *.orig
+out/
+target/
+*.idea
+*.iml
+*.ipr
+
