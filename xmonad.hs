@@ -12,11 +12,11 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
-import XMonad.Layout.Grid
 import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ToggleLayouts
+import XMonad.Layout.MouseResizableTile
 import XMonad.Util.Run(spawnPipe)
 --Rezise
 --import XMonad.Layout.ResizableTile
@@ -40,6 +40,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
     --, ((modMask .|. controlMask, xK_1), spawn "setxkbmap fr") -- with azerty keyboard
     , ((modMask .|. shiftMask, xK_b), goToSelected defaultGSConfig)
     , ((mod1Mask, xK_F2), spawn "synapse") --mod1Mask = left alt
+    , ((modMask, xK_u), sendMessage ShrinkSlave)     -- Shrink a slave area
+    , ((modMask, xK_i), sendMessage ExpandSlave)     -- Expand a slave area
     ]
     ++
     -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
@@ -50,7 +52,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 -- Layouts
-myLayout = tiled ||| Mirror tiled ||| simpleTabbed
+myLayout = mouseResizableTile ||| tiled ||| simpleTabbed
     where
     	tiled = Tall nmaster delta ratio
 	nmaster = 1
