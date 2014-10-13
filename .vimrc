@@ -1,5 +1,7 @@
 " 1 tab = X spaces
 :set shiftwidth=2
+" how to display white spaces with :set list
+:set listchars=tab:»⋅,trail:~,extends:>,precedes:<,eol:$,nbsp:⋅
 " keep indentation for a new line
 :set autoindent
 
