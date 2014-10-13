@@ -34,11 +34,13 @@ add mod4 = Super_L Hyper_L
 ! - le nom du caractère (par ex : a, copyright)
 ! - le code decimal (par ex : 169 pour copyright)
 ! - le code hexa (par ex : U00A9 pour copyright)
+!
+! Préferer le nom du caractère pour faciliter la recherche
 
 !< > ≤ ≥ | ¦
-keycode 94 = less greater U2264 U2265 bar brokenbar
+keycode 94 = less greater lessthanequal greaterthanequal bar brokenbar
 != + ≠ + } ˛
-keycode 21 = equal plus U2260 plus braceright dead_ogonek
+keycode 21 = equal plus notequal plus braceright dead_ogonek
 !c C ç Ç ¢ © 
 keycode 54 = c C ccedilla Ccedilla cent copyright
 

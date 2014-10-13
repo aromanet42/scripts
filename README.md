@@ -57,22 +57,14 @@ Xmodmap
 -------
 Gestionnaire du clavier : [Xmodmap](https://wiki.archlinux.org/index.php/xmodmap)
 
-- .Xmodmap
+Dans cette version, les touches sont mappées de la façon suivante : 
 
-
-### Definitions des touches
-
-    /usr/include/X11/keysymdef.h
-
-Pour trouver une lettre :
-
-    grep -i "CEDILLA" /usr/include/X11/keysymdef.h
-
-### Trouver la touche associée à une lettre
-
-    xmodmap -pke | grep ccedilla
-    xmodmap -pke | grep "c "
-
+- touche simple
+- `<Shift>` + touche
+- `<Right Windows>` + touche
+- `<Right Windows>` + `<Shift>` + touche
+- `<AltGr>` + touche
+- `<AltGr>` + `<Shift>` + touche
 
 
 Git
