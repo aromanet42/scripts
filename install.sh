@@ -29,7 +29,7 @@ ln -s $SCRIPTPATH/.sshrc ~/.sshrc
 
 echo "VIM..."
 sudo apt-get install vim -y
-ln -s $SCRIPTPATH/.vimrc ~/.vimrc
+ln -sf $SCRIPTPATH/.vimrc ~/.vimrc
 ln -s $SCRIPTPATH/Vim/plugin ~/.vim/plugin
 ln -s $SCRIPTPATH/Vim/autoload ~/.vim/autoload
 mkdir -p ~/.vim/bundle
@@ -63,11 +63,12 @@ sudo apt-get install libxml2-utils -y
 if ask_for_install "xmonad" ; then
 
   echo "XMONAD..."
+  mkdir ~/.xmonad
   ln -s $SCRIPTPATH/xmonad.hs ~/.xmonad/xmonad.hs
 
   
   echo "XMOBAR..."
-  ln -s $SCRIPTPATH/.xmobarrc ~/.xmobarrc
+  ln -sf $SCRIPTPATH/.xmobarrc ~/.xmobarrc
   ln -s $SCRIPTPATH/bin ~/.xmonad/bin
 
 
@@ -82,9 +83,9 @@ sudo apt-get install synapse -y
 
 echo "GIT..."
 sudo apt-get install git gitk -y
-ln -s $SCRIPTPATH/.gitconfig ~/.gitconfig
+ln -sf $SCRIPTPATH/.gitconfig ~/.gitconfig
 mkdir -p ~/.config/git
-ln -s $SCRIPTPATH/gitIgnore ~/.config/git/ignore
+ln -sf $SCRIPTPATH/gitIgnore ~/.config/git/ignore
 
 
 echo "all done !"
