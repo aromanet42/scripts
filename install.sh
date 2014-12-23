@@ -85,6 +85,9 @@ if ask_for_install "xmonad" ; then
   sudo apt-get install trayer -y
 fi
 
+echo "xmodmap..."
+ln -s $SCRIPTPATH/.Xmodmap ~∕.Xmodmap
+
 echo "SYNAPSE..."
 sudo add-apt-repository ppa:noobslab/apps
 sudo apt-get update
