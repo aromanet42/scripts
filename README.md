@@ -92,13 +92,6 @@ si le nouveau terminal utilise toujours bash, vérifier que le fichier `/etc/pas
 Pour avoir la coloration de la ligne de commande (en vert quand la commande existe, etc), utiliser [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
 
-sshrc
------
-Permet de sourcer un fichier .sshrc après s'être loggué en SSH.
-
-Voir [le github de l'auteur](https://github.com/Russell91/sshrc) 
-
-
 Scripts utilitaires
 ===================
 

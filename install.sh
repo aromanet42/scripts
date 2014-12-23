@@ -24,13 +24,6 @@ function ask_for_install
 #il arrive qu'il manque gnome-settings-daemon...
 sudo apt-get install gnome-settings-daemon -y
 
-echo "SSHRC..."
-wget https://raw.githubusercontent.com/Russell91/sshrc/master/sshrc
-chmod +x sshrc
-sudo mv sshrc /usr/local/bin
-ln -s $SCRIPTPATH/.sshrc ~/.sshrc
-
-
 echo "VIM..."
 sudo apt-get install vim -y
 ln -sf $SCRIPTPATH/.vimrc ~/.vimrc
