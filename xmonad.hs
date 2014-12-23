@@ -17,6 +17,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.MouseResizableTile
+import XMonad.Layout.PerWorkspace
 import XMonad.Util.Run(spawnPipe)
 --Rezise
 --import XMonad.Layout.ResizableTile
@@ -58,6 +59,19 @@ myLayout = mouseResizableTile ||| tiled ||| simpleTabbed
 	nmaster = 1
 	ratio = 1/2
 	delta = 3/100
+
+pidginLayout = pidginTiled
+    where
+        pidginTiled = Tall nmaster delta ratio
+	nmaster = 1
+	ratio = 4/5
+	delta = 3/100
+
+-- smartBorder : change focused window border
+-- avoidStruts : smart handle of xmobar (if not set, window will be placed hover it)
+-- onWorkspace <workspaceId> <layoutName>
+-- last layout will be applied on other workspaces
+myLayoutHook = smartBorders (avoidStruts $ onWorkspace w9Id pidginLayout $ myLayout)
 
 --------------
 --Tab Colors--
@@ -106,7 +120,7 @@ main = do
 			  workspaces = myWorkspaces,
                           keys = newKeys,
                           modMask = mod4Mask,
-                          layoutHook = smartBorders (avoidStruts $ myLayout),
+                          layoutHook = myLayoutHook,
 			  startupHook = do
 			      setWMName "LG3D"
 			      spawnOn w1Id myInternet  --this line and following : start apps on given workspace
