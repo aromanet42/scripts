@@ -20,6 +20,10 @@ function ask_for_install
   fi
 } 
 
+
+#il arrive qu'il manque gnome-settings-daemon...
+sudo apt-get install gnome-settings-daemon -y
+
 echo "SSHRC..."
 wget https://raw.githubusercontent.com/Russell91/sshrc/master/sshrc
 chmod +x sshrc
@@ -48,6 +52,7 @@ sudo apt-get install pidgin -y
 
 
 echo "ZSH..."
+sudo apt-get install zsh -y
 wget --no-check-certificate https://github.com/lucmazon/custom-zsh/raw/master/install.sh -O - | sh
 cd ~/.oh-my-zsh/custom/plugins
 git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
@@ -63,11 +68,13 @@ sudo apt-get install libxml2-utils -y
 if ask_for_install "xmonad" ; then
 
   echo "XMONAD..."
+  sudo apt-get install xmonad -y
   mkdir ~/.xmonad
   ln -s $SCRIPTPATH/xmonad.hs ~/.xmonad/xmonad.hs
 
   
   echo "XMOBAR..."
+  sudo apt-get install xmobar -y
   ln -sf $SCRIPTPATH/.xmobarrc ~/.xmobarrc
   ln -s $SCRIPTPATH/bin ~/.xmonad/bin
 
