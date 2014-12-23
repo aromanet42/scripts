@@ -71,16 +71,15 @@ w4Id = "4 sql"
 w5Id = "5"
 w6Id = "6"
 w7Id = "7"
-w8Id = "8 mail"
+w8Id = "8"
 w9Id = "9 pidgin"
 
 myWorkspaces = [w1Id, w2Id, w3Id, w4Id, w5Id, w6Id, w7Id, w8Id, w9Id]
 
 
-myInternet = "google-chrome"
-myIDE = "sh /home/aromanet/devtools/idea/bin/idea.sh"
-myMail = "thunderbird"
-myIM = "launch-pidgin.sh"
+myInternet = "google-chrome --allow-file-access-from-files"
+myIDE = "~/.xmonad/bin/idea.sh"
+myIM = "~/.xmonad/bin/launch-pidgin.sh"
 -- terminal
 myTerminal = "terminator"
 
@@ -94,6 +93,8 @@ myTerminal = "terminator"
 myManageHook = composeAll
   [ title =? "gitk"               --> doFullFloat
   , className =? "Diffmerge"      --> doFullFloat
+  , className =? "Pidgin"         --> doF (W.shift w9Id)
+  , className =? "jetbrains-idea" --> doF (W.shift w3Id)
   , manageDocks  -- manageDocks pour que le trayer apparaisse sur tous les workspaces du monitor, et pas seulement le 1er
   , manageSpawn
   ]
@@ -110,9 +111,8 @@ main = do
 			      setWMName "LG3D"
 			      spawnOn w1Id myInternet  --this line and following : start apps on given workspace
 			      spawnOn w2Id myTerminal
-			      spawnOn w3Id myIDE
-			      --spawnOn w8Id myMail
-			      spawnOn w9Id myIM
+			      spawn myIDE  --this line and following : just start apps (workspace is handled by manageHook)
+			      spawn myIM
 			  ,
                           terminal = myTerminal,
                           logHook = (dynamicLogWithPP $ xmobarPP

@@ -1,0 +1,1 @@
+/home/audrey/devtools/idea/bin/idea.sh
