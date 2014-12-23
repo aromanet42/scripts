@@ -50,6 +50,7 @@ Xmonad
 
     /usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  --widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 15 --monitor 0 &
 
+- si xmonad veut pas se lancer, vérifier que le fichier `/usr/share/gnome/session/xmonad` ne contienne pas `gnome-panel`
 
 
 
