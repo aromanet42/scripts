@@ -45,10 +45,19 @@ sudo apt-get install pidgin -y
 
 
 echo "ZSH..."
+# zsh
 sudo apt-get install zsh -y
+# oh-my-zsh
 wget --no-check-certificate https://github.com/lucmazon/custom-zsh/raw/master/install.sh -O - | sh
+# install some plugins
 cd ~/.oh-my-zsh/custom/plugins
 git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
+# install custom conf
+ln -s $SCRIPTPATH/ohmyzsh/*.zsh ~/.oh-my-zsh/custom
+
+read -p "Où est le dossier contenant les outils de développement ? " devpath
+echo "export DEV=$devpath" > ~/.oh-my-zsh/custom/custom_env.zsh
+
 source ~/.zshrc
 
 cd -
