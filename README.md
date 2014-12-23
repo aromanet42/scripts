@@ -90,6 +90,9 @@ si le nouveau terminal utilise toujours bash, vérifier que le fichier `/etc/pas
     <username>:.....:/bin/zsh
 
 
+et si besoin lancer la commande `chsh` pour pointer vers zsh
+
+
 Pour avoir la coloration de la ligne de commande (en vert quand la commande existe, etc), utiliser [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
 
