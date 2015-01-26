@@ -88,10 +88,8 @@ fi
 echo "xmodmap..."
 ln -s $SCRIPTPATH/.Xmodmap ~∕.Xmodmap
 
-echo "SYNAPSE..."
-sudo add-apt-repository ppa:noobslab/apps
-sudo apt-get update
-sudo apt-get install synapse -y
+echo "Gnome-do..."
+sudo apt-get install gnome-do -y
 
 echo "GIT..."
 sudo apt-get install git gitk -y

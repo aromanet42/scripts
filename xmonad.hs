@@ -40,7 +40,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
     --, ((modMask .|. shiftMask, xK_twosuperior), spawn "setxkbmap fr bepo") -- with bepo keyboard
     --, ((modMask .|. controlMask, xK_1), spawn "setxkbmap fr") -- with azerty keyboard
     , ((modMask .|. shiftMask, xK_b), goToSelected defaultGSConfig)
-    , ((mod1Mask, xK_F2), spawn "synapse") --mod1Mask = left alt
+    , ((mod1Mask, xK_F2), spawn "gnome-do") --mod1Mask = left alt
     , ((modMask, xK_u), sendMessage ShrinkSlave)     -- Shrink a slave area
     , ((modMask, xK_i), sendMessage ExpandSlave)     -- Expand a slave area
     ]
@@ -109,6 +109,7 @@ myManageHook = composeAll
   , className =? "Diffmerge"      --> doFullFloat
   , className =? "Pidgin"         --> doF (W.shift w9Id)
   , className =? "jetbrains-idea" --> doF (W.shift w3Id)
+  , title =? "Do"                 --> doFloat
   , manageDocks  -- manageDocks pour que le trayer apparaisse sur tous les workspaces du monitor, et pas seulement le 1er
   , manageSpawn
   ]
