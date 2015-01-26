@@ -13,6 +13,11 @@
 " incremental search : display the match for the string while you are still typing it.
 :set incsearch
 
+" When 'ignorecase' and 'smartcase' are both on, if a pattern contains an
+" uppercase letter, it is case sensitive, otherwise, it is not
+:set ignorecase
+:set smartcase
+
 " automatically change working directory to the directory of editing file
 :set autochdir
 
