@@ -25,7 +25,7 @@
   lola = log --graph --decorate --abbrev-commit --all
   loln = log --graph --decorate --abbrev-commit -n20 HEAD
   chk = checkout
-  co = commit
+  co = commit -m
   com = commit --amend
   st = status
   ppik = cherry-pick
