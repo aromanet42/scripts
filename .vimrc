@@ -55,3 +55,16 @@ set omnifunc=syntaxcomplete#Complete
 " in splitted mode : resize +10. Key = Alt-F
 :noremap f :vertical resize +10<CR>
 
+
+" in git-rebase-interactive, change action for line
+function RebaseAction(action)
+  execute "normal! ^cw" . a:action
+  execute "normal! ^"
+endfunction
+
+autocmd BufRead git-rebase-todo noremap f :call RebaseAction('fixup')<CR>
+autocmd BufRead git-rebase-todo noremap p :call RebaseAction('pick')<CR>
+autocmd BufRead git-rebase-todo noremap r :call RebaseAction('reword')<CR>
+autocmd BufRead git-rebase-todo noremap e :call RebaseAction('edit')<CR>
+
+
