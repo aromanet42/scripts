@@ -60,6 +60,8 @@ myLayout = mouseResizableTile ||| tiled ||| simpleTabbed
 	ratio = 1/2
 	delta = 3/100
 
+tabFirstLayout = simpleTabbed ||| mouseResizableTile
+
 pidginLayout = pidginTiled
     where
         pidginTiled = Tall nmaster delta ratio
@@ -71,7 +73,10 @@ pidginLayout = pidginTiled
 -- avoidStruts : smart handle of xmobar (if not set, window will be placed hover it)
 -- onWorkspace <workspaceId> <layoutName>
 -- last layout will be applied on other workspaces
-myLayoutHook = smartBorders (avoidStruts $ onWorkspace w9Id pidginLayout $ myLayout)
+myLayoutHook = smartBorders (avoidStruts 
+		$ onWorkspace w2Id myLayout 
+		$ onWorkspace w9Id pidginLayout 
+		$ tabFirstLayout)
 
 --------------
 --Tab Colors--
