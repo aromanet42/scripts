@@ -56,6 +56,14 @@ set omnifunc=syntaxcomplete#Complete
 :noremap f :vertical resize +10<CR>
 
 
+" move current line up with Alt+Z and move current line down with Alt+S
+:nnoremap z :m .-2<CR>==
+:nnoremap s :m .+1<CR>==
+:inoremap z <Esc>:m .-2<CR>==gi
+:inoremap s <Esc>:m .+1<CR>==gi
+:vnoremap z :m '<-2<CR>gv=gv
+:vnoremap s :m '>+1<CR>gv=gv
+
 " in git-rebase-interactive, change action for line
 function RebaseAction(action)
   execute "normal! ^cw" . a:action
