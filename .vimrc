@@ -44,6 +44,10 @@ filetype plugin on    " Enable filetype-specific plugins
 
 set omnifunc=syntaxcomplete#Complete
 
+
+" link extensions with filetype for syntax highlighting
+au BufRead, BufNewFile *.md set filetype=markdown
+
 " ------------- maps ---------------
 "  nmap : add a mapping in normal mode
 "  imap : add a mapping in editing mode
