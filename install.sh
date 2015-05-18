@@ -20,6 +20,14 @@ function ask_for_install
   fi
 } 
 
+function check_exists
+{
+  if type "$1" > /dev/null; then
+    return 0
+  else
+    return -1
+  fi
+}
 
 #il arrive qu'il manque gnome-settings-daemon...
 sudo apt-get install gnome-settings-daemon -y
@@ -106,6 +114,14 @@ sudo apt-get install git gitk -y
 ln -sf $SCRIPTPATH/.gitconfig ~/.gitconfig
 mkdir -p ~/.config/git
 ln -sf $SCRIPTPATH/gitIgnore ~/.config/git/ignore
+
+echo "checking existance of screensaver..."
+if check_exists "gnome-screensaver" ; then
+  echo "gnome-screensaver already present."
+else
+  echo "none present. Installing xscreensaver..."
+  sudo apt-get install xscreensaver -y
+fi
 
 
 echo "all done !"

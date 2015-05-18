@@ -34,7 +34,7 @@ newKeys x = M.union (M.fromList (myKeys x)) (keys azertyConfig x)
 myKeys conf@(XConfig {XMonad.modMask = modMask}) =
     [
     -- lock screen ctrl + mod + space
-    ((modMask .|. controlMask, xK_space), spawn "gnome-screensaver-command --lock")
+    ((modMask .|. controlMask, xK_space), spawn "~/.xmonad/bin/screensaver.sh")
 
     
     --, ((modMask .|. shiftMask, xK_twosuperior), spawn "setxkbmap fr bepo") -- with bepo keyboard
