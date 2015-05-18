@@ -91,7 +91,7 @@ w5Id = "5"
 w6Id = "6"
 w7Id = "7"
 w8Id = "8 mail"
-w9Id = "9 pidgin"
+w9Id = "9 IM"
 
 myWorkspaces = [w1Id, w2Id, w3Id, w4Id, w5Id, w6Id, w7Id, w8Id, w9Id]
 

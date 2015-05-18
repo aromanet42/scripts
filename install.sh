@@ -45,9 +45,10 @@ sudo apt-get install arandr -y
 echo "CHROME..."
 sudo apt-get install google-chrome-stable -y
 
-
-echo "PIDGIN..."
-sudo apt-get install pidgin -y
+if ask_for_install "pidgin" ; then
+  echo "PIDGIN..."
+  sudo apt-get install pidgin -y
+fi
 
 
 echo "ZSH..."
