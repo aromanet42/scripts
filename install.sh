@@ -36,6 +36,12 @@ git clone https://github.com/tomtom/tcomment_vim.git
 cd -
 
 
+echo "terminator"
+sudo apt-get install terminator -y
+
+echo "arandr"
+sudo apt-get install arandr -y
+
 echo "CHROME..."
 sudo apt-get install google-chrome-stable -y
 
@@ -76,6 +82,7 @@ if ask_for_install "xmonad" ; then
   mkdir ~/.xmonad
   ln -s $SCRIPTPATH/xmonad.hs ~/.xmonad/xmonad.hs
 
+  sudo apt-get install libghc-xmonad-contrib-dev libghc-xmonad-dev -y
   
   echo "XMOBAR..."
   sudo apt-get install xmobar -y
