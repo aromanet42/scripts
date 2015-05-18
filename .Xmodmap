@@ -2,8 +2,10 @@ clear mod3
 clear mod5
 clear mod4
 !134 = Super_R
-keycode 134 = Mode_switch
+!105 = Ctrl_R
+keycode 105 = Mode_switch
 add mod3 = Mode_switch
+!ISO_Level3_Shift = Alt_Gr
 add mod5 = ISO_Level3_Shift
 add mod4 = Super_L Hyper_L
 
