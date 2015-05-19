@@ -90,7 +90,8 @@ w4Id = "4 sql"
 w5Id = "5"
 w6Id = "6"
 w7Id = "7"
-w8Id = "8 mail"
+-- w8Id = "8 mail"
+w8Id = "8"
 w9Id = "9 IM"
 
 myWorkspaces = [w1Id, w2Id, w3Id, w4Id, w5Id, w6Id, w7Id, w8Id, w9Id]
@@ -101,7 +102,7 @@ myIDE = "~/.xmonad/bin/idea.sh"
 myIM = "~/.xmonad/bin/launch-pidgin.sh"
 -- terminal
 myTerminal = "terminator"
-myMail = "thunderbird"
+-- myMail = "thunderbird"
 
 
 
@@ -115,7 +116,7 @@ myManageHook = composeAll
   , className =? "Diffmerge"      --> doFullFloat
   , className =? "Pidgin"         --> doF (W.shift w9Id)
   , className =? "jetbrains-idea" --> doF (W.shift w3Id)
-  , className =? "Thunderbird"    --> doF (W.shift w8Id)
+  -- , className =? "Thunderbird"    --> doF (W.shift w8Id)
   , title =? "Do"                 --> doFloat
   , manageDocks  -- manageDocks pour que le trayer apparaisse sur tous les workspaces du monitor, et pas seulement le 1er
   , manageSpawn
@@ -135,7 +136,7 @@ main = do
 			      spawnOn w2Id myTerminal
 			      spawn myIDE  --this line and following : just start apps (workspace is handled by manageHook)
 			      spawn myIM
-			      spawn myMail
+			      -- spawn myMail
 			  ,
                           terminal = myTerminal,
                           logHook = (dynamicLogWithPP $ xmobarPP
