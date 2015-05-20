@@ -43,6 +43,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
     , ((mod1Mask, xK_F2), spawn "gnome-do") --mod1Mask = left alt
     , ((modMask, xK_u), sendMessage ShrinkSlave)     -- Shrink a slave area
     , ((modMask, xK_i), sendMessage ExpandSlave)     -- Expand a slave area
+    , ((0, 0x1008FF12), spawn "amixer sset Master toggle")
+    , ((0, 0x1008FF11), spawn "amixer sset Master 2-")
+    , ((0, 0x1008FF13), spawn "amixer sset Master 2+")
     ]
     ++
     -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
