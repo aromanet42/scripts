@@ -82,6 +82,10 @@ echo "Some useful tools..."
 sudo apt-get install libxml2-utils -y 
 # ack-grep
 sudo apt-get install ack-grep -y
+# htop
+sudo apt-get install htop -y
+# print screen
+sudo apt-get install imagemagick -y
 
 # TODO : if xmonad
 if ask_for_install "xmonad" ; then
