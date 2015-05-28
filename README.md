@@ -5,19 +5,12 @@ Pour utiliser les fichers de config, utiliser des liens symboliques
 
     ln -s <path_to_git_repo>/.gitconfig ~/.gitconfig
 
-Synapse
--------
+Mutate
+------
 
-Synapse est un launcher. Dans la config Xmonad de ce repo, il est activé avec Alt+F2
+Mutate est un launcher. Dans la config Xmonad de ce repo, il est activé avec Alt+F2
 
-Pour l'installer :
-
-    sudo add-apt-repository ppa:noobslab/apps
-    sudo apt-get update
-    sudo apt-get install synapse
-
-
-Pour ajouter des lanceurs Synapse, créer un fichier `~∕.local/share/applications/<appName>.desktop` contenant :
+Pour ajouter des lanceurs, créer un fichier `~∕.local/share/applications/<appName>.desktop` contenant :
 
     [Desktop Entry]
     Name=IntelliJ
@@ -25,6 +18,25 @@ Pour ajouter des lanceurs Synapse, créer un fichier `~∕.local/share/applicati
     Icon=/devtools/idea/bin/idea.png
     Type=Application
     Categories=Utility;
+
+on peut ajouter des patterns customs. Par exemple, en tapant "JIRA XXX", ça ouvre un browser avec la page JIRA du bon ticket.
+Pour cela :
+
+  - créer un fichier jira.sh contenant :
+
+         #!/bin/bash
+         echo [$@]
+         echo "command=google-chrome -newtab \"<URL TO JIRA>/browser/$@\""
+         echo "icon="
+         echo "subtext=Open Jira $@"
+
+    `$@` contient l'argument passé (donc le numéro du ticket à ouvrir).
+
+  - Ouvrir les préférences de Mutate en tapant `preference` dans la barre de recherche Mutate.
+  - Cliquer sur `Add Item`
+  - indiquer l'adresse du script .sh dans `script address`, spécifier le pattern qui va déclancher l'action (par exemple *jira*
+  - cliquer sur `modify item`
+
 
 
 Xmonad

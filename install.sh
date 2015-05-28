@@ -110,8 +110,12 @@ fi
 echo "xmodmap..."
 ln -s $SCRIPTPATH/.Xmodmap ~∕.Xmodmap
 
-echo "Gnome-do..."
-sudo apt-get install gnome-do -y
+echo "Mutate..."
+sudo add-apt-repository ppa:mutate/ppa
+sudo apt-get update
+sudo apt-get install mutate -y
+sudo apt-get install python-pip -y
+sudo pip install sympy
 
 echo "GIT..."
 sudo apt-get install git gitk -y
