@@ -1,1 +1,1 @@
-/home/audrey/devtools/idea/bin/idea.sh
+/home/aromanet/dev/idea/bin/idea.sh
