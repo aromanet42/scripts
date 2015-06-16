@@ -68,7 +68,9 @@ wget --no-check-certificate https://github.com/lucmazon/custom-zsh/raw/master/in
 cd ~/.oh-my-zsh/custom/plugins
 git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
 # install custom conf
+ln -s $SCRIPTPATH/.zshrc ~/.zshrc
 ln -s $SCRIPTPATH/ohmyzsh/*.zsh ~/.oh-my-zsh/custom
+ln -s $SCRIPTPATH/ohmyzsh/*.zsh-theme ~/.oh-my-zsh/themes
 
 read -p "Où est le dossier contenant les outils de développement ? " devpath
 echo "export DEV=$devpath" > ~/.oh-my-zsh/custom/custom_env.zsh
