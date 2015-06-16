@@ -38,7 +38,7 @@ if(notCompleted.size() > 0) {
 
       if (type == 'UNSTABLE' || type == 'FAILED') {
 	color = 'FF0000'
-      } else if (type == 'RUNNING') {
+      } else if (type == 'RUNNING' || type == 'QUEUED' ) {
 	color = 'FFA500'
       }
 
