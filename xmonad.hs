@@ -102,7 +102,7 @@ myWorkspaces = [w1Id, w2Id, w3Id, w4Id, w5Id, w6Id, w7Id, w8Id, w9Id]
 
 myInternet = "google-chrome --allow-file-access-from-files"
 myIDE = "~/.xmonad/bin/idea.sh"
-myIM = "~/.xmonad/bin/launch-pidgin.sh"
+-- myIM = "~/.xmonad/bin/launch-pidgin.sh"
 -- terminal
 myTerminal = "terminator"
 -- myMail = "thunderbird"
@@ -138,7 +138,7 @@ main = do
 			      spawnOn w1Id myInternet  --this line and following : start apps on given workspace
 			      spawnOn w2Id myTerminal
 			      spawn myIDE  --this line and following : just start apps (workspace is handled by manageHook)
-			      spawn myIM
+			      -- spawn myIM
 			      -- spawn myMail
 			  ,
                           terminal = myTerminal,
