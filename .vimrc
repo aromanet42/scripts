@@ -37,13 +37,30 @@
 execute pathogen#infect()
 
 
-syntax on             " Enable syntax highlighting
 filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
+syntax on             " Enable syntax highlighting
 
 set omnifunc=syntaxcomplete#Complete
 
+" csv plugin configuration : https://github.com/chrisbra/csv.vim
+let g:csv_delim=';'
+let g:csv_no_conceal=1			" showing delimiters as in (not showing pipes instead)
+let g:csv_highlight_column = 'y'	" auto highlight of current column
+
+function MySTL()
+  if has("statusline")
+    hi User1 term=standout ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
+    if exists("*CSV_WCol")
+      " return '%1*%{&ft=~"csv" ? CSV_WCol() : ""}%*'
+      return " " . CSV_WCol("Name") . " " . CSV_WCol()
+    else
+      return ''
+    endif
+  endif
+endfunc
+set statusline+=%{MySTL()}
 
 " link extensions with filetype for syntax highlighting
 au BufRead, BufNewFile *.md set filetype=markdown

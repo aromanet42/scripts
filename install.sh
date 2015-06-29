@@ -40,6 +40,7 @@ ln -s $SCRIPTPATH/Vim/autoload ~/.vim/autoload
 mkdir -p ~/.vim/bundle
 cd ~/.vim/bundle
 git clone https://github.com/tomtom/tcomment_vim.git
+git clone https://github.com/vim-scripts/csv.vim.git
 
 cd -
 
