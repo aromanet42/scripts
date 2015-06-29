@@ -42,6 +42,8 @@ autoload -U zmv
 
 bindkey '^q' push-line-or-edit
 
+#using vim bindings (dw, b, w...)
+bindkey -v
 
 if [ -n "$DESKTOP_SESSION" ];then 
   # No point to start gnome-keyring-daemon if ssh-agent is not up 
@@ -55,8 +57,6 @@ if [ -f ~/.env ];then
   source ~/.env
   alias srcenv="source ~/.env"
 fi
-
-source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs...
 alias -s properties="vim"
