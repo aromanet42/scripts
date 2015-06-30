@@ -46,6 +46,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
     , ((0, 0x1008FF12), spawn "amixer -D pulse set Master toggle")
     , ((0, 0x1008FF11), spawn "amixer sset Master 2-")
     , ((0, 0x1008FF13), spawn "amixer sset Master 2+")
+    , ((0, 0xff61), spawn "~/.xmonad/bin/printscreen.sh")  --print screen
     ]
     ++
     -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
