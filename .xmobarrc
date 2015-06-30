@@ -11,10 +11,11 @@ Config {font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
                     , Run Date "%a %b %_d %k:%M" "date" 10
                     , Run StdinReader
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/sound_volume.sh"] "volume" 2
-		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/jenkins.sh"] "jenkins" 5
+		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchGroovy.sh", "parse"] "jenkins" 5
+		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchGroovy.sh", "velib"] "velib" 5
 
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %jenkins% | %volume% | %cpu% | %memory% * %swap% | <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ %velib% | %volume% | %cpu% | %memory% * %swap% | <fc=#ee9a00>%date%</fc>"
 }
