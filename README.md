@@ -87,15 +87,6 @@ Dans cette version, les touches sont mappées de la façon suivante :
 - `<AltGr>` + `<Shift>` + touche
 
 
-Git
----
-- .gitconfig
-
-Vim
----
-- .vimrc
-- dossier Vim/
-
 Bash
 ----
 - .zshrc
