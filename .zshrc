@@ -40,10 +40,18 @@ setopt INTERACTIVE_COMMENTS # allow inline comments
 
 autoload -U zmv
 
-bindkey '^q' push-line-or-edit
-
 #using vim bindings (dw, b, w...)
 bindkey -v
+
+bindkey '^q' push-line-or-edit
+bindkey '^r' history-incremental-search-backward
+
+bindkey '^w' backward-kill-word
+#ctrl-left
+bindkey '^[[1;5D' vi-backward-word
+#crtl-right
+bindkey '^[[1;5C' vi-forward-word
+
 
 if [ -n "$DESKTOP_SESSION" ];then 
   # No point to start gnome-keyring-daemon if ssh-agent is not up 
