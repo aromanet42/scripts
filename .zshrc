@@ -77,6 +77,7 @@ alias nautilus="nautilus --no-desktop"
 alias gw="./gradlew --daemon"
 
 alias git="LANGUAGE=en_US.UTF-8 git" # Toujours utiliser l'anglais pour Git
+alias command="LANGUAGE=en_US command"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
@@ -92,3 +93,4 @@ POWERLINE_RIGHT_A="exit-fail"
 POWERLINE_SHOW_GIT_ON_RIGHT="true"
 POWERLINE_GIT_DIRTY="%F{red}✭%F{black}"
 POWERLINE_GIT_CLEAN=" "
+POWERLINE_HIDE_GIT_PROMPT_STATUS="true"
