@@ -47,6 +47,7 @@ cd -
 
 echo "terminator"
 sudo apt-get install terminator -y
+ln -s $SCRIPTPATH/terminator.config ~/.config/terminator/config
 
 echo "arandr"
 sudo apt-get install arandr -y
@@ -72,13 +73,24 @@ git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
 ln -s $SCRIPTPATH/.zshrc ~/.zshrc
 ln -s $SCRIPTPATH/ohmyzsh/*.zsh ~/.oh-my-zsh/custom
 ln -s $SCRIPTPATH/ohmyzsh/*.zsh-theme ~/.oh-my-zsh/themes
+cd -
+
+
+#installing fonts for powerline prompt
+cd /tmp
+git clone https://github.com/powerline/fonts.git
+cd -
+cd fonts
+./install.sh
+sudo fc-cache -fv
+cd -
+
 
 read -p "Où est le dossier contenant les outils de développement ? " devpath
 echo "export DEV=$devpath" > ~/.oh-my-zsh/custom/custom_env.zsh
 
 source ~/.zshrc
 
-cd -
 
 echo "Some useful tools..."
 # libxml2-utils for xmllint

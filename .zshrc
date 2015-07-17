@@ -82,3 +82,13 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export HISTTIMEFORMAT='%F %T ' # show history with datetime
 
+export TERM="xterm-256color"
+
+# config powerline
+POWERLINE_HIDE_USER_NAME="true"
+POWERLINE_HIDE_HOST_NAME="true"
+POWERLINE_FULL_CURRENT_PATH="true"
+POWERLINE_RIGHT_A="exit-fail"
+POWERLINE_SHOW_GIT_ON_RIGHT="true"
+POWERLINE_GIT_DIRTY="%F{red}✭%F{black}"
+POWERLINE_GIT_CLEAN=" "
