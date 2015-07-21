@@ -91,17 +91,6 @@ echo "export DEV=$devpath" > ~/.oh-my-zsh/custom/custom_env.zsh
 
 source ~/.zshrc
 
-
-echo "Some useful tools..."
-# libxml2-utils for xmllint
-sudo apt-get install libxml2-utils -y 
-# ack-grep
-sudo apt-get install ack-grep -y
-# htop
-sudo apt-get install htop -y
-# print screen
-sudo apt-get install imagemagick -y
-
 # TODO : if xmonad
 if ask_for_install "xmonad" ; then
 
@@ -145,6 +134,19 @@ else
   echo "none present. Installing xscreensaver..."
   sudo apt-get install xscreensaver -y
 fi
+
+echo "Some useful tools..."
+# libxml2-utils for xmllint
+sudo apt-get install libxml2-utils -y 
+# ack-grep
+sudo apt-get install ack-grep -y
+# htop
+sudo apt-get install htop -y
+# print screen
+sudo apt-get install imagemagick -y
+# tldr
+sudo pip install tldr
+
 
 
 echo "all done !"
