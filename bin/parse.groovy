@@ -18,7 +18,7 @@ def pipelines = result.pipelines[0].pipelines
 
 def lesMiens = pipelines.findAll {
     def descriptions = it.triggeredBy*.description
-    return descriptions.contains('user Audrey Romanet')
+    return descriptions.find { it.contains('user Audrey Romanet') } != null
 }
 
 def monDernierMien = lesMiens[0]
@@ -34,15 +34,20 @@ if(notCompleted.size() > 0) {
     it.status.type != 'IDLE'
   }.collect {
     def type = it.status.type
-      def color = '00FF00'
+    def color = '00FF00'
 
-      if (type == 'UNSTABLE' || type == 'FAILED') {
-	color = 'FF0000'
-      } else if (type == 'RUNNING' || type == 'QUEUED' ) {
-	color = 'FFA500'
-      }
+    if (type == 'UNSTABLE' || type == 'FAILED') {
+      color = 'FF0000'
+    } else if (type == 'RUNNING' || type == 'QUEUED' ) {
+      color = 'FFA500'
+    }
 
-    return "<fc=#$color>${it.name}</fc>"
+    def name = it.name
+    if (name.length() > 15) {
+    	name = name.substring(0, 6) + "..." + name.substring(name.length() - 5)
+    }
+
+    return "<fc=#$color>${name}</fc>"
   }
 
   print status.join(' - ')
