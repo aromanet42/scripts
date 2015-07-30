@@ -149,6 +149,11 @@ sudo apt-get install oxygen-icon-theme kdelibs-bin kdelibs5-data kdelibs5-plugin
 # tldr
 sudo pip install tldr
 
+# fasd
+cd /tmp
+git clone https://github.com/clvv/fasd.git 
+cd fasd
+sudo make install
 
 
 echo "all done !"

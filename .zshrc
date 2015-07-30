@@ -97,4 +97,9 @@ export HISTTIMEFORMAT='%F %T ' # show history with datetime
 
 export TERM="xterm-256color"
 
+eval "$(fasd --init posix-alias zsh-hook)"
+alias v='f -e vim' # quick opening files with vim
+alias o='a -e xdg-open' # quick opening files with xdg-open
+
+
 
