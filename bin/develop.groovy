@@ -18,7 +18,7 @@ def currentRun = result.pipelines[0].pipelines[0]
 def statuses = currentRun.stages*.tasks*.status*.type.flatten().unique()
 
 
-if (statuses.contains('IDLE') || statuses.contains('RUNNING')) {
+if (statuses.contains('RUNNING')) {
   print "<fc=#FFA500>Dvlp</fc>"
 }
 else if (statuses.contains('UNSTABLE') || statuses.contains('FAILED')) {
