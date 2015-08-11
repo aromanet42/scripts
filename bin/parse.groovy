@@ -1,4 +1,5 @@
 import groovy.json.JsonSlurper
+import groovy.time.TimeCategory
 
 def url = "https://audrey.romanet%40mirakl.com:9d7b11984ddd512eba1e18a9f568f1b1@jenkins.mirakl.net/view/10.SPECIFIC%20BRANCH%20PIPELINE/api/json"
 
@@ -22,6 +23,18 @@ def lesMiens = pipelines.findAll {
 }
 
 def monDernierMien = lesMiens[0]
+
+def dateOfRun = Date.parse("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", monDernierMien.timestamp)
+def interval = TimeCategory.minus(new Date(), dateOfRun)
+
+boolean tooLong
+// do not print if build runned to long ago
+use(TimeCategory) {
+  tooLong = interval > 1.hour
+}
+if (tooLong) {
+  return ""
+}
 
 def stages = monDernierMien.stages*.tasks.flatten()
 
