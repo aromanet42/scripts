@@ -6,8 +6,9 @@ export HISTTIMEFORMAT='%F %T ' # show history with datetime
 
 
 
-alias jdk6="rm -f $DEV/current_jdk; ln -s $DEV/jdk1.6.0_45 $DEV/current_jdk"
-alias jdk8="rm -f $DEV/current_jdk; ln -s $DEV/jdk1.8.0_20 $DEV/current_jdk"
+alias jdk6="rm -f $DEV/current_jdk; ln -s $DEV/jdk1.6 $DEV/current_jdk"
+alias jdk7="rm -f $DEV/current_jdk; ln -s $DEV/jdk1.7 $DEV/current_jdk"
+alias jdk8="rm -f $DEV/current_jdk; ln -s $DEV/jdk1.8 $DEV/current_jdk"
 
 
 
