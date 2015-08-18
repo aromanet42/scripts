@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurper
 import groovy.time.TimeCategory
 
-def url = "https://audrey.romanet%40mirakl.com:9d7b11984ddd512eba1e18a9f568f1b1@jenkins.mirakl.net/view/10.SPECIFIC%20BRANCH%20PIPELINE/api/json"
+def url = args[0]
 
 def sout = new StringBuffer(), serr = new StringBuffer()
 def process = "curl ${url}".execute()
