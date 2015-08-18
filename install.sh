@@ -91,6 +91,17 @@ echo "export DEV=$devpath" > ~/.oh-my-zsh/custom/custom_env.zsh
 
 source ~/.zshrc
 
+echo "Maven..."
+cd /tmp
+wget http://apache.mirrors.ovh.net/ftp.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz
+tar xvfz apache-maven-3.3.3-bin.tar.gz -C $devpath
+ln -s $devpath/apache-maven-3.3.3 $devpath/maven
+wget http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/color/maven-color-logback/1.1/maven-color-logback-1.1-bundle.tar.gz
+tar xvfz maven-color-logback-1.1-bundle.tar.gz -C $devpath/maven/
+rm $devpath/maven/lib/slf4j-simple-1.7.*.jar
+
+
+
 # TODO : if xmonad
 if ask_for_install "xmonad" ; then
 
