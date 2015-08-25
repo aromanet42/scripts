@@ -25,7 +25,7 @@
   lola = log --graph --decorate --abbrev-commit --all
   loln = log --graph --decorate --abbrev-commit -n20 HEAD
   # trouve une branche contenant l'arg et checkout dessus. Ex: git chk 1756 => git checkout features/jira-1756
-  chk = !sh -c \"git branch -a | grep -v remotes | grep $1 | xargs git checkout\"
+  chk = checkout-regex
   co = commit -m
   com = commit --amend
   st = status

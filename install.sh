@@ -137,6 +137,7 @@ sudo apt-get install git gitk -y
 ln -sf $SCRIPTPATH/.gitconfig ~/.gitconfig
 mkdir -p ~/.config/git
 ln -sf $SCRIPTPATH/gitIgnore ~/.config/git/ignore
+sudo ln -sf $SCRIPTPATH/bin/git-checkout-regex /usr/bin/git-checkout-regex
 
 echo "checking existance of screensaver..."
 if check_exists "gnome-screensaver" ; then
