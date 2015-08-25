@@ -59,7 +59,6 @@ ln -s $SCRIPTPATH/terminator.config ~/.config/terminator/config
 echo "arandr"
 sudo apt-get install arandr -y
 sudo ln -s $SCRIPTPATH/bin/detect-monitor-plugged.sh /usr/bin/detect-monitor-plugged.sh
-echo "   Ajouter dans ~/.xsessionrc : /usr/bin/detect-monitor-plugged.sh &"
 
 echo "CHROME..."
 sudo apt-get install google-chrome-stable -y
@@ -97,6 +96,8 @@ cd -
 
 read -p "Où est le dossier contenant les outils de développement ? " devpath
 echo "export DEV=$devpath" > ~/.oh-my-zsh/custom/custom_env.zsh
+echo "export DEV=$devpath\n" >> ~/.xsessionrc
+echo "export JAVA_HOME=$devpath/current_jdk\n" >> ~/.xsessionrc
 
 source ~/.zshrc
 
@@ -129,6 +130,8 @@ if ask_for_install "xmonad" ; then
 
   echo "TRAYER..."
   sudo apt-get install trayer -y
+  echo "/usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  --widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 16 --monitor 0 &\n" >> ~/.xsessionrc
+
 fi
 
 echo "xmodmap..."
@@ -140,6 +143,7 @@ sudo apt-get update
 sudo apt-get install mutate -y
 sudo apt-get install python-pip -y
 sudo pip install sympy
+echo "mutate &\n" >> ~/.xsessionrc
 
 echo "checking existance of screensaver..."
 if check_exists "gnome-screensaver" ; then
@@ -147,6 +151,7 @@ if check_exists "gnome-screensaver" ; then
 else
   echo "none present. Installing xscreensaver..."
   sudo apt-get install xscreensaver -y
+  echo "xscreensaver &\n" >> ~/.xsessionrc
 fi
 
 echo "Some useful tools..."
@@ -169,6 +174,11 @@ git clone https://github.com/clvv/fasd.git
 cd fasd
 sudo make install
 
+echo "Initializing xsessionrc..."
+echo "/usr/bin/detect-monitor-plugged.sh &\n" >> ~/.xsessionrc
+echo "mkdir /tmp/Downloads \n" >> ~/.xsessionrc
+# tool displaying network status in trayer
+echo "nm-applet & \n" >> ~/.xsessionrc
 
 echo "all done !"
 
