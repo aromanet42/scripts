@@ -1,14 +1,15 @@
 Config
 ======
 
-Pour utiliser les fichers de config, utiliser des liens symboliques
+Pour installer tout ça : 
 
-    ln -s <path_to_git_repo>/.gitconfig ~/.gitconfig
+    wget --no-check-certificate https://raw.githubusercontent.com/aromanet42/scripts/master/install.sh -O - | sh
+
 
 Mutate
 ------
 
-Mutate est un launcher. Dans la config Xmonad de ce repo, il est activé avec Alt+F2
+Mutate est un launcher. Dans la config Xmonad de ce repo, il est activé avec Alt+F3
 
 Pour ajouter des lanceurs, créer un fichier `~∕.local/share/applications/<appName>.desktop` contenant :
 
@@ -44,7 +45,6 @@ Xmonad
 
 - .xmonad/xmonad.hs
 - .xmobarrc (pour la barre d'infos)
-- `ln -s <path_to_git_repo>/bin ~/.xmonad/bin`
 - dans .xsession :
 
 <!-- -->

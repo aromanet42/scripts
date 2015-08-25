@@ -32,6 +32,13 @@ function check_exists
 #il arrive qu'il manque gnome-settings-daemon...
 sudo apt-get install gnome-settings-daemon -y
 
+echo "GIT..."
+sudo apt-get install git gitk -y
+ln -sf $SCRIPTPATH/.gitconfig ~/.gitconfig
+mkdir -p ~/.config/git
+ln -sf $SCRIPTPATH/gitIgnore ~/.config/git/ignore
+sudo ln -sf $SCRIPTPATH/bin/git-checkout-regex /usr/bin/git-checkout-regex
+
 echo "VIM..."
 sudo apt-get install vim -y
 ln -sf $SCRIPTPATH/.vimrc ~/.vimrc
@@ -131,13 +138,6 @@ sudo apt-get update
 sudo apt-get install mutate -y
 sudo apt-get install python-pip -y
 sudo pip install sympy
-
-echo "GIT..."
-sudo apt-get install git gitk -y
-ln -sf $SCRIPTPATH/.gitconfig ~/.gitconfig
-mkdir -p ~/.config/git
-ln -sf $SCRIPTPATH/gitIgnore ~/.config/git/ignore
-sudo ln -sf $SCRIPTPATH/bin/git-checkout-regex /usr/bin/git-checkout-regex
 
 echo "checking existance of screensaver..."
 if check_exists "gnome-screensaver" ; then
