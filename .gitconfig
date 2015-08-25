@@ -35,6 +35,7 @@
   pushmaster = push origin master:aromanet
   mt = mergetool --tool=diffmerge -y
   dt = difftool --tool=diffmerge -y
+  search = !sh -c \"git log --format="%h" -n 1 --grep $1 | xargs git branch -a --contains\"
 
 [core]
   editor = vim
