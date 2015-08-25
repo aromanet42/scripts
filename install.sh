@@ -58,6 +58,8 @@ ln -s $SCRIPTPATH/terminator.config ~/.config/terminator/config
 
 echo "arandr"
 sudo apt-get install arandr -y
+sudo ln -s $SCRIPTPATH/bin/detect-monitor-plugged.sh /usr/bin/detect-monitor-plugged.sh
+echo "   Ajouter dans ~/.xsessionrc : /usr/bin/detect-monitor-plugged.sh &"
 
 echo "CHROME..."
 sudo apt-get install google-chrome-stable -y
