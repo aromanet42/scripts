@@ -1,0 +1,17 @@
+#!/bin/sh
+
+commitMessage=$1
+
+commitHash=`git log --format="%h" -1 --grep $commitMessage`
+
+lastBugBranch=`git branch | grep bugs | tail -n1 | sed 's/[ *]*bugs\///g'`
+
+mergeCommit=`git log --format="%h" develop ^$commitHash --ancestry-path --grep "Merge tag 'v$lastBugBranch" --reverse | head -n 1`
+
+mergeParent=`git log $mergeCommit --first-parent --skip 1 -1`
+
+echo $mergeParent
+
+
+
+

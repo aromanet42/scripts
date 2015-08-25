@@ -37,7 +37,8 @@ sudo apt-get install git gitk -y
 ln -sf $SCRIPTPATH/.gitconfig ~/.gitconfig
 mkdir -p ~/.config/git
 ln -sf $SCRIPTPATH/gitIgnore ~/.config/git/ignore
-sudo ln -sf $SCRIPTPATH/bin/git-checkout-regex /usr/bin/git-checkout-regex
+sudo ln -sf $SCRIPTPATH/bin/git-* /usr/bin
+sudo chmod +x $SCRIPTPATH/bin/git-*
 
 echo "VIM..."
 sudo apt-get install vim -y
