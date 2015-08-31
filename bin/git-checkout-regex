@@ -10,8 +10,9 @@ if [[ "$1" == -* ]]
 then
   git checkout $*
 else
-  branchesCount=`git branch | grep $1 -c`
-  branches=`git branch | grep $1 | sed 's/[ *]//g'`
+  branchListCommand="git branch | grep $1 | grep -v detached"
+  branchesCount=`eval "$branchListCommand -c"`
+  branches=`eval "$branchListCommand | sed 's/[ *]//g'"`
   
   if [ $branchesCount -eq 0 ]
   then
