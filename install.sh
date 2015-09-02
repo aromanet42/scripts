@@ -41,7 +41,7 @@ sudo ln -sf $SCRIPTPATH/bin/git-* /usr/bin
 sudo chmod +x $SCRIPTPATH/bin/git-*
 
 echo "VIM..."
-sudo apt-get install vim -y
+sudo apt-get install vim vim-gtk -y
 ln -sf $SCRIPTPATH/.vimrc ~/.vimrc
 ln -s $SCRIPTPATH/Vim/plugin ~/.vim/plugin
 ln -s $SCRIPTPATH/Vim/autoload ~/.vim/autoload
