@@ -1,6 +1,6 @@
 import groovy.json.JsonSlurper
 
-def url = "https://audrey.romanet%40mirakl.com:9d7b11984ddd512eba1e18a9f568f1b1@jenkins.mirakl.net/view/09.DEVELOP%20PIPELINE/api/json"
+def url = "https://audrey.romanet%40mirakl.com:9d7b11984ddd512eba1e18a9f568f1b1@jenkins.mirakl.net/view/TV/api/json"
 
 def sout = new StringBuffer(), serr = new StringBuffer()
 def process = "curl ${url}".execute()
@@ -13,18 +13,19 @@ def slurper = new JsonSlurper()
 
 def result = slurper.parseText(json)
 
-def currentRun = result.pipelines[0].pipelines[0]
+def colors = result.jobs*.color.unique()
 
-def statuses = currentRun.stages*.tasks*.status*.type.flatten().unique()
+def title = 'Dvlp'
 
-
-if (statuses.contains('RUNNING')) {
-  print "<fc=#FFA500>Dvlp</fc>"
+if (colors.find { it.endsWith('_anime') } != null) {
+  title += ' RUN'
 }
-else if (statuses.contains('UNSTABLE') || statuses.contains('FAILED')) {
-  print "<fc=#FF0000>Dvlp</fc>"
+
+def fail_colors = ['red', 'red_anime', 'yellow', 'yellow_anime']
+if (colors.intersect(fail_colors)) {
+  print "<fc=#FF0000>$title</fc>"
 }
 else {
-  print "<fc=#00FF00>Dvlp</fc>"
+  print "<fc=#00FF00>$title</fc>"
 }
 
