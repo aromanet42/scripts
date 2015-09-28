@@ -1,0 +1,18 @@
+import com.github.jcgay.maven.color.core.CustomColorization
+import org.fusesource.jansi.Ansi
+
+import static org.fusesource.jansi.Ansi.Color.*
+import static org.fusesource.jansi.Ansi.Attribute.*
+
+class MyColor extends CustomColorization {
+
+  @Override
+    Ansi onModuleHeader() {
+      ansi().fg(CYAN).bold()
+    }
+
+  @Override
+    Ansi onPluginExecution() {
+      ansi().a(UNDERLINE)
+    }
+}

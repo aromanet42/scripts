@@ -69,6 +69,8 @@ if ask_for_install "pidgin" ; then
   sudo apt-get install pidgin -y
 fi
 
+echo "xPath engine..."
+sudo apt-get install xmlstarlet -y
 
 echo "ZSH..."
 # zsh
@@ -107,9 +109,12 @@ cd /tmp
 wget http://apache.mirrors.ovh.net/ftp.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz
 tar xvfz apache-maven-3.3.3-bin.tar.gz -C $devpath
 ln -s $devpath/apache-maven-3.3.3 $devpath/maven
-wget http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/color/maven-color-logback/1.1/maven-color-logback-1.1-bundle.tar.gz
-tar xvfz maven-color-logback-1.1-bundle.tar.gz -C $devpath/maven/
+wget http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/color/maven-color-logback/maven-metadata.xml
+mvnColorVersion=`xmlstarlet sel -t -m '//release' -v . -n maven-metadata.xml`
+wget http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/color/maven-color-logback/$mvnColorVersion/maven-color-logback-$mvnColorVersion-bundle.tar.gz
+tar xvfz maven-color-logback-$mvnColorVersion-bundle.tar.gz -C $devpath/maven/
 rm $devpath/maven/lib/slf4j-simple-1.7.*.jar
+ln -s $SCRIPTPATH/maven.color ~/.m2/maven.color
 
 
 
