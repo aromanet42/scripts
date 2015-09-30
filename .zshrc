@@ -56,7 +56,6 @@ autoload -U zmv
 bindkey -v
 
 bindkey '^q' push-line-or-edit
-bindkey '^r' history-incremental-search-backward
 
 bindkey '^w' backward-kill-word
 #ctrl-left
@@ -101,5 +100,27 @@ eval "$(fasd --init posix-alias zsh-hook)"
 alias v='f -e vim' # quick opening files with vim
 alias o='a -e xdg-open' # quick opening files with xdg-open
 
+
+#PECO
+function peco-select-history() {
+  local tac
+  if which tac > /dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+  BUFFER=$(\history -n 1 | \
+    eval $tac | \
+    peco --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle clear-screen
+}
+
+if hash peco 2>/dev/null; then
+  zle -N peco-select-history
+  bindkey '^r' peco-select-history
+else
+  echo "You should install peco! https://github.com/peco/peco"
+fi
 
 

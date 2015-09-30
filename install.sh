@@ -32,6 +32,8 @@ function check_exists
 #il arrive qu'il manque gnome-settings-daemon...
 sudo apt-get install gnome-settings-daemon -y
 
+sudo apt-get install python-pip -y
+
 echo "GIT..."
 sudo apt-get install git gitk -y
 ln -sf $SCRIPTPATH/.gitconfig ~/.gitconfig
@@ -52,7 +54,6 @@ git clone https://github.com/vim-scripts/csv.vim.git
 
 cd -
 
-
 echo "terminator"
 sudo apt-get install terminator -y
 ln -s $SCRIPTPATH/terminator.config ~/.config/terminator/config
@@ -68,6 +69,13 @@ if ask_for_install "pidgin" ; then
   echo "PIDGIN..."
   sudo apt-get install pidgin -y
 fi
+
+echo "httpie..."
+sudo pip install httpie
+
+echo "jq - json engine..."
+wget -O ~/bin/jq http://stedolan.github.io/jq/download/linux64/jq
+chmod +x ~/bin/jq
 
 echo "xPath engine..."
 sudo apt-get install xmlstarlet -y
@@ -86,6 +94,9 @@ ln -s $SCRIPTPATH/ohmyzsh/*.zsh ~/.oh-my-zsh/custom
 ln -s $SCRIPTPATH/ohmyzsh/*.zsh-theme ~/.oh-my-zsh/themes
 cd -
 
+http https://api.github.com/repos/peco/peco/releases/latest | jq '.assets | map(select(.name == "peco_linux_amd64.tar.gz"))[0].browser_download_url' | xargs wget -O /tmp/peco.tar.gz
+tar xvf /tmp/peco.tar.gz -C /tmp
+mv /tmp/peco_linux_amd64/peco ~/bin
 
 #installing fonts for powerline prompt
 cd /tmp
@@ -147,7 +158,6 @@ echo "Mutate..."
 sudo add-apt-repository ppa:mutate/ppa
 sudo apt-get update
 sudo apt-get install mutate -y
-sudo apt-get install python-pip -y
 sudo pip install sympy
 echo "mutate &\n" >> ~/.xsessionrc
 
