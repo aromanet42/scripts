@@ -93,6 +93,12 @@ alias command="LANGUAGE=en_US command"
 export PATH="$PATH:$HOME/bin:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export HISTTIMEFORMAT='%F %T ' # show history with datetime
+setopt histexpiredupsfirst
+setopt histignorealldups
+setopt histignoredups
+setopt histignorespace
+setopt histreduceblanks
+setopt histsavenodups
 
 export TERM="xterm-256color"
 
