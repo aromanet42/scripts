@@ -76,6 +76,8 @@ au BufRead, BufNewFile *.md set filetype=markdown
 " in splitted mode : resize +10. Key = Alt-F
 :noremap f :vertical resize +10<CR>
 
+" in insert mode : insert new line above
+:inoremap o <Esc>o
 
 " move current line up with Alt+Z and move current line down with Alt+S
 :nnoremap z :m .-2<CR>==
