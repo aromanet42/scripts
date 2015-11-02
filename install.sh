@@ -40,6 +40,8 @@ ln -sf $SCRIPTPATH/.gitconfig ~/.gitconfig
 mkdir -p ~/.config/git
 ln -sf $SCRIPTPATH/gitIgnore ~/.config/git/ignore
 sudo ln -sf $SCRIPTPATH/bin/git-* /usr/bin
+mkdir -p ~/.oh-my-zsh/completions
+sudo ln -sf $SCRIPTPATH/completions/* ~/.oh-my-zsh/completions
 sudo chmod +x $SCRIPTPATH/bin/git-*
 
 echo "VIM..."
