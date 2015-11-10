@@ -28,8 +28,33 @@ import XMonad.Util.Run(spawnPipe)
 --import XMonad.Layout.WindowNavigation
 import qualified XMonad.StackSet as W
 
+-- ----------
+-- Workspaces
+-- ----------
+w1Id = "1 web"
+w2Id = "2 term"
+w3Id = "3 idea"
+w4Id = "4 sql"
+w5Id = "5"
+w6Id = "6"
+w7Id = "7"
+-- w8Id = "8 mail"
+w8Id = "8"
+w9Id = "9 IM"
+
+myWorkspaces = [w1Id, w2Id, w3Id, w4Id, w5Id, w6Id, w7Id, w8Id, w9Id]
 
 
+myInternet = "google-chrome --allow-file-access-from-files"
+myIDE = "~/.xmonad/bin/idea.sh"
+myIM = "~/.xmonad/launch/im.sh"
+-- terminal
+myTerminal = "terminator"
+-- myMail = "thunderbird"
+
+-- ----
+-- Keys
+-- ----
 newKeys x = M.union (M.fromList (myKeys x)) (keys azertyConfig x)
 myKeys conf@(XConfig {XMonad.modMask = modMask}) =
     [
@@ -48,6 +73,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
     , ((0, 0x1008FF13), spawn "amixer sset Master 2+")
     , ((modMask, 0xff61), spawn "~/.xmonad/bin/printscreen.sh")	--print screen with crop
     , ((0, 0xff61), spawn "~/.xmonad/bin/printwindow.sh")	--select window to print
+
+    , ((0 .|. modMask, xK_a), windows $ W.greedyView w9Id)
+    , ((shiftMask .|. modMask, xK_a), windows $ W.shift w9Id)
     ]
     ++
     -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
@@ -87,28 +115,6 @@ myLayoutHook = smartBorders (avoidStruts
 --Tab Colors--
 --------------
 
--- Workspaces
-w1Id = "1 web"
-w2Id = "2 term"
-w3Id = "3 idea"
-w4Id = "4 sql"
-w5Id = "5"
-w6Id = "6"
-w7Id = "7"
--- w8Id = "8 mail"
-w8Id = "8"
-w9Id = "9 IM"
-
-myWorkspaces = [w1Id, w2Id, w3Id, w4Id, w5Id, w6Id, w7Id, w8Id, w9Id]
-
-
-myInternet = "google-chrome --allow-file-access-from-files"
-myIDE = "~/.xmonad/bin/idea.sh"
--- myIM = "~/.xmonad/bin/launch-pidgin.sh"
--- terminal
-myTerminal = "terminator"
--- myMail = "thunderbird"
-
 
 
 -- pour trouver le className d'une fenetre :
@@ -120,6 +126,7 @@ myManageHook = composeAll
   [ title =? "gitk"               --> doFullFloat
   , className =? "Diffmerge"      --> doFullFloat
   , className =? "Pidgin"         --> doF (W.shift w9Id)
+  , className =? "HipChat"        --> doF (W.shift w9Id)
   , className =? "jetbrains-idea" --> doF (W.shift w3Id)
   -- , className =? "Thunderbird"    --> doF (W.shift w8Id)
   , title =? "Do"                 --> doFloat
@@ -140,7 +147,7 @@ main = do
 			      spawnOn w1Id myInternet  --this line and following : start apps on given workspace
 			      spawnOn w2Id myTerminal
 			      spawn myIDE  --this line and following : just start apps (workspace is handled by manageHook)
-			      -- spawn myIM
+			      spawn myIM
 			      -- spawn myMail
 			  ,
                           terminal = myTerminal,
