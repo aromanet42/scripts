@@ -23,6 +23,7 @@ _git-checkout() {
 
   if [[ "$arg1" != "" ]]
   then
+    arg1=${arg1//'.'/'\\.'}
     branchListCommand="git branch | grep $arg1 | grep -v detached"
     branchesCount=`eval "$branchListCommand -c"`
     branches=`eval "$branchListCommand"`
