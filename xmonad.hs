@@ -123,7 +123,7 @@ myLayoutHook = smartBorders (avoidStruts
 -- cliquer sur la fenetre
 -- le classname est la deuxième String. (la premiere correspond au nom de la resource)
 myManageHook = composeAll
-  [ title =? "gitk"               --> doFullFloat
+  [ className =? "Gitk"           --> doFullFloat
   , className =? "Diffmerge"      --> doFullFloat
   , className =? "Pidgin"         --> doF (W.shift w9Id)
   , className =? "HipChat"        --> doF (W.shift w9Id)
