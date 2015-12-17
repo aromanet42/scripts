@@ -16,7 +16,7 @@ _git-checkout() {
   arg1=$words[$CURRENT]
 
   # normal completion if first arg begins with - (dash)
-  if [[ "$arg1" == -* ]]
+  if [[ "$arg1" == --* ]]
   then
     return 0
   fi
@@ -24,6 +24,7 @@ _git-checkout() {
   if [[ "$arg1" != "" ]]
   then
     arg1=${arg1//'.'/'\\.'}
+    arg1=${arg1//'-'/'\\-'}
     branchListCommand="git branch | grep $arg1 | grep -v detached"
     branchesCount=`eval "$branchListCommand -c"`
     branches=`eval "$branchListCommand"`
