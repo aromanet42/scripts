@@ -97,6 +97,7 @@ setopt histexpiredupsfirst
 setopt histignorealldups
 setopt histignoredups
 setopt histignorespace
+setopt HIST_IGNORE_SPACE       # do not add commands beginning with space in history
 setopt histreduceblanks
 setopt histsavenodups
 
