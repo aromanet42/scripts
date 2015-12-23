@@ -25,9 +25,11 @@ _git-checkout() {
   then
     arg1=${arg1//'.'/'\\.'}
     arg1=${arg1//'-'/'\\-'}
-    branchListCommand="git branch | grep $arg1 | grep -v detached"
+    # LC_ALL=C  <= prefix used to force english locale
+    branchListCommand="LC_ALL=C git branch | grep $arg1 | grep -v detached"
     branchesCount=`eval "$branchListCommand -c"`
     branches=`eval "$branchListCommand"`
+
 
     # if no local branch found, search in remotes
     if [ $branchesCount -eq 0 ]
