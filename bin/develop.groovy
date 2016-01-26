@@ -13,7 +13,8 @@ def slurper = new JsonSlurper()
 
 def result = slurper.parseText(json)
 
-def colors = result.jobs*.color.unique()
+def jobs_to_ignore = ['23.install-snasphot-to-last']
+def colors = result.jobs.findAll {!jobs_to_ignore.contains(it.name)}*.color.unique()
 
 def title = 'Dvlp'
 
