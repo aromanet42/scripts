@@ -197,6 +197,9 @@ echo "/usr/bin/detect-monitor-plugged.sh &\n" >> ~/.xsessionrc
 echo "mkdir /tmp/Downloads \n" >> ~/.xsessionrc
 # tool displaying network status in trayer
 echo "nm-applet & \n" >> ~/.xsessionrc
+# checking for updates
+echo "sudo apt-get update\nsudo apt-get upgrade\nsudo apt-get autoremove\nsudo apt-get autoclean\n" >> ~/.xsessionrc
+
 
 echo "all done !"
 
