@@ -6,4 +6,5 @@ target/
 *.ipr
 *~
 *.swp
+.sonar_lock
 
