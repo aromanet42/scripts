@@ -7,4 +7,5 @@ target/
 *~
 *.swp
 .sonar_lock
+*.conflicts
 
