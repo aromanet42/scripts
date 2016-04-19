@@ -1,0 +1,18 @@
+#!/bin/bash
+
+isDetached=$(LANG=en_GB git status | grep "HEAD detached at origin")
+
+if [ "$isDetached" == "" ]
+then
+  echo "You are not in detached head."
+  exit -1
+fi
+
+
+originBranchName=`git status | grep "origin/.*" -oh`
+localBranchName=${originBranchName:7}
+
+git checkout -b $localBranchName
+git branch --set-upstream-to=$originBranchName $localBranchName
+
+
