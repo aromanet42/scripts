@@ -97,5 +97,6 @@ autocmd BufRead git-rebase-todo noremap f :call RebaseAction('fixup')<CR>
 autocmd BufRead git-rebase-todo noremap p :call RebaseAction('pick')<CR>
 autocmd BufRead git-rebase-todo noremap r :call RebaseAction('reword')<CR>
 autocmd BufRead git-rebase-todo noremap e :call RebaseAction('edit')<CR>
+autocmd BufRead git-rebase-todo noremap s :call RebaseAction('squash')<CR>
 
 
