@@ -67,6 +67,14 @@ sudo ln -s $SCRIPTPATH/bin/detect-monitor-plugged.sh /usr/bin/detect-monitor-plu
 echo "CHROME..."
 sudo apt-get install google-chrome-stable -y
 
+# using libnotify notifications for chrome :
+wget -O /tmp/chrome-libnotify.zip https://docs.google.com/uc\?authuser\=0\&id\=0BzOewlVTs_tpdTNFckZKeG5HRE0\&export\=download
+cd /tmp
+unzip chrome-libnotify.zip
+bash host/install.sh
+sed -i.bak -e 's/chrome-extension:\/\/[a-z]*/chrome-extension:\/\/epckjefillidgmfmclhcbaembhpdeijg/' ~/.config/google-chrome/NativeMessagingHosts/com.initiated.chrome_libnotify_notifications.json
+
+
 if ask_for_install "pidgin" ; then
   echo "PIDGIN..."
   sudo apt-get install pidgin -y
