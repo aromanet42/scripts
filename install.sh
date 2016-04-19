@@ -102,6 +102,8 @@ git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
 ln -s $SCRIPTPATH/.zshrc ~/.zshrc
 ln -s $SCRIPTPATH/ohmyzsh/*.zsh ~/.oh-my-zsh/custom
 ln -s $SCRIPTPATH/ohmyzsh/*.zsh-theme ~/.oh-my-zsh/themes
+# adding bin directory to PATH
+echo "export PATH=$SCRIPTPATH/bin:$PATH" > ~/.oh-my-zsh/script_path.zsh
 cd -
 
 http https://api.github.com/repos/peco/peco/releases/latest | jq '.assets | map(select(.name == "peco_linux_amd64.tar.gz"))[0].browser_download_url' | xargs wget -O /tmp/peco.tar.gz
