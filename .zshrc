@@ -2,17 +2,6 @@
 ZSH=$HOME/.oh-my-zsh
 
 
-# config powerline
-POWERLINE_HIDE_USER_NAME="true"
-POWERLINE_HIDE_HOST_NAME="true"
-POWERLINE_FULL_CURRENT_PATH="true"
-POWERLINE_RIGHT_A="exit-fail"
-POWERLINE_SHOW_GIT_ON_RIGHT="true"
-POWERLINE_GIT_DIRTY="%F{red}✭%F{black}"
-POWERLINE_GIT_CLEAN=" "
-POWERLINE_HIDE_GIT_PROMPT_STATUS="true"
-
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
