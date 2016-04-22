@@ -95,6 +95,11 @@ function time_to_human() {
 #
 # Example:
 #   text white blue %~
+#
+# available colors :
+#   - by name : red, blue, green, black, white
+#   - by code : list codes with 
+#                 for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done
 function text() {
   front=$1
   back=$2
@@ -139,7 +144,7 @@ function rightSlice() {
 
   if [ "$argv" != "" ]; then
     text $right_back "" ""
-    text $right_front $right_back " $argv "
+    text $right_front $right_back "$argv "
   fi
 }
 
@@ -150,8 +155,8 @@ function prompt() {
 }
 
 function rprompt() {
-  rightSlice black white "$(git_prompt_info)"
-  rightSlice black white "%D{%H:%M:%S}"
+  rightSlice black white "$(git_prompt_info)$(git_prompt_ahead)$(git_prompt_behind)"
+  rightSlice black 245 "%D{%H:%M:%S}"
   rightSlice white black "%(?."".%F{red}✘ %?)"
   rightSlice white black "$(command_time)"
 }
