@@ -28,7 +28,7 @@
   chk = checkout
   co = commit -m
   com = commit --amend
-  st = status
+  st = number id
   ppik = cherry-pick
   undo = reset HEAD^
   pr = pull --rebase
@@ -37,7 +37,9 @@
   dt = difftool --tool=diffmerge -y
   search = !sh -c \"git log --format="%h" -n 1 --grep $1 | xargs git branch -a --contains\"
   search-tag = !sh -c \" git log --format="%h" -n 1 --grep $1 | xargs git name-rev --tag --name-only\"
-  a = add -A
+  a = number add
+  rs = number reset
+  cc = number checkout
 
 [core]
   editor = vim
