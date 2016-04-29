@@ -95,7 +95,7 @@ myLayout = mouseResizableTile ||| tiled ||| simpleTabbed
 
 tabFirstLayout = simpleTabbed ||| mouseResizableTile
 
-pidginLayout = pidginTiled
+pidginLayout = pidginTiled ||| mouseResizableTile
     where
         pidginTiled = Tall nmaster delta ratio
 	nmaster = 1
