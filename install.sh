@@ -6,7 +6,7 @@ echo "Installation des programmes de base"
 
 function ask_for_install 
 {
-  echo "Installer $1 ?"
+  echo "Installer $1 ? (y/n)"
   read input_variable
 
   if [ "$input_variable" == "y" ]; then
@@ -126,6 +126,7 @@ cd -
 
 
 read -p "Où est le dossier contenant les outils de développement ? " devpath
+mkdir -p $devpath
 echo "export DEV=$devpath" > ~/.oh-my-zsh/custom/custom_env.zsh
 echo "export DEV=$devpath\n" >> ~/.xsessionrc
 echo "export JAVA_HOME=$devpath/current_jdk\n" >> ~/.xsessionrc
