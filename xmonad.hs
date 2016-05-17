@@ -116,18 +116,24 @@ myLayoutHook = smartBorders (avoidStruts
 --------------
 
 
-
--- pour trouver le className d'une fenetre :
--- ouvrir un term dans le mm workspace que la fenetre
--- taper : xprop | grep WM_CLASS
--- cliquer sur la fenetre
--- le classname est la deuxième String. (la premiere correspond au nom de la resource)
+-- className :
+--   xprop | grep WM_CLASS
+--   cliquer sur la fenetre
+--   Deuxième String
+-- appName :
+--   xprop | grep WM_CLASS
+--   cliquer sur la fenetre
+--   Première String
+-- title :
+--   xprop | grep WM_NAME
+--   cliquer sur la fenetre
 myManageHook = composeAll
   [ className =? "Gitk"           --> doFullFloat
   , className =? "Diffmerge"      --> doFullFloat
   , className =? "Pidgin"         --> doF (W.shift w9Id)
   , className =? "HipChat"        --> doF (W.shift w9Id)
   , className =? "jetbrains-idea" --> doF (W.shift w3Id)
+  , title     =? "Postman"        --> doF (W.shift w4Id)
   -- , className =? "Thunderbird"    --> doF (W.shift w8Id)
   , title =? "Do"                 --> doFloat
   , manageDocks  -- manageDocks pour que le trayer apparaisse sur tous les workspaces du monitor, et pas seulement le 1er
