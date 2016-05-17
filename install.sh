@@ -2,10 +2,6 @@
 
 echo "Installation des programmes de base"
 
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
-
-PWD=`pwd`
 
 
 function ask_for_install 
@@ -36,6 +32,15 @@ sudo apt-get install python-pip -y
 
 echo "GIT..."
 sudo apt-get install git gitk -y
+mkdir -p ~/workspace
+cd ~/workspace
+git clone https://github.com/aromanet42/scripts.git
+cd scripts
+
+SCRIPTPATH=$(pwd)
+
+
+
 ln -sf $SCRIPTPATH/.gitconfig ~/.gitconfig
 mkdir -p ~/.config/git
 ln -sf $SCRIPTPATH/gitIgnore ~/.config/git/ignore
