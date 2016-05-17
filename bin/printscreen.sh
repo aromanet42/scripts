@@ -1,11 +1,12 @@
 #!/bin/sh
 
-mkdir /tmp/screenshots
+sleep 0.2 # needed to avoid "couldn't grab keyboard:Resource temporarily unavailable" error
+
+mkdir -p /tmp/screenshots
 
 now=$(date +"%Y%m%d-%H%M%S")
 filename="/tmp/screenshots/screenshot-${now}.png"
-import -window root -pause 3 $filename 
-kolourpaint $filename
+scrot -s $filename
 
-echo "captured in $filename"
+notify-send "capture saved in $filename"
 

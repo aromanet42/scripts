@@ -1,9 +1,12 @@
 #!/bin/sh
 
+mkdir -p /tmp/screenshots
+
 now=$(date +"%Y%m%d-%H%M%S")
-filename="/tmp/screenshot-${now}.png"
-import -screen $filename
+filename="/tmp/screenshots/screenshot-${now}.png"
+scrot $filename
+kolourpaint $filename
 
-echo "captured in $filename"
 
+notify-send "capture saved in $filename"
 
