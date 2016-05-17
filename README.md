@@ -3,7 +3,7 @@ Config
 
 Pour installer tout ça : 
 
-    wget --no-check-certificate https://raw.githubusercontent.com/aromanet42/scripts/master/install.sh -O - | sh
+    wget --no-check-certificate https://raw.githubusercontent.com/aromanet42/scripts/master/install.sh -O - | bash
 
 
 Mutate
