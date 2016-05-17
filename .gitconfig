@@ -23,12 +23,12 @@
 
 [alias]
   lola = log --graph --decorate --abbrev-commit --all
-  loln = log --graph --decorate --abbrev-commit -n20 HEAD
+  loln = log --abbrev-commit -n20 --no-merges HEAD
   lol = log --graph --decorate --abbrev-commit HEAD
   chk = checkout
   co = commit -m
   com = commit --amend
-  st = number id
+  s = number id
   ppik = cherry-pick
   undo = reset HEAD^
   pr = pull --rebase
