@@ -12,7 +12,7 @@ Config {font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
                     , Run Date "%a %b %_d %k:%M" "date" 10
                     , Run StdinReader
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/sound_volume.sh"] "volume" 2
-		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchGroovy.sh", "parse", "https://audrey.romanet%40mirakl.com:9d7b11984ddd512eba1e18a9f568f1b1@jenkins.mirakl.net/view/12.SPECIFIC%20BRANCH%20PIPELINE/api/json"] "jenkins" 5
+		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchGroovy.sh", "parse", "$JENKINS_ENDPOINT/view/12.SPECIFIC%20BRANCH%20PIPELINE/api/json"] "jenkins" 5
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchGroovy.sh", "develop"] "develop" 5
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchGroovy.sh", "velib"] "velib" 5
 

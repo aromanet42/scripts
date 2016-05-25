@@ -1,6 +1,6 @@
 import groovy.json.JsonSlurper
 
-def url = "https://audrey.romanet%40mirakl.com:9d7b11984ddd512eba1e18a9f568f1b1@jenkins.mirakl.net/view/TV/api/json"
+def url = System.getenv()['JENKINS_ENDPOINT'] + "/view/TV/api/json"
 
 def sout = new StringBuffer(), serr = new StringBuffer()
 def process = "curl ${url}".execute()
