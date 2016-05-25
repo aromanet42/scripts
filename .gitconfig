@@ -23,7 +23,7 @@
 
 [alias]
   lola = log --graph --decorate --abbrev-commit --all
-  loln = log --abbrev-commit -n20 --no-merges HEAD
+  loln = log --abbrev-commit -n20 HEAD
   lol = log --graph --decorate --abbrev-commit HEAD
   chk = checkout
   co = commit -m
