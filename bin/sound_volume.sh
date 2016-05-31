@@ -6,8 +6,8 @@ muted=`amixer sget Master | awk -F '[][]' '/dB/ { print $6 }'`
 
 if [ "$muted" = "on" ]; then
   color="#00FF00"
+  echo "♪ $vol"
 else
-  color="#FF0000"
+  echo "<fc=#FF0000>♪ off</fc>"
 fi
 
-echo "Vol:" $vol "(<fc="$color">"$muted"</fc>)"
