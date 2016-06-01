@@ -1,5 +1,4 @@
-Config {--font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
-       font = "xft:Sans Serif-10:normal"
+Config { font = "xft:Sans Serif-9:normal"
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 96
@@ -10,7 +9,7 @@ Config {--font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
-                    , Run Date "%a %b %_d %k:%M" "date" 10
+                    , Run Date "%a %d/%m %k:%M" "date" 10
                     , Run StdinReader
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/sound_volume.sh"] "volume" 2
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "specific_branch", "12.SPECIFIC%20BRANCH%20PIPELINE"] "jenkins" 5
