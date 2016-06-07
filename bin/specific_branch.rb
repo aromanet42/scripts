@@ -47,6 +47,7 @@ Net::HTTP.start(uri.host, uri.port,
 
     notCompleted = stages.select { |it| it["status"]["type"] != 'SUCCESS'}
 
+    puts "Specific : "
     if notCompleted.size > 0
       status = stages.select { |it| it["status"]["type"] != 'IDLE' }
       .map { |it|
@@ -72,4 +73,6 @@ Net::HTTP.start(uri.host, uri.port,
     else
       puts "<fc=#00FF00>ALL SUCCESS</fc>"
     end
+
+    puts " -"
   end

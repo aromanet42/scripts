@@ -15,9 +15,8 @@ Config { font = "xft:Sans Serif-9:normal"
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "specific_branch", "12.SPECIFIC%20BRANCH%20PIPELINE"] "jenkins" 5
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "develop"] "develop" 5
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "velib"] "velib" 5
-
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %jenkins% - %develop% %velib% | %volume% | %cpu% | %memory% * %swap% | %battery% | <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ %jenkins% %develop% %velib% |  %volume% | %cpu% | %memory% * %swap% | %battery% | <fc=#ee9a00>%date%</fc>"
 }
