@@ -18,7 +18,7 @@ Net::HTTP.start(uri.host, uri.port,
     result = JSON.parse(response.body)
 
 
-    jobs_to_ignore = ['23.install-snasphot-to-last']
+    jobs_to_ignore = ['23.install-snapshot-to-last']
     colors = result["jobs"].select { |it| !jobs_to_ignore.include?(it["name"])}.map{ |i| i["color"]}.uniq
  
     title = 'Dvlp'
