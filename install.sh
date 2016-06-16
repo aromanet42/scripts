@@ -29,6 +29,7 @@ function check_exists
 sudo apt-get install gnome-settings-daemon -y
 
 sudo apt-get install python-pip -y
+pip install --upgrade pip
 
 echo "GIT..."
 sudo apt-get install git gitk -y
