@@ -156,6 +156,7 @@ if ask_for_install "xmonad" ; then
   sudo apt-get install xmonad -y
   mkdir ~/.xmonad
   ln -s $SCRIPTPATH/xmonad.hs ~/.xmonad/xmonad.hs
+  echo "xmonad" > ~/.xsession
 
   sudo apt-get install libghc-xmonad-contrib-dev libghc-xmonad-dev -y
   
