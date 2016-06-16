@@ -161,7 +161,7 @@ main = do
                                     { ppOutput = hPutStrLn xmproc
                                     , ppCurrent = xmobarColor "#09F" "" . wrap "[" "]"
                                     , ppTitle = xmobarColor "pink" "" . shorten 50
-                                    }) >> updatePointer (Relative 0.5 0.5) >> takeTopFocus
+                                    }) >> takeTopFocus
 			,
 			focusFollowsMouse = myFocusFollowsMouse
 }
