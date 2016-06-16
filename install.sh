@@ -126,7 +126,8 @@ sudo fc-cache -fv
 cd -
 
 
-read -p "Où est le dossier contenant les outils de développement ? " devpath
+devpath="~/dev"
+echo "Dev tools will be installed in $devpath"
 mkdir -p $devpath
 echo "export DEV=$devpath" > ~/.oh-my-zsh/custom/custom_env.zsh
 echo "export DEV=$devpath\n" >> ~/.xsessionrc
