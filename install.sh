@@ -152,7 +152,13 @@ mv /tmp/peco_linux_amd64/peco ~/bin
 
 #installing fonts for powerline prompt
 mkdir -p ~/.fonts
+cd ~/.fonts
+wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
 cp $SCRIPTPATH/fonts/* ~/.fonts
+cd -
+mkdir -p ~/.config/fontconfig/conf.d/
+cd ~/.config/fontconfig/conf.d/
+wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
 sudo fc-cache -fv
 cd -
 
