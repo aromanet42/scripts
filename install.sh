@@ -33,10 +33,21 @@ pip install --upgrade pip
 
 echo "GIT..."
 sudo apt-get install git gitk -y
-mkdir -p ~/workspace
-cd ~/workspace
-git clone https://github.com/aromanet42/scripts.git
-cd scripts
+directoryCreated=`mkdir ~/workspace`
+
+if [ "$directoryCreated" == "0" ]
+then
+  cd ~/workspace
+  git clone https://github.com/aromanet42/scripts.git
+  cd scripts
+else
+  echo "########"
+  echo "You already runned this script"
+  echo "########"
+
+  rm ~/.xsessionrc
+  echo "#!/bin/sh" > ~/.xsessionrc
+fi
 
 SCRIPTPATH=$(pwd)
 
@@ -57,13 +68,20 @@ ln -s $SCRIPTPATH/Vim/plugin ~/.vim/plugin
 ln -s $SCRIPTPATH/Vim/autoload ~/.vim/autoload
 mkdir -p ~/.vim/bundle
 cd ~/.vim/bundle
-git clone https://github.com/tomtom/tcomment_vim.git
-git clone https://github.com/vim-scripts/csv.vim.git
+if [ ! -d "tcomment_vim" ]
+then
+  git clone https://github.com/tomtom/tcomment_vim.git
+fi
+if [ ! -d csv.vim ]
+then
+  git clone https://github.com/vim-scripts/csv.vim.git
+fi
 
 cd -
 
 echo "terminator"
 sudo apt-get install terminator -y
+mkdir -p ~/.config/terminator
 ln -s $SCRIPTPATH/terminator.config ~/.config/terminator/config
 
 echo "arandr"
@@ -76,12 +94,15 @@ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable
 sudo apt-get install google-chrome-stable -y
 
 # using libnotify notifications for chrome :
-wget -O /tmp/chrome-libnotify.zip https://docs.google.com/uc\?authuser\=0\&id\=0BzOewlVTs_tpdTNFckZKeG5HRE0\&export\=download
-cd /tmp
-unzip chrome-libnotify.zip
-bash host/install.sh
-sed -i.bak -e 's/chrome-extension:\/\/[a-z]*/chrome-extension:\/\/epckjefillidgmfmclhcbaembhpdeijg/' ~/.config/google-chrome/NativeMessagingHosts/com.initiated.chrome_libnotify_notifications.json
-
+libnotify_json_file="~/.config/google-chrome/NativeMessagingHosts/com.initiated.chrome_libnotify_notifications.json"
+if [ ! -e $libnotify_json_file ]
+then
+  wget -O /tmp/chrome-libnotify.zip https://docs.google.com/uc\?authuser\=0\&id\=0BzOewlVTs_tpdTNFckZKeG5HRE0\&export\=download
+  cd /tmp
+  unzip chrome-libnotify.zip
+  bash host/install.sh
+  sed -i.bak -e 's/chrome-extension:\/\/[a-z]*/chrome-extension:\/\/epckjefillidgmfmclhcbaembhpdeijg/' $libnotify_json_file
+fi
 
 if ask_for_install "pidgin" ; then
   echo "PIDGIN..."
@@ -91,6 +112,7 @@ fi
 echo "httpie..."
 sudo pip install httpie
 
+mkdir -p ~/bin
 echo "jq - json engine..."
 wget -O ~/bin/jq http://stedolan.github.io/jq/download/linux64/jq
 chmod +x ~/bin/jq
@@ -102,19 +124,29 @@ echo "ZSH..."
 # zsh
 sudo apt-get install zsh -y
 # oh-my-zsh
-wget --no-check-certificate https://github.com/lucmazon/custom-zsh/raw/master/install.sh -O - | sh
+if [ ! -d ~/.oh-my-zsh ]
+then
+  wget --no-check-certificate https://github.com/lucmazon/custom-zsh/raw/master/install.sh -O - | sh
+  # install custom conf
+  ln -s $SCRIPTPATH/.zshrc ~/.zshrc
+  ln -s $SCRIPTPATH/ohmyzsh/*.zsh-theme ~/.oh-my-zsh/themes
+  ln -s $SCRIPTPATH/ohmyzsh/*.zsh ~/.oh-my-zsh/custom
+fi
+
+
 # install some plugins
+mkdir -p ~/.oh-my-zsh/custom/plugins
 cd ~/.oh-my-zsh/custom/plugins
-git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
-# install custom conf
-ln -s $SCRIPTPATH/.zshrc ~/.zshrc
-ln -s $SCRIPTPATH/ohmyzsh/*.zsh ~/.oh-my-zsh/custom
-ln -s $SCRIPTPATH/ohmyzsh/*.zsh-theme ~/.oh-my-zsh/themes
+if [ ! -d zsh-syntax-highlighting ]
+then
+  git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
+fi
+
 # adding bin directory to PATH
 echo "export PATH=$SCRIPTPATH/bin:$PATH" > ~/.oh-my-zsh/script_path.zsh
 cd -
 
-http https://api.github.com/repos/peco/peco/releases/latest | jq '.assets | map(select(.name == "peco_linux_amd64.tar.gz"))[0].browser_download_url' | xargs wget -O /tmp/peco.tar.gz
+http https://api.github.com/repos/peco/peco/releases/latest | ~/bin/jq '.assets | map(select(.name == "peco_linux_amd64.tar.gz"))[0].browser_download_url' | xargs wget -O /tmp/peco.tar.gz
 tar xvf /tmp/peco.tar.gz -C /tmp
 mv /tmp/peco_linux_amd64/peco ~/bin
 
@@ -129,8 +161,8 @@ devpath="~/dev"
 echo "Dev tools will be installed in $devpath"
 mkdir -p $devpath
 echo "export DEV=$devpath" > ~/.oh-my-zsh/custom/custom_env.zsh
-echo "export DEV=$devpath\n" >> ~/.xsessionrc
-echo "export JAVA_HOME=$devpath/current_jdk\n" >> ~/.xsessionrc
+echo "export DEV=$devpath" >> ~/.xsessionrc
+echo "export JAVA_HOME=$devpath/current_jdk" >> ~/.xsessionrc
 
 source ~/.zshrc
 
@@ -179,7 +211,7 @@ sudo add-apt-repository ppa:mutate/ppa
 sudo apt-get update
 sudo apt-get install mutate -y
 sudo pip install sympy
-echo "mutate &\n" >> ~/.xsessionrc
+echo "mutate &" >> ~/.xsessionrc
 
 echo "checking existance of screensaver..."
 if check_exists "gnome-screensaver" ; then
@@ -187,7 +219,7 @@ if check_exists "gnome-screensaver" ; then
 else
   echo "none present. Installing xscreensaver..."
   sudo apt-get install xscreensaver -y
-  echo "xscreensaver &\n" >> ~/.xsessionrc
+  echo "xscreensaver &" >> ~/.xsessionrc
 fi
 
 echo "Some useful tools..."
@@ -211,12 +243,18 @@ cd fasd
 sudo make install
 
 echo "Initializing xsessionrc..."
-echo "/usr/bin/detect-monitor-plugged.sh &\n" >> ~/.xsessionrc
-echo "mkdir /tmp/Downloads \n" >> ~/.xsessionrc
+echo "/usr/bin/detect-monitor-plugged.sh &" >> ~/.xsessionrc
+echo ""
+echo "mkdir -p /tmp/Downloads" >> ~/.xsessionrc
+echo ""
 # tool displaying network status in trayer
-echo "nm-applet & \n" >> ~/.xsessionrc
+echo "nm-applet &" >> ~/.xsessionrc
+echo ""
 # checking for updates
-echo "sudo apt-get update\nsudo apt-get upgrade\nsudo apt-get autoremove\nsudo apt-get autoclean\n" >> ~/.xsessionrc
+echo "sudo apt-get update" >> ~/.xsessionrc
+echo "sudo apt-get upgrade" >> ~/.xsessionrc
+echo "sudo apt-get autoremove" >> ~/.xsessionrc
+echo "sudo apt-get autoclean" >> ~/.xsessionrc
 
 
 echo "all done !"
