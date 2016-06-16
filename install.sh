@@ -117,11 +117,8 @@ tar xvf /tmp/peco.tar.gz -C /tmp
 mv /tmp/peco_linux_amd64/peco ~/bin
 
 #installing fonts for powerline prompt
-cd /tmp
-git clone https://github.com/powerline/fonts.git
-cd -
-cd fonts
-./install.sh
+mkdir -p ~/.fonts
+cp $SCRIPTPATH/fonts/* ~/.fonts
 sudo fc-cache -fv
 cd -
 
