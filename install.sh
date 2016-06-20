@@ -242,6 +242,8 @@ sudo apt-get install scrot -y
 sudo apt-get install oxygen-icon-theme kdelibs-bin kdelibs5-data kdelibs5-plugins kolourpaint4 -y
 # tldr
 sudo pip install tldr
+# curl
+sudo apt-get install curl -y
 
 # fasd
 cd /tmp
