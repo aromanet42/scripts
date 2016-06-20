@@ -216,7 +216,7 @@ ln -s $SCRIPTPATH/.Xmodmap ~∕.Xmodmap
 echo "Mutate..."
 sudo add-apt-repository ppa:mutate/ppa
 sudo apt-get update
-sudo apt-get install mutate -y
+sudo apt-get install g++ mutate -y
 sudo pip install sympy
 echo "mutate &" >> ~/.xsessionrc
 
