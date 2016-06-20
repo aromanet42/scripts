@@ -1,28 +1,22 @@
 #!/bin/sh
 
-
-xrandr --output HDMI1 --auto
-xrandr --output HDMI1 --primary --left-of eDP1 --output eDP1 --auto
-CURRENT_XRANDR=dual
-
+CURRENT_XRANDR=mono
 
 while true
 do
 
-  deviceStatusFile=`ls /sys/class/drm/ | grep HDMI`
+  connectedHDMI=`xrandr -q | grep " connected" | grep HDMI. -o`
 
-  deviceStatus=`cat /sys/class/drm/$deviceStatusFile/status`
-
-  if [ "$deviceStatus" = "connected" ] && [ "$CURRENT_XRANDR" = "mono" ]
+  if [ "$connectedHDMI" != "" ] && [ "$CURRENT_XRANDR" = "mono" ]
   then
-    xrandr --output HDMI1 --auto
-    xrandr --output HDMI1 --primary --left-of eDP1 --output eDP1 --auto
+    xrandr --output $connectedHDMI --auto
+    xrandr --output $connectedHDMI --primary --left-of eDP1 --output eDP1 --auto
     CURRENT_XRANDR=dual
   fi
 
-  if [ "$deviceStatus" != "connected" ] && [ "$CURRENT_XRANDR" = "dual" ]
+  if [ "$connectedHDMI" = "" ] && [ "$CURRENT_XRANDR" = "dual" ]
   then
-    xrandr --output HDMI1 --off
+    xrandr --output $connectedHDMI --off
     CURRENT_XRANDR=mono
   fi
 
