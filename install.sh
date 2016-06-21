@@ -132,6 +132,8 @@ then
   ln -s $SCRIPTPATH/.zshrc ~/.zshrc
   ln -s $SCRIPTPATH/ohmyzsh/*.zsh-theme ~/.oh-my-zsh/themes
   ln -s $SCRIPTPATH/ohmyzsh/*.zsh ~/.oh-my-zsh/custom
+  mkdir ~/.oh-my-zsh/completions
+  ln -s $SCRIPTPATH/completions/* ~/.oh-my-zsh/completions
 fi
 
 
