@@ -85,10 +85,6 @@ Bash
 ----
 - .zshrc
 
-installer avec le lien fourni par :
-
-    https://github.com/lucmazon/custom-zsh
-
 si le nouveau terminal utilise toujours bash, vérifier que le fichier `/etc/passwd` contienne bien :
 
     <username>:.....:/bin/zsh
@@ -97,7 +93,21 @@ si le nouveau terminal utilise toujours bash, vérifier que le fichier `/etc/pas
 et si besoin lancer la commande `chsh` pour pointer vers zsh
 
 
-Pour avoir la coloration de la ligne de commande (en vert quand la commande existe, etc), utiliser [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+Function completions
+--------------------
+
+Ajouter de la completion sur une fonction :
+
+- Créer un fichier dans completions (présent dans `$fpath` via un lien symbolique vers `~/.oh-my-zsh/completions`)
+- S'inspirer du script `_git-checkout`
+-- Le nom du fichier doit être le nom de la fonction à compléter préfixé par `_` (underscore)
+-- La première ligne du fichier doit être `#compdef <nom-de-la-fonction>`
+- Pour recharger le script :
+
+<!-- -->
+
+    unfunction _git-checkout
+    autoload -U _git-checkout
 
 
 Scripts utilitaires
