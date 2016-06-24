@@ -33,6 +33,10 @@
 " completion options
 :set wildmode=longest,list,full
 
+" by default Vim uses its own clipboard. Following will yank to/from OS
+" clipboard
+:set clipboard=unnamedplus
+
 " Pathogen is a plugin manager : https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
 
