@@ -48,7 +48,7 @@
   excludesfile = ~/.config/git/ignore
 
 [push]
-  default = upstream  #pour ne pusher que la branche courante
+  default = current # allows git push -u to create remote branch tracking local one
 
 
 [diff]
