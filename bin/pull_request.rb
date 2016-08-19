@@ -14,14 +14,43 @@ Net::HTTP.start(uri.host, uri.port,
 
     request = Net::HTTP::Get.new uri.request_uri
     request.basic_auth ENV['REPO_USERNAME'], ENV['REPO_TOKEN']
+
+    if File.exists?("/tmp/pr.tag")
+      tagfile = File.open("/tmp/pr.tag", "rb")
+      lastTag = tagfile.readline.strip
+      lastResult = tagfile.readline.strip
+      if !lastTag.to_s.empty?
+	request['If-None-Match'] = lastTag
+      end
+    end
+
     response = http.request request
+
+    if response.is_a?(Net::HTTPNotModified)
+      puts lastResult
+      exit
+    end
+
+    responseLastTag = response['ETag']
+    tagfile = File.open("/tmp/pr.tag", "w")
+    tagfile.puts responseLastTag
+    tagfile.close
+
     list_of_pr = JSON.parse(response.body)
 
     if list_of_pr.empty?
       exit
     end
 
+    #puts list_of_pr
+   # if !list_of_pr["message"].nil?
+   #   puts list_of_pr["message"]
+   #   exit
+   # end
+
     size = list_of_pr.size.to_i - 1
+
+    to_print = ""
 
     (0..size).each { |i|
 
@@ -36,7 +65,7 @@ Net::HTTP.start(uri.host, uri.port,
       result = JSON.parse(response.body)
 
       if ! result.empty?
-	puts "<fc=##{result[0]["color"]}>#{title}</fc>"
+	to_print += "<fc=##{result[0]["color"]}>#{title}</fc>"
       else
 
 	uri = URI(monDernierMien["pull_request"]["url"])
@@ -54,14 +83,22 @@ Net::HTTP.start(uri.host, uri.port,
 	statuses = result.map { |it| it["state"] }.uniq
 
 	if statuses.include?("failure")
-	  puts "<fc=#FF0000>#{title}</fc>"
+	  to_print += "<fc=#FF0000>#{title}</fc>"
 	elsif statuses.size == 1 && statuses[0] == "pending"
-	  puts "<fc=#FFA500>#{title}</fc>"
+	  to_print += "<fc=#FFA500>#{title}</fc>"
 	elsif statuses.include?("success")
-	  puts "<fc=#00FF00>#{title}</fc>"
+	  to_print += "<fc=#00FF00>#{title}</fc>"
 	end
       end
-      puts " - "
+      to_print += " - "
 
     }
+
+
+    puts to_print
+
+    tagfile = File.open("/tmp/pr.tag", "a")
+    tagfile.puts to_print
+    tagfile.close
+
   end
