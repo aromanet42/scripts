@@ -1,0 +1,534 @@
+- hosts: localhost
+  roles:
+    - { role: cmprescott.xml }
+
+  pre_tasks:
+    - name: Retrieve script absolute path
+      tags:
+        - always
+      stat: 
+        path: "~/workspace/scripts"
+      register: absolute_path
+
+  vars: 
+    script_dir: "{{ absolute_path.stat.path }}"
+    dev_dir: "~/dev"
+    maven_version: "3.3.9"
+
+  tasks:
+
+    - name: Install Ansible XML Parser
+      become: yes
+      shell: ansible-galaxy install cmprescott.xml
+
+    - name: Remove Cowsay
+      apt:
+        name: cowsay
+        state: absent
+
+    - name: Prepare XSessionRc File
+      lineinfile:
+        dest: ~/.xsessionrc
+        create: yes
+        line: "#!/bin/sh"
+        insertbefore: BOF
+        state: present
+
+    - name: Install Gnome-settings-daemon
+      apt:
+        name: gnome-settings-daemon
+        state: present
+
+    - name: Install Git
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - git
+        - gitk
+
+    - name: Create Workspace directory
+      file: 
+        path: "{{ script_dir }}"
+        state: directory
+
+    - name: Clone my dotfiles Git Repo
+      git:
+        repo: https://github.com/aromanet42/scripts.git
+        dest: "{{ script_dir }}"
+        update: no
+
+    - name: Sym link to gitconfig
+      file:
+        src: "{{ script_dir }}/.gitconfig"
+        dest: ~/.gitconfig
+        state: link
+
+    - name: Create GitConfig directory
+      file:
+        path: ~/.config/git
+        state: directory
+
+    - name: Sym link to Git ignore
+      file:
+        src: "{{ script_dir }}/gitIgnore"
+        dest: ~/.config/git/ignore
+        state: link
+
+    - name: Install Vim
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - vim
+        - vim-gtk
+
+    - name: Sym link to Vim conf
+      file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+      with_items:
+        - { src: "{{ script_dir }}/.vimrc", dest: '~/.vimrc' }
+        - { src: "{{ script_dir }}/Vim/plugin", dest: '~/.vim/plugin' }
+        - { src: "{{ script_dir }}/Vim/autoload", dest: '~/.vim/autoload' }
+
+    - name: Create Vim plugin directory
+      file: 
+        path: ~/.vim/bundle
+        state: directory
+
+    - name: Retrieve Vim plugins
+      git:
+        repo: "https://github.com/{{ item.gituser }}/{{ item.gitrepo }}.git"
+        dest: "~/.vim/bundle/{{ item.gitrepo }}"
+      with_items:
+        - { gituser: "tomtom", gitrepo: "tcomment_vim" }
+        - { gituser: "vim-scripts", gitrepo: "csv.vim" }
+    
+    - name: Install Terminator
+      apt:
+        name: terminator
+        state: present
+
+    - name: Copy Terminator config
+      file: 
+        src: "{{ script_dir }}/terminator.config"
+        dest: "~/.config/terminator/config"
+        state: link
+
+    - name: Install ARandr
+      apt: 
+        name: arandr
+        state: present
+
+    - name: Copy ARandr config
+      become: yes
+      file: 
+        src: "{{ script_dir }}/bin/detect-monitor-plugged.sh"
+        dest: "/usr/bin/detect-monitor-plugged.sh"
+        state: link
+
+    - name: Start Monitor detection in xsession
+      lineinfile:
+        dest: ~/.xsessionrc
+        line: "/usr/bin/detect-monitor-plugged.sh &"
+
+    - name: Add Apt-key for Chrome
+      become: yes
+      apt_key: 
+        url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+
+    - name: Add Chrome Repo into sources list
+      apt_repository:
+        repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+        state: present
+        update_cache: yes
+
+    - name: Install Chrome
+      apt:
+        name: google-chrome-stable
+        state: present
+
+    - name: Install Httpie
+      pip:
+        name: httpie
+        state: present
+
+    - name: Install jq - json engine
+      get_url: 
+        dest: ~/bin/jq
+        url: http://stedolan.github.io/jq/download/linux64/jq
+        mode: 0755
+
+    - name: Install ZSH
+      apt:
+        name: zsh
+        state: present
+
+    - name: Retrieve Oh-My-Zsh theme installer
+      get_url:
+        url: https://github.com/lucmazon/custom-zsh/raw/master/install.sh
+        dest: /tmp/zsh-installer.sh
+
+    - name: Install Oh-My-Zsh theme
+      script: /tmp/zsh-installer.sh
+
+    - name: Create Oh-My-Zsh completion directory
+      file: 
+        path: ~/.oh-my-zsh/completions
+        state: directory
+
+    - name: Sym link to Oh-My-Zsh completions
+      file: 
+        src: "{{ script_dir }}/completions/{{ item }}"
+        dest: "~/.oh-my-zsh/completions/{{ item }}"
+        state: link
+      with_lines: "find {{ script_dir }}/completions/* -printf '%f\n'"
+
+    - name: Copy Zsh Config
+      file: 
+        src: "{{ script_dir }}/.zshrc"
+        dest: "~/.zshrc"
+        state: link
+
+    - name: Copy Zsh themes
+      file: 
+        src: "{{ script_dir }}/ohmyzsh/{{ item }}"
+        dest: "~/.oh-my-zsh/themes/{{ item }}"
+        state: link
+      with_lines: "find {{ script_dir }}/ohmyzsh/*.zsh-theme -printf '%f\n'"
+
+    - name: Copy Zsh custom files
+      file: 
+        src: "{{ script_dir }}/ohmyzsh/{{ item }}"
+        dest: "~/.oh-my-zsh/custom/{{ item }}"
+        state: link
+      with_lines: "find {{ script_dir }}/ohmyzsh/*.zsh -printf '%f\n'"
+
+    - name: Install Oh-My-Zsh Syntax Highlighting plugin
+      git:
+        repo: git://github.com/zsh-users/zsh-syntax-highlighting.git
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+    - name: add bin directory to PATH
+      lineinfile:
+        dest: ~/.oh-my-zsh/script_path.zsh
+        line: "export PATH={{ script_dir }}/bin:$PATH"
+        create: yes
+
+    - name: Retrieve last peco download url
+      tags:
+        - peco
+      uri:
+        url: https://api.github.com/repos/peco/peco/releases/latest
+        body_format: json
+      register: peco_download_url
+
+    - name: Download Peco
+      tags: 
+        - peco
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: /tmp/peco.tar.gz
+      when: "{{ item.name == 'peco_linux_amd64.tar.gz' }}"
+      with_items: "{{ peco_download_url.json.assets }}"
+
+    - name: Extract peco archive
+      tags:
+        - peco
+      unarchive:
+        src: /tmp/peco.tar.gz
+        dest: /tmp
+
+    - name: Move peco executable into PATH
+      tags:
+        - peco
+      copy:
+        src: /tmp/peco_linux_amd64/peco
+        dest: ~/bin/peco
+
+    - name: Clone Fasd Repo
+      git:
+        repo: https://github.com/clvv/fasd.git
+        dest: /tmp/fasd
+
+    - name: Install Fasd
+      become: yes
+      make: 
+        chdir: /tmp/fasd
+        target: install
+
+    - name: Create devtools directory
+      file:
+        path: "{{ dev_dir }}"
+        state: directory
+
+    - name: Add devtools directory to path
+      lineinfile:
+        dest: "{{ item.path }}"
+        line: "export DEV={{ dev_dir }}"
+        create: "{{ item.create }}"
+      with_items:
+        - { path: ~/.oh-my-zsh/custom/custom_env.zsh, create: true }
+        - { path: ~/.xsessionrc, create: false }
+
+    - name: Export JAVA_HOME in Xsession
+      lineinfile:
+        dest: ~/.xsessionrc
+        line: "export JAVA_HOME={{ dev_dir }}/current_jdk"
+
+    - name: Download Maven
+      tags:
+        - maven
+      get_url:
+        url: "http://apache.mirrors.ovh.net/ftp.apache.org/dist/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz"
+        dest: "/tmp/maven-{{ maven_version }}.tar.gz"
+
+    - name: Install Maven
+      tags:
+        - maven
+      unarchive: 
+        src: "/tmp/maven-{{ maven_version }}.tar.gz"
+        dest: "{{ dev_dir }}"
+
+    - name: Create Sym link to Maven
+      tags:
+        - maven
+      file:
+        src: "{{ dev_dir }}/apache-maven-{{ maven_version }}"
+        dest: "{{ dev_dir }}/maven"
+        state: link
+
+    - name: Download Maven Color Metadats
+      tags: 
+        - maven
+      uri: 
+        url: http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/color/maven-color-logback/maven-metadata.xml
+        return_content: yes
+      register: maven_color_metadata
+
+    - name: Retrieve Maven color version
+      tags: 
+        - maven
+      xml:
+        xmlstring: "{{ maven_color_metadata.content }}"
+        xpath: /metadata/versioning/release
+        content: text
+      register: last_maven_color_version
+
+    - name: Download Maven Color
+      tags: 
+        - maven
+      get_url:
+        url: "http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/color/maven-color-logback/{{ last_maven_color_version.matches[0].release }}/maven-color-logback-{{ last_maven_color_version.matches[0].release }}-bundle.tar.gz"
+        dest: /tmp/maven-color.tar.gz
+
+    - name: Extract Maven Color
+      tags: 
+        - maven
+      unarchive:
+        src: /tmp/maven-color.tar.gz
+        dest: "{{ dev_dir}}/maven/"
+
+    - name: Copy Maven Color config
+      tags: 
+        - maven 
+      file:
+        src: "{{ script_dir }}/maven.color"
+        dest: ~/.m2/maven.color
+        state: link
+
+    - name: Find Slf4j Maven lib
+      tags: 
+        - maven
+      find:
+        path: "{{ dev_dir }}/maven/lib/slf4j-simple-1.7.*.jar"
+      register: slf4_files
+
+    - name: Remove Slf4j from Maven libs
+      tags: 
+        - maven
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items: "{{ slf4_files.files}}"
+
+
+    - name: Install Xmonad
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - xmonad
+        - libghc-xmonad-contrib-dev
+        - libghc-xmonad-dev
+
+    - name: Add Xmonad in xsessionrc
+      lineinfile:
+        dest: ~/.xsession
+        line: "xmonad"
+
+    - name: Create xmonad Directory
+      file:
+        path: ~/.xmonad
+        state: directory
+
+    - name: Copy Xmonad Config
+      file:
+        src: "{{ script_dir }}/xmonad.hs"
+        dest: ~/.xmonad/xmonad.hs
+        state: link
+
+    - name: Install XMobar
+      apt: 
+        name: xmobar
+        state: present
+
+    - name: Copy Xmobar config
+      file:
+        src: "{{ script_dir }}/.xmobarrc"
+        dest: ~/.xmobarrc
+        state: link
+
+    - name: Copy binaries for xmonad
+      file: 
+        src: "{{ script_dir }}/bin"
+        dest: ~/.xmonad/bin
+        state: link
+
+    - name: Install Trayer
+      apt:
+        name: trayer
+        state: present
+
+    - name: Add Trayer in Xsession
+      lineinfile:
+        dest: ~/.xsessionrc
+        line: "/usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  --widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 16 --monitor 0 &"
+
+    - name: Copy XmodMap config
+      file:
+        src: "{{ script_dir }}/.Xmodmap"
+        dest: ~∕.Xmodmap
+        state: link
+
+    # there is an issue about ppa repositories and Linux Mint
+    # https://github.com/ansible/ansible-modules-core/issues/4282
+    # when this issue will be resolved, please uncomment apt_repository, and delete shell task and 'update apt' task and 'check if mutate is present' task
+    - name: Check if mutate is present
+      tags:
+        - mutate
+      shell: type "mutate"
+      register: mutate_present
+      ignore_errors: yes
+
+    - name: Add Mutate APT Repository
+      tags:
+        - mutate
+      # apt_repository:
+        # repo: "ppa:mutate/ppa"
+        # state: present
+      become: yes
+      shell: add-apt-repository ppa:mutate/ppa -y
+      when: "{{ mutate_present.rc }} != 0"
+
+    - name: update apt
+      become: yes
+      tags:
+        - mutate
+      apt:
+        update_cache: yes
+      when: "{{ mutate_present.rc }} != 0"
+
+    - name: Install Mutate
+      tags:
+        - mutate
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - g++
+        - mutate
+
+    - name: Install SymPy - Python library for Mutate Calc
+      tags:
+        - mutate
+      pip: 
+        name: sympy
+        state: present
+
+    - name: Add Mutate in XSession
+      tags:
+        - mutate
+      lineinfile:
+        dest: ~/.xsessionrc
+        line: "mutate &"
+
+    - name: Check if Screensaver is present
+      tags:
+        - screensaver
+      shell: type "gnome-screessnsaver"
+      register: screensaver_present
+      ignore_errors: yes
+
+    - name: Install Screensaver if needed
+      become: yes
+      tags:
+        - screensaver
+      apt:
+        name: xscreensaver
+        state: present
+      when: "{{ screensaver_present.rc }} != 0"
+         
+    - name: Add Screensaver to Xsession
+      tags: 
+        - screensaver
+      lineinfile:
+        dest: ~/.xsessionrc
+        line: "xscreensaver &"
+      when: "{{ screensaver_present.rc }} != 0"
+
+    - name: Install some usefull tools
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - libxml2-utils
+        - ack-grep
+        - htop
+        - scrot
+        - curl
+
+    - name: Install lightweight image editor
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - oxygen-icon-theme
+        - kdelibs-bin
+        - kdelibs5-data
+        - kdelibs5-plugins
+        - kolourpaint4
+
+    - name: Install TLDR
+      pip:
+        name: tldr
+        state: present
+
+    - name: Create Download directory in xsession
+      lineinfile:
+        dest: ~/.xsessionrc
+        line: "mkdir -p /tmp/Downloads"
+
+    - name: Add tool displaying network status in trayer in xsession
+      lineinfile:
+        dest: ~/.xsessionrc
+        line: "nm-applet &"
+
+      
+
+
+
+
+
