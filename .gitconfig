@@ -28,6 +28,7 @@
   chk = checkout
   co = commit -m
   com = commit --amend
+  come = commit --amend --no-edit
   s = number id
   ppik = cherry-pick
   undo = reset HEAD^
