@@ -5,5 +5,7 @@ pip install --upgrade pip
 
 sudo pip install ansible
 
-ansible-playbook install.yml --become-method sudo --ask-become-pass
+mkdir -p ~/workspace/scripts
+
+ansible-pull -d ~/workspace/scripts -o -U git@github.com:aromanet42/scripts.git -K
 
