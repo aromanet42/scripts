@@ -10,9 +10,16 @@
         path: "~/workspace/scripts"
       register: absolute_path
 
+    - name: Retrieve dev absolute path
+      tags:
+        - always
+      stat:
+        path: "~/dev"
+      register: dev_abs_path
+
   vars: 
     script_dir: "{{ absolute_path.stat.path }}"
-    dev_dir: "~/dev"
+    dev_dir: "{{ dev_abs_path.stat.path }}"
     maven_version: "3.3.9"
 
   tasks:
@@ -343,14 +350,15 @@
       tags: 
         - maven
       find:
-        path: "{{ dev_dir }}/maven/lib/slf4j-simple-1.7.*.jar"
+        path: "{{ dev_dir }}/maven/lib"
+        pattern: "slf4j-simple-1.7.*.jar"
       register: slf4_files
 
     - name: Remove Slf4j from Maven libs
       tags: 
         - maven
       file:
-        path: "{{ item }}"
+        path: "{{ item.path }}"
         state: absent
       with_items: "{{ slf4_files.files}}"
 
