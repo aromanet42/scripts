@@ -8,4 +8,5 @@ target/
 *.swp
 .sonar_lock
 *.conflicts
+pom.xml.versionsBackup
 
