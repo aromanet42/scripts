@@ -413,7 +413,7 @@
     - name: Add Trayer in Xsession
       lineinfile:
         dest: ~/.xsessionrc
-        line: "/usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  --widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 16 --monitor 0 &"
+        line: "/usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  --widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 16 --monitor primary &"
 
     - name: Copy XmodMap config
       file:
