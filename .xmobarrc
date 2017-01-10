@@ -13,11 +13,10 @@ Config { font = "xft:Sans Serif-9:normal"
                     , Run StdinReader
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/sound_volume.sh"] "volume" 2
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "specific_branch", "12.SPECIFIC%20BRANCH%20PIPELINE"] "jenkins" 5
-		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "develop"] "develop" 5
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "pull_request"] "pr" 10
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "velib"] "velib" 5
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %pr% %jenkins% %develop% %velib% |  %volume% | %cpu% | %memory% * %swap% | %battery% | <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ %pr% %jenkins% %velib% |  %volume% | %cpu% | %memory% * %swap% | %battery% | <fc=#ee9a00>%date%</fc>"
 }
