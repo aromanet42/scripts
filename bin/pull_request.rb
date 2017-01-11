@@ -120,7 +120,7 @@ class GitRequests
           output += "<fc=#FFA500>#{title}</fc>"
         elsif statuses.include?('failure')
           output += "<fc=#FF0000>#{title}</fc>"
-        elsif statuses.include?('success')
+	else
           output += "<fc=#00FF00>#{title}</fc>"
         end
       end
