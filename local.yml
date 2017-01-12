@@ -519,6 +519,14 @@
         - kdelibs5-plugins
         - kolourpaint4
 
+    - name: Install Imagemagick
+      apt:
+        name: "{{ item }}"
+        state: present
+        with_items:
+          - imagemagick
+
+
     - name: Install TLDR
       pip:
         name: tldr
