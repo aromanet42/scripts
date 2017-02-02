@@ -108,7 +108,7 @@ class GitRequests
 
       repo_name = get_repo_name pr
 
-      title=" [#{repo_name}] PR #{pull_request_number.to_s}"
+      title=" <action=`google-chrome -newtab \"#{pr['html_url']}\"`>[#{repo_name}] PR #{pull_request_number.to_s}</action>"
 
       if !pr_labels.empty?
         output += "<fc=##{pr_labels[0]['color']}>#{title}</fc>"
