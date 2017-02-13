@@ -521,10 +521,8 @@
 
     - name: Install Imagemagick
       apt:
-        name: "{{ item }}"
+        name: imagemagick
         state: present
-        with_items:
-          - imagemagick
 
 
     - name: Install TLDR
@@ -542,7 +540,15 @@
         dest: ~/.xsessionrc
         line: "nm-applet &"
 
-      
+    - name: Download Postman
+      tags: postman
+      command: curl -o /tmp/postman.tar.gz https://dl.pstmn.io/download/latest/linux64
+
+    - name: Extract Postman archive
+      tags: postman
+      unarchive:
+        src: /tmp/postman.tar.gz
+        dest: "{{ dev_dir}}"
 
 
 

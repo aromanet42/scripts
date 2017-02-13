@@ -7,6 +7,13 @@ Pour installer tout ça :
     bash install.sh
 
 
+Pour rejouer le script en local :
+
+    [sudo] ansible-playbook local.yml
+
+    ansible-playbook local.yml --tags postman
+
+
 Mutate
 ------
 
