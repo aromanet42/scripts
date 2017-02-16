@@ -5,7 +5,7 @@ require 'json'
 require 'date'
 require 'yaml'
 
-uri = URI("https://api.github.com/search/issues?q=author:#{ENV['REPO_USERNAME']}+is:open+type:pr")
+uri = URI("https://api.github.com/search/issues?q=involves:#{ENV['REPO_USERNAME']}+is:open+type:pr")
 
 
 class GitRequests
@@ -100,7 +100,9 @@ class GitRequests
 
     output=''
 
-    list_of_pr.each { |pr|
+    list_of_pr.select {|pr|
+      pr['user']['login'] == ENV['REPO_USERNAME'] || pr['assignees'].map{|a| a['login']}.include?(ENV['REPO_USERNAME'])
+    }.each { |pr|
 
       pull_request_number = pr['number']
 
