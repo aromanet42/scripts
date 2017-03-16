@@ -23,7 +23,7 @@
 
 [alias]
   lola = log --graph --decorate --abbrev-commit --all
-  loln = log --graph --abbrev-commit -n20 HEAD
+  loln = log --abbrev-commit -n20 HEAD
   lol = log --graph --decorate --abbrev-commit HEAD
   chk = checkout
   co = commit -m
@@ -42,6 +42,7 @@
   r = number rm
   rs = number reset HEAD
   cc = number checkout
+  prune-local = !sh -c \"git branch -vv | grep ': gone]' | cut -d' ' -f3 | xargs -r git branch -D\"
 
 [core]
   editor = vim
