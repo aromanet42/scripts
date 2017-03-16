@@ -4,6 +4,7 @@ require 'net/http'
 require 'json'
 require 'date'
 require 'yaml'
+require 'openssl'
 
 uri = URI("https://api.github.com/search/issues?q=involves:#{ENV['REPO_USERNAME']}+is:open+type:pr")
 
