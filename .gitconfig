@@ -73,3 +73,5 @@
   insteadOf = git:// #utilisation du protocole https au lieu de git lors d'un clone
 [fetch]
 	prune = true
+[gc]
+	pruneExpire = 1.week.ago
