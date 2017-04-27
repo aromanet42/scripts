@@ -524,10 +524,20 @@
         name: imagemagick
         state: present
 
+    - name: Install Xournal (PDF editor)
+      apt: 
+        name: xournal
+        state: present
+
 
     - name: Install TLDR
       pip:
         name: tldr
+        state: present
+
+    - name: Install NCDU (disk usage analyser)
+      apt:
+        name: ncdu
         state: present
 
     - name: Create Download directory in xsession
