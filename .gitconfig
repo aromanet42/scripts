@@ -43,6 +43,7 @@
   rs = number reset HEAD
   cc = number checkout
   prune-local = !sh -c \"git branch -vv | grep ': gone]' | cut -d' ' -f3 | xargs -r git branch -D\"
+  plz = push --force-with-lease
 
 [core]
   editor = vim
