@@ -71,9 +71,8 @@ class GitRequests
       json['_links']['statuses']['href']
     end
 
-    fetch_response URI(statuses_url), true do |json|
-      json.group_by{|it| it['context']}
-          .collect {|k, v| v.first['state']}
+    fetch_response URI(statuses_url.gsub('statuses', 'status')), true do |json|
+      json['statuses']
     end
   end
 
@@ -113,20 +112,28 @@ class GitRequests
 
       title=" <action=`google-chrome -newtab \"#{pr['html_url']}\"`>[#{repo_name}] PR #{pull_request_number.to_s}</action>"
 
-      if !pr_labels.empty?
+      unless pr_labels.empty? || pr_labels[0].nil?
         output += "<fc=##{pr_labels[0]['color']}>#{title}</fc>"
-      else
-
-        statuses = get_statuses pr
-
-        if statuses.include?('pending')
-          output += "<fc=#FFA500>#{title}</fc>"
-        elsif statuses.include?('failure')
-          output += "<fc=#FF0000>#{title}</fc>"
-	else
-          output += "<fc=#00FF00>#{title}</fc>"
-        end
       end
+
+
+
+      statuses = get_statuses pr
+
+      unless statuses.empty?
+        output += ': '
+
+        statuses.each { |status|
+          if status['state'] == 'pending'
+            output += "<fc=#FFA500>#{status['context']}</fc> "
+          elsif status['state'] == 'failure'
+            output += "<fc=#FF0000>#{status['context']}</fc> "
+          else
+            output += "<fc=#00FF00>#{status['context']}</fc> "
+          end
+        }
+      end
+
       output += ' - '
 
     }
