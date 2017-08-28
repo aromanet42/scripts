@@ -47,7 +47,7 @@ class GitRequests
       result = yield(result)
     end
 
-    if cache
+    if cache && !@next_results[request_uri].nil?
       @next_results[request_uri][:response] = result
     end
 
@@ -78,7 +78,10 @@ class GitRequests
 
   def load_last_results
     if File.exists?(TAG_FILENAME)
-      @last_results = YAML.load_file(TAG_FILENAME)
+      results = YAML.load_file(TAG_FILENAME)
+      if results
+	@last_results = results
+      end
     end
 
   end
@@ -96,6 +99,10 @@ class GitRequests
 
     list_of_pr = fetch_response uri, false do |json|
       json['items']
+    end
+
+    if list_of_pr.nil?
+      return
     end
 
     output=''
