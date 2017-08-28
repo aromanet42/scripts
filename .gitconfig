@@ -23,7 +23,7 @@
 
 [alias]
   lola = log --graph --decorate --abbrev-commit --all
-  loln = log --abbrev-commit -n20 HEAD
+  loln = log --abbrev-commit -n20 HEAD --first-parent
   lol = log --graph --decorate --abbrev-commit HEAD
   chk = checkout
   co = commit -m
@@ -36,8 +36,6 @@
   pushmaster = push origin master:aromanet
   mt = mergetool --tool=diffmerge -y
   dt = difftool --tool=diffmerge -y
-  search = !sh -c \"git log --format="%h" -n 1 --grep $1 | xargs git branch -a --contains\"
-  search-tag = !sh -c \" git log --format="%h" -n 1 --grep $1 | xargs git name-rev --tag --name-only\"
   a = number add -A
   r = number rm
   rs = number reset HEAD
