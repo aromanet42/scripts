@@ -129,6 +129,7 @@ myLayoutHook = smartBorders (avoidStruts
 --   cliquer sur la fenetre
 myManageHook = composeAll
   [ className =? "Gitk"           --> doFullFloat
+  , className =? "GitKraken"	  --> doFullFloat
   , className =? "Diffmerge"      --> doFullFloat
   , className =? "Pidgin"         --> doF (W.shift w9Id)
   , className =? "HipChat"        --> doF (W.shift w9Id)
