@@ -59,13 +59,6 @@ class GitRequests
     repo_url[(repo_url.rindex('/')+1)..-1]
   end
 
-  def get_labels(pr)
-    uri = URI(pr['labels_url'].gsub(/\{.*\}/, ''))
-    fetch_response uri, true do |json|
-      json
-    end
-  end
-
   def get_statuses(pr)
     statuses_url = fetch_response URI(pr['pull_request']['url']), true do |json|
       json['_links']['statuses']['href']
@@ -113,15 +106,11 @@ class GitRequests
 
       pull_request_number = pr['number']
 
-      pr_labels = get_labels pr
-
       repo_name = get_repo_name pr
 
       title=" <action=`google-chrome -newtab \"#{pr['html_url']}\"`>[#{repo_name}] PR #{pull_request_number.to_s}</action>"
 
-      unless pr_labels.empty? || pr_labels[0].nil?
-        output += "<fc=##{pr_labels[0]['color']}>#{title}</fc>"
-      end
+      output += "<fc=#b6b6b6>#{title}</fc>"
 
 
 
