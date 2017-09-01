@@ -20,7 +20,7 @@
   vars: 
     script_dir: "{{ absolute_path.stat.path }}"
     dev_dir: "{{ dev_abs_path.stat.path }}"
-    maven_version: "3.3.9"
+    maven_version: "3.5.0"
 
   tasks:
 
@@ -306,62 +306,6 @@
         src: "{{ dev_dir }}/apache-maven-{{ maven_version }}"
         dest: "{{ dev_dir }}/maven"
         state: link
-
-    - name: Download Maven Color Metadats
-      tags: 
-        - maven
-      uri: 
-        url: http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/color/maven-color-logback/maven-metadata.xml
-        return_content: yes
-      register: maven_color_metadata
-
-    - name: Retrieve Maven color version
-      tags: 
-        - maven
-      xml:
-        xmlstring: "{{ maven_color_metadata.content }}"
-        xpath: /metadata/versioning/release
-        content: text
-      register: last_maven_color_version
-
-    - name: Download Maven Color
-      tags: 
-        - maven
-      get_url:
-        url: "http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/color/maven-color-logback/{{ last_maven_color_version.matches[0].release }}/maven-color-logback-{{ last_maven_color_version.matches[0].release }}-bundle.tar.gz"
-        dest: /tmp/maven-color.tar.gz
-
-    - name: Extract Maven Color
-      tags: 
-        - maven
-      unarchive:
-        src: /tmp/maven-color.tar.gz
-        dest: "{{ dev_dir}}/maven/"
-
-    - name: Copy Maven Color config
-      tags: 
-        - maven 
-      file:
-        src: "{{ script_dir }}/maven.color"
-        dest: ~/.m2/maven.color
-        state: link
-
-    - name: Find Slf4j Maven lib
-      tags: 
-        - maven
-      find:
-        path: "{{ dev_dir }}/maven/lib"
-        pattern: "slf4j-simple-1.7.*.jar"
-      register: slf4_files
-
-    - name: Remove Slf4j from Maven libs
-      tags: 
-        - maven
-      file:
-        path: "{{ item.path }}"
-        state: absent
-      with_items: "{{ slf4_files.files}}"
-
 
     - name: Install Xmonad
       apt:
