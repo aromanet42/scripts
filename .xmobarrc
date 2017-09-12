@@ -26,11 +26,12 @@ Config { font = "xft:Sans Serif-9:normal"
                     , Run Swap [] 10
                     , Run Date "%a %d/%m %k:%M" "date" 10
                     , Run StdinReader
+		    , Run PipeReader " :/tmp/notif" "notif"
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/sound_volume.sh"] "volume" 2
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "specific_branch", "12.SPECIFIC%20BRANCH%20PIPELINE"] "jenkins" 5
 		    , Run Com "sh" ["/home/aromanet/.xmonad/bin/launchRuby.sh", "pull_request"] "pr" 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %pr% %jenkins% | %volume% | %cpu% | %memory% * %swap% | %battery% | <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader%   %notif% }{ %pr% %jenkins% | %volume% | %cpu% | %memory% * %swap% | %battery% | <fc=#ee9a00>%date%</fc>"
 }
