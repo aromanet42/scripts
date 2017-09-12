@@ -5,8 +5,23 @@ Config { font = "xft:Sans Serif-9:normal"
        --, position = Static { xpos = 0 , ypos = 0 , width = 96 , height = 16 }
        , lowerOnStart = False
        , commands = [ Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-       		    , Run Com "ruby" ["/home/aromanet/.xmonad/bin/battery.rb"] "battery" 2
-                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+       		    , Run Battery ["--template", " ⚡ <acstatus>" -- acstatus will be built with 'more options' bellow
+		    	 , "--Low", "20"         -- in %
+			 , "--High", "80"        -- in %
+			 , "--low", "red"        -- color when <left>  < Low
+			 , "--normal", "orange"  -- color when         > Low AND < High
+			 , "--high", "green"     -- color when         > High
+
+			 , "--"                  -- more options to build <acstatus>
+			    , "-o", "<left>%"                    -- Discharging status. <left> = % of battery left
+			    , "-O", "<fc=#DAA520>Charging</fc>"  -- AC "on" status
+			    , "-i", "<fc=#006000>Charged</fc>"   -- Charged status
+		         ] 50
+                    , Run Cpu [ "-L", "3"             -- in %
+			      , "-H", "50"            -- in %
+			      , "--normal", "green"   -- color when CPU > L
+			      , "--high", "red"       -- color when CPU > H
+			 ] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Date "%a %d/%m %k:%M" "date" 10
