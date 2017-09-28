@@ -98,46 +98,36 @@ class GitRequests
       return
     end
 
-    output=''
-
-    list_of_pr.select {|pr|
+    all_output=list_of_pr.select {|pr|
       pr['user']['login'] == ENV['REPO_USERNAME'] || pr['assignees'].map{|a| a['login']}.include?(ENV['REPO_USERNAME'])
-    }.each { |pr|
-
+    }.map { |pr|
       pull_request_number = pr['number']
-
       repo_name = get_repo_name pr
 
       title=" <action=`google-chrome -newtab \"#{pr['html_url']}\"`>[#{repo_name}] PR #{pull_request_number.to_s}</action>"
-
-      output += "<fc=#b6b6b6>#{title}</fc>"
-
-
+      output = "<fc=#b6b6b6>#{title}</fc>"
 
       statuses = get_statuses pr
-
       unless statuses.empty?
         output += ': '
-
-        statuses.each { |status|
+        output += statuses.map { |status|
           if status['state'] == 'pending'
-            output += "<fc=#FFA500>#{status['context']}</fc> "
+            "<fc=#FFA500>#{status['context']}</fc> "
           elsif status['state'] == 'failure'
-            output += "<fc=#FF0000>#{status['context']}</fc> "
+            "<fc=#FF0000>#{status['context']}</fc> "
           else
-            output += "<fc=#00FF00>#{status['context']}</fc> "
+            "<fc=#00FF00>#{status['context']}</fc> "
           end
-        }
+        }.join('• ')
       end
 
-      output += ' - '
-
-    }
+      output
+    }.join(' - ')
 
     # Writing result to file. If next API call is 'Not Modified' then we'll use this
     print_new_results
 
-    output
+    all_output
 
   end
 
