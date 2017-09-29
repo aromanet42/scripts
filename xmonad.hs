@@ -127,6 +127,9 @@ myLayoutHook = smartBorders (avoidStruts
 -- title :
 --   xprop | grep WM_NAME
 --   cliquer sur la fenetre
+-- role :
+--   xprop | grep WM_WINDOW_ROLE
+--   cliquer sur la fenetre
 myManageHook = composeAll
   [ className =? "Gitk"           --> doFullFloat
   , className =? "GitKraken"	  --> doFullFloat
@@ -134,12 +137,14 @@ myManageHook = composeAll
   , className =? "Pidgin"         --> doF (W.shift w9Id)
   , className =? "HipChat"        --> doF (W.shift w9Id)
   , className =? "jetbrains-idea" --> doF (W.shift w3Id)
+  , role      =? "gimp-message-dialog"   --> doFloat
   , title     =? "Postman"        --> doF (W.shift w4Id)
   -- , className =? "Thunderbird"    --> doF (W.shift w8Id)
   , title =? "Do"                 --> doFloat
   , manageDocks  -- manageDocks pour que le trayer apparaisse sur tous les workspaces du monitor, et pas seulement le 1er
   , manageSpawn
   ]
+  where role = stringProperty "WM_WINDOW_ROLE"
 
 main = do
       xmproc <- spawnPipe "xmobar"
