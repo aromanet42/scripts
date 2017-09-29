@@ -15,7 +15,7 @@ Config { font = "xft:Sans Serif-9:normal"
 			 , "--"                  -- more options to build <acstatus>
 			    , "-o", "<left>%"                    -- Discharging status. <left> = % of battery left
 			    , "-O", "<fc=#DAA520>Charging</fc>"  -- AC "on" status
-			    , "-i", "<fc=#006000>Charged</fc>"   -- Charged status
+			    , "-i", "<fc=#00FF00>100%</fc>"   -- Charged status
 		         ] 50
                     , Run Cpu [ "-L", "3"             -- in %
 			      , "-H", "50"            -- in %
