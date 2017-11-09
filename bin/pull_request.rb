@@ -104,19 +104,24 @@ class GitRequests
       pull_request_number = pr['number']
       repo_name = get_repo_name pr
 
-      title=" <action=`google-chrome -newtab \"#{pr['html_url']}\"`>[#{repo_name}] PR #{pull_request_number.to_s}</action>"
+      title=" <action=`google-chrome -newtab \"#{pr['html_url']}\"`>#{repo_name}\##{pull_request_number.to_s}</action>"
       output = "<fc=#b6b6b6>#{title}</fc>"
 
       statuses = get_statuses pr
       unless statuses.empty?
         output += ': '
         output += statuses.map { |status|
+	  status_name = status['context']
+	  if status_name.downcase.end_with? '-pr'
+	    status_name = 'pr'
+	  end
+
           if status['state'] == 'pending'
-            "<fc=#FFA500>#{status['context']}</fc> "
+            "<fc=#FFA500>#{status_name}</fc> "
           elsif status['state'] == 'failure'
-            "<fc=#FF0000>#{status['context']}</fc> "
+            "<fc=#FF0000>#{status_name}</fc> "
           else
-            "<fc=#00FF00>#{status['context']}</fc> "
+            "<fc=#00FF00>#{status_name}</fc> "
           end
         }.join('• ')
       end
