@@ -61,6 +61,9 @@ class GitRequests
 
   def get_statuses(pr)
     statuses_url = fetch_response URI(pr['pull_request']['url']), true do |json|
+      if json['message']
+	raise RuntimeError, json['message']
+      end
       json['_links']['statuses']['href']
     end
 
@@ -107,7 +110,12 @@ class GitRequests
       title=" <action=`google-chrome -newtab \"#{pr['html_url']}\"`>#{repo_name}\##{pull_request_number.to_s}</action>"
       output = "<fc=#b6b6b6>#{title}</fc>"
 
-      statuses = get_statuses pr
+      begin
+	statuses = get_statuses pr
+      rescue RuntimeError
+	statuses = []
+      end
+
       unless statuses.empty?
         output += ': '
         output += statuses.map { |status|
