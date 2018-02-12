@@ -122,16 +122,20 @@ class GitRequests
 	  status_name = status['context']
 	  if status_name.downcase.end_with? '-pr'
 	    status_name = 'pr'
+	  elsif status_name.downcase.include? 'test'
+	    status_name = 'qa'
+	  else
+	    status_name = nil
 	  end
 
           if status['state'] == 'pending'
-            "<fc=#FFA500>#{status_name}</fc> "
+            "<fc=#FFA500>#{status_name || '?'}</fc> "
           elsif status['state'] == 'failure'
-            "<fc=#FF0000>#{status_name}</fc> "
+            "<fc=#FF0000>#{status_name || 'x'}</fc> "
           else
-            "<fc=#00FF00>#{status_name}</fc> "
+            "<fc=#00FF00>#{status_name || '✓'}</fc> "
           end
-        }.join('• ')
+        }.sort.join('')
       end
 
       output
