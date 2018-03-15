@@ -504,6 +504,12 @@
         src: /tmp/postman.tar.gz
         dest: "{{ dev_dir}}"
 
+    - name: Install Emoji font
+      apt:
+        name: ttf-ancient-fonts
+        state: present
+
+
 
 
 
