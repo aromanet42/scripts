@@ -1,4 +1,4 @@
-Config { font = "xft:Sans Serif-9:normal"
+Config { font = "xft:Deja Vu Sans:size=9:normal"
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 96
