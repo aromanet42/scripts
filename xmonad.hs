@@ -73,6 +73,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
     , ((0, 0x1008FF13), spawn "amixer sset Master 2+")
     , ((0, 0xff61), spawn "~/.xmonad/bin/printscreen.sh")	--print screen with crop
     , ((modMask, 0xff61), spawn "~/.xmonad/bin/printwindow.sh")	--select window to print
+    , ((modMask .|. shiftMask, 0xff61), spawn "xvidcap")        --capture video from screen
 
     , ((0 .|. modMask, xK_a), windows $ W.greedyView w9Id)
     , ((shiftMask .|. modMask, xK_a), windows $ W.shift w9Id)
