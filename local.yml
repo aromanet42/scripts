@@ -82,6 +82,12 @@
         dest: ~/.config/git/ignore
         state: link
 
+    - name: Sym link to Git template files
+      file:
+        src: "{{ script_dir }}/git-templates"
+        dest: ~/.git-templates
+        state: link
+
     - name: Install Vim
       apt:
         name: "{{ item }}"

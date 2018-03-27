@@ -73,3 +73,5 @@
 	prune = true
 [gc]
 	pruneExpire = 1.week.ago
+[init]
+	templatedir = ~/.git-templates
