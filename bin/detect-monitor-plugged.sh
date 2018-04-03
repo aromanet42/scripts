@@ -5,7 +5,7 @@ CURRENT_XRANDR=mono
 while true
 do
 
-  connectedHDMI=`xrandr -q | grep " connected" | grep HDMI. -o`
+  connectedHDMI=`xrandr -q | grep " connected" | grep -E "(^DP.|HDMI.)" -o`
 
   if [ "$connectedHDMI" != "" ] && [ "$CURRENT_XRANDR" = "mono" ]
   then
