@@ -113,7 +113,7 @@ function peco-select-history() {
   zle clear-screen
 }
 
-if hash peco 2>/dev/null; then
+if which peco &> /dev/null; then
   zle -N peco-select-history
   bindkey '^r' peco-select-history
 else
