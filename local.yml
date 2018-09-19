@@ -516,6 +516,14 @@
         state: present
 
 
+    - name: Allow everyone to check for updates
+      blockinfile:
+        path: /etc/sudoers
+        state: present
+        block: |
+          Cmnd_Alias UPDATE_OS = {{script_dir}}/checkupdates.sh
+          ALL ALL = NOPASSWD:UPDATE_OS
+        validate: '/usr/sbin/visudo -cf %s'
 
 
 
