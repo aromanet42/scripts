@@ -361,9 +361,16 @@
         state: present
 
     - name: Add Trayer in Xsession
-      lineinfile:
+      blockinfile:
         dest: ~/.xsessionrc
-        line: "/usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  --widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 16 --monitor primary &"
+        block: |
+          start_trayer() {
+              sleep 2s # DisplayPort screen takes some time to be detected as Primary
+              /usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  --widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 16 --monitor primary &
+          }
+
+          start_trayer &
+
 
     - name: Copy XmodMap config
       file:
