@@ -135,17 +135,10 @@
         name: arandr
         state: present
 
-    - name: Copy ARandr config
-      become: yes
-      file: 
-        src: "{{ script_dir }}/bin/detect-monitor-plugged.sh"
-        dest: "/usr/bin/detect-monitor-plugged.sh"
-        state: link
-
-    - name: Start Monitor detection in xsession
-      lineinfile:
-        dest: ~/.xsessionrc
-        line: "/usr/bin/detect-monitor-plugged.sh &"
+    - name: Install autorandr - Automatically select a display configuration based on connected devices
+      pip:
+        name: autorandr
+        state: present
 
     - name: Add Apt-key for Chrome
       become: yes
