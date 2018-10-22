@@ -47,7 +47,7 @@ myWorkspaces = [w1Id, w2Id, w3Id, w4Id, w5Id, w6Id, w7Id, w8Id, w9Id]
 
 myInternet = "google-chrome --allow-file-access-from-files"
 myIDE = "~/.xmonad/bin/idea.sh"
-myIM = "~/.xmonad/launch/im.sh"
+myIM = "~/.xmonad/bin/launch-im.sh"
 -- terminal
 myTerminal = "terminator"
 -- myMail = "thunderbird"
@@ -137,6 +137,7 @@ myManageHook = composeAll
   , className =? "Diffmerge"      --> doFullFloat
   , className =? "Pidgin"         --> doF (W.shift w9Id)
   , className =? "HipChat"        --> doF (W.shift w9Id)
+  , className =? "Slack"          --> doF (W.shift w9Id)
   , className =? "jetbrains-idea" --> doF (W.shift w3Id)
   , role      =? "gimp-message-dialog"   --> doFloat
   , title     =? "Postman"        --> doF (W.shift w4Id)
