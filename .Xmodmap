@@ -11,33 +11,6 @@ add mod4 = Super_L Hyper_L
 
 !ISO_Level3_Shift = AltGr
 
-!definition de touches
-!keycode <keycode> = <char1> <char2> <char3> <char4> <char5> <char6>
-!char1 = touche seule
-!char2 = Shift + Key
-!char3 = <mod3> + Key
-!char4 = <mod3> + Shift + Key
-!char5 = <mod5> + Key
-!char6 = <mod5> + Shift + Key
-!
-!Keycode peut être trouvé grace à la commande xev
-!exemple de resultat pour le caractère copyright :
-!KeyRelease event, serial 32, synthetic NO, window 0x2e00001,
-!    root 0x2ba, subw 0x0, time 191763442, (655,206), root:(2576,207),
-!    state 0x91, keycode 54 (keysym 0xa9, copyright), same_screen YES,
-!    XLookupString gives 2 bytes: (c2 a9) "©"
-!    XFilterEvent returns: False
-!
-!=> on voit que ce caractère est associée au keycode 54 (touche C)
-!=> son code hexa est 0xa9 => utiliser U00A9
-!=> son nom est copyright
-!
-!les codes pour charX sont:
-! - le nom du caractère (par ex : a, copyright)
-! - le code decimal (par ex : 169 pour copyright)
-! - le code hexa (par ex : U00A9 pour copyright)
-!
-! Préferer le nom du caractère pour faciliter la recherche
 
 !< > ≤ ≥ | ¦
 keycode 94 = less greater lessthanequal greaterthanequal bar brokenbar
