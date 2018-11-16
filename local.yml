@@ -34,6 +34,7 @@
       shell: ansible-galaxy install cmprescott.xml
 
     - name: Remove Cowsay
+      become: yes
       apt:
         name: cowsay
         state: absent
@@ -52,11 +53,13 @@
         state: directory
 
     - name: Install Gnome-settings-daemon
+      become: yes
       apt:
         name: gnome-settings-daemon
         state: present
 
     - name: Install Git
+      become: yes
       apt:
         name: "{{ item }}"
         state: present
@@ -99,6 +102,7 @@
         state: link
 
     - name: Install Vim
+      become: yes
       apt:
         name: "{{ item }}"
         state: present
@@ -135,6 +139,7 @@
         - { gituser: "vim-scripts", gitrepo: "csv.vim" }
     
     - name: Install Terminator
+      become: yes
       apt:
         name: terminator
         state: present
@@ -152,11 +157,13 @@
         state: link
 
     - name: Install ARandr
+      become: yes
       apt: 
         name: arandr
         state: present
 
     - name: Install autorandr - Automatically select a display configuration based on connected devices
+      become: yes
       pip:
         name: autorandr
         state: present
@@ -167,17 +174,20 @@
         url: https://dl-ssl.google.com/linux/linux_signing_key.pub
 
     - name: Add Chrome Repo into sources list
+      become: yes
       apt_repository:
         repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
         state: present
         update_cache: yes
 
     - name: Install Chrome
+      become: yes
       apt:
         name: google-chrome-stable
         state: present
 
     - name: Install Httpie
+      become: yes
       pip:
         name: httpie
         state: present
@@ -189,6 +199,7 @@
         mode: 0755
 
     - name: Install ZSH
+      become: yes
       apt:
         name: zsh
         state: present
@@ -464,6 +475,7 @@
       when: "{{ screensaver_present.rc }} != 0"
 
     - name: Install some usefull tools
+      become: yes
       apt:
         name: "{{ item }}"
         state: present
@@ -475,6 +487,7 @@
         - curl
 
     - name: Install lightweight image editor
+      become: yes
       apt:
         name: "{{ item }}"
         state: present
@@ -486,22 +499,26 @@
         - kolourpaint4
 
     - name: Install Imagemagick
+      become: yes
       apt:
         name: imagemagick
         state: present
 
     - name: Install Xournal (PDF editor)
+      become: yes
       apt: 
         name: xournal
         state: present
 
 
     - name: Install TLDR
+      become: yes
       pip:
         name: tldr
         state: present
 
     - name: Install NCDU (disk usage analyser)
+      become: yes
       apt:
         name: ncdu
         state: present
@@ -527,12 +544,14 @@
         dest: "{{ dev_dir}}"
 
     - name: Install Emoji font
+      become: yes
       apt:
         name: ttf-ancient-fonts
         state: present
 
 
     - name: Allow everyone to check for updates
+      become: yes
       blockinfile:
         path: /etc/sudoers
         state: present
