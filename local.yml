@@ -61,11 +61,8 @@
     - name: Install Git
       become: yes
       apt:
-        name: "{{ item }}"
+        name: ['git', 'gitk']
         state: present
-      with_items:
-        - git
-        - gitk
 
     - name: Create Workspace directory
       file: 
@@ -104,11 +101,8 @@
     - name: Install Vim
       become: yes
       apt:
-        name: "{{ item }}"
+        name: ['vim', 'vim-gtk']
         state: present
-      with_items:
-        - vim
-        - vim-gtk
 
     - name: Create Vim config directory
       file:
@@ -477,26 +471,14 @@
     - name: Install some usefull tools
       become: yes
       apt:
-        name: "{{ item }}"
+        name: ['libxml2-utils', 'ack-grep', 'htop', 'scrot', 'curl']
         state: present
-      with_items:
-        - libxml2-utils
-        - ack-grep
-        - htop
-        - scrot
-        - curl
 
     - name: Install lightweight image editor
       become: yes
       apt:
-        name: "{{ item }}"
+        name: ['oxygen-icon-theme', 'kdelibs-bin', 'kdelibs5-data', 'kdelibs5-plugins', 'kolourpaint4']
         state: present
-      with_items:
-        - oxygen-icon-theme
-        - kdelibs-bin
-        - kdelibs5-data
-        - kdelibs5-plugins
-        - kolourpaint4
 
     - name: Install Imagemagick
       become: yes
