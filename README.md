@@ -102,10 +102,3 @@ Ajouter de la completion sur une fonction :
     autoload -U _git-checkout
 
 
-Scripts utilitaires
-===================
-
-colortail
----------
-Permet de tail un fichier tout en mettant en valeur certains patterns
-
