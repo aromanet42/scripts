@@ -198,13 +198,21 @@
         name: zsh
         state: present
 
-    - name: Retrieve Oh-My-Zsh theme installer
-      get_url:
-        url: https://github.com/lucmazon/custom-zsh/raw/master/install.sh
-        dest: /tmp/zsh-installer.sh
+    - name: Download Oh-My-Zsh
+      git:
+        repo: https://github.com/robbyrussell/oh-my-zsh.git
+        dest: "~/.oh-my-zsh"
+        update: no
 
-    - name: Install Oh-My-Zsh theme
-      script: /tmp/zsh-installer.sh
+    - name: Retrieve current username
+      local_action: command whoami
+      register: current_user
+
+    - name: Change user shell to zsh
+      user:
+        name: "{{ current_user.stdout }}"
+        shell: /bin/zsh
+      become: yes
 
     - name: Create Oh-My-Zsh completion directory
       file: 
@@ -222,6 +230,7 @@
       file: 
         src: "{{ script_dir }}/.zshrc"
         dest: "~/.zshrc"
+        force: yes
         state: link
 
     - name: Copy Zsh themes
@@ -279,6 +288,13 @@
       copy:
         src: /tmp/peco_linux_amd64/peco
         dest: ~/bin/peco
+
+    - name: Make peco executable
+      tags:
+        - peco
+      file:
+        path: ~/bin/peco
+        mode: a+x
 
     - name: Clone Fasd Repo
       git:
@@ -528,9 +544,8 @@
     - name: Install Emoji font
       become: yes
       apt:
-        name: ttf-ancient-fonts
+        name: ['ttf-ancient-fonts', 'fonts-powerline']
         state: present
-
 
     - name: Allow everyone to check for updates
       become: yes
