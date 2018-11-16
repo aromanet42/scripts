@@ -343,122 +343,11 @@
         dest: "{{ dev_dir }}/maven"
         state: link
 
-    - name: Install Xmonad
-      apt:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - xmonad
-        - libghc-xmonad-contrib-dev
-        - libghc-xmonad-dev
-
-    - name: Add Xmonad in xsessionrc
-      lineinfile:
-        dest: ~/.xsession
-        line: "xmonad"
-
-    - name: Create xmonad Directory
-      file:
-        path: ~/.xmonad
-        state: directory
-
-    - name: Copy Xmonad Config
-      file:
-        src: "{{ script_dir }}/xmonad.hs"
-        dest: ~/.xmonad/xmonad.hs
-        state: link
-
-    - name: Install XMobar
-      apt: 
-        name: xmobar
-        state: present
-
-    - name: Copy Xmobar config
-      file:
-        src: "{{ script_dir }}/.xmobarrc"
-        dest: ~/.xmobarrc
-        state: link
-
-    - name: Copy binaries for xmonad
-      file: 
-        src: "{{ script_dir }}/bin"
-        dest: ~/.xmonad/bin
-        state: link
-
-    - name: Install Trayer
-      apt:
-        name: trayer
-        state: present
-
-    - name: Add Trayer in Xsession
-      blockinfile:
-        dest: ~/.xsessionrc
-        block: |
-          start_trayer() {
-              sleep 2s # DisplayPort screen takes some time to be detected as Primary
-              /usr/bin/trayer --edge top  --align right --SetDockType true --SetPartialStrut false  --expand true  --widthtype percent --width 4 --transparent true --alpha 0  --tint 0x000000 --height 16 --monitor primary &
-          }
-
-          start_trayer &
-
-
     - name: Copy XmodMap config
       file:
         src: "{{ script_dir }}/.Xmodmap"
         dest: ~∕.Xmodmap
         state: link
-
-    # there is an issue about ppa repositories and Linux Mint
-    # https://github.com/ansible/ansible-modules-core/issues/4282
-    # when this issue will be resolved, please uncomment apt_repository, and delete shell task and 'update apt' task and 'check if mutate is present' task
-    - name: Check if mutate is present
-      tags:
-        - mutate
-      shell: type "mutate"
-      register: mutate_present
-      ignore_errors: yes
-
-    - name: Add Mutate APT Repository
-      tags:
-        - mutate
-      # apt_repository:
-        # repo: "ppa:mutate/ppa"
-        # state: present
-      become: yes
-      shell: add-apt-repository ppa:mutate/ppa -y
-      when: "{{ mutate_present.rc }} != 0"
-
-    - name: update apt
-      become: yes
-      tags:
-        - mutate
-      apt:
-        update_cache: yes
-      when: "{{ mutate_present.rc }} != 0"
-
-    - name: Install Mutate
-      tags:
-        - mutate
-      apt:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - g++
-        - mutate
-
-    - name: Install SymPy - Python library for Mutate Calc
-      tags:
-        - mutate
-      pip: 
-        name: sympy
-        state: present
-
-    - name: Add Mutate in XSession
-      tags:
-        - mutate
-      lineinfile:
-        dest: ~/.xsessionrc
-        line: "mutate &"
 
     - name: Check if Screensaver is present
       tags:
@@ -525,11 +414,6 @@
       lineinfile:
         dest: ~/.xsessionrc
         line: "mkdir -p /tmp/Downloads"
-
-    - name: Add tool displaying network status in trayer in xsession
-      lineinfile:
-        dest: ~/.xsessionrc
-        line: "nm-applet &"
 
     - name: Download Postman
       tags: postman
