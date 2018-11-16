@@ -1,6 +1,4 @@
 - hosts: localhost
-  roles:
-    - { role: cmprescott.xml }
 
   pre_tasks:
     - name: Retrieve script absolute path
@@ -9,6 +7,13 @@
       stat: 
         path: "~/workspace/scripts"
       register: absolute_path
+
+    - name: Create devtools directory
+      tags:
+        - always
+      file:
+        path: "~/dev"
+        state: directory
 
     - name: Retrieve dev absolute path
       tags:
@@ -40,6 +45,11 @@
         line: "#!/bin/sh"
         insertbefore: BOF
         state: present
+
+    - name: Create user bin directory
+      file:
+        path: ~/bin
+        state: directory
 
     - name: Install Gnome-settings-daemon
       apt:
@@ -96,6 +106,11 @@
         - vim
         - vim-gtk
 
+    - name: Create Vim config directory
+      file:
+        path: ~/.vim
+        state: directory
+
     - name: Sym link to Vim conf
       file:
         src: "{{ item.src }}"
@@ -123,6 +138,12 @@
       apt:
         name: terminator
         state: present
+
+    - name: Create Terminator config dir
+      file:
+        path: "~/.config/terminator"
+        state: directory
+        recurse: yes
 
     - name: Copy Terminator config
       file: 
@@ -264,11 +285,6 @@
       make: 
         chdir: /tmp/fasd
         target: install
-
-    - name: Create devtools directory
-      file:
-        path: "{{ dev_dir }}"
-        state: directory
 
     - name: Add devtools directory to path
       lineinfile:
