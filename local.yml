@@ -376,6 +376,12 @@
         dest: ~/.config/i3status/config
         state: link
 
+    - name: Copy i3 'switch workspace' script
+      file:
+        src: "{{ script_dir }}/i3/switch-workspace.py"
+        dest: ~/.config/i3/switch-workspace.py
+        state: link
+
     - name: Install some usefull tools
       become: yes
       apt:
