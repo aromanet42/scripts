@@ -349,29 +349,32 @@
         dest: ~∕.Xmodmap
         state: link
 
-    - name: Check if Screensaver is present
-      tags:
-        - screensaver
-      shell: type "gnome-screessnsaver"
-      register: screensaver_present
-      ignore_errors: yes
-
-    - name: Install Screensaver if needed
+    - name: Install i3
       become: yes
-      tags:
-        - screensaver
       apt:
-        name: xscreensaver
+        name: i3
         state: present
-      when: "{{ screensaver_present.rc }} != 0"
-         
-    - name: Add Screensaver to Xsession
-      tags: 
-        - screensaver
-      lineinfile:
-        dest: ~/.xsessionrc
-        line: "xscreensaver &"
-      when: "{{ screensaver_present.rc }} != 0"
+
+    - name: Mkdir i3 config directories
+      file: 
+        path: "~/.config/{{ item }}"
+        state: directory
+        recurse: yes
+      with_items: 
+        - i3
+        - i3status
+
+    - name: Copy i3 config
+      file:
+        src: "{{ script_dir }}/i3.conf"
+        dest: ~/.config/i3/config
+        state: link
+
+    - name: Copy i3status config
+      file:
+        src: "{{ script_dir }}/i3status.conf"
+        dest: ~/.config/i3status/config
+        state: link
 
     - name: Install some usefull tools
       become: yes
