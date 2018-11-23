@@ -351,11 +351,15 @@
 
     - name: Install i3
       become: yes
+      tags:
+        - i3
       apt:
         name: i3
         state: present
 
     - name: Mkdir i3 config directories
+      tags:
+        - i3
       file: 
         path: "~/.config/{{ item }}"
         state: directory
@@ -365,6 +369,8 @@
         - i3status
 
     - name: Copy i3 config
+      tags:
+        - i3
       file:
         src: "{{ script_dir }}/i3.conf"
         dest: ~/.config/i3/config
@@ -377,6 +383,8 @@
         state: link
 
     - name: Copy i3 'switch workspace' script
+      tags:
+        - i3
       file:
         src: "{{ script_dir }}/i3/switch-workspace.py"
         dest: ~/.config/i3/switch-workspace.py
