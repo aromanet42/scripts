@@ -357,16 +357,13 @@
         name: i3
         state: present
 
-    - name: Mkdir i3 config directories
+    - name: Mkdir i3 config directory
       tags:
         - i3
       file: 
-        path: "~/.config/{{ item }}"
+        path: "~/.config/i3"
         state: directory
         recurse: yes
-      with_items: 
-        - i3
-        - i3status
 
     - name: Copy i3 config
       tags:
@@ -376,12 +373,6 @@
         dest: ~/.config/i3/config
         state: link
 
-    - name: Copy i3status config
-      file:
-        src: "{{ script_dir }}/i3status.conf"
-        dest: ~/.config/i3status/config
-        state: link
-
     - name: Copy i3 'switch workspace' script
       tags:
         - i3
@@ -389,6 +380,32 @@
         src: "{{ script_dir }}/i3/switch-workspace.py"
         dest: ~/.config/i3/switch-workspace.py
         state: link
+
+    - name: Copy my3status config files
+      tags:
+        - i3
+      file:
+        src: "{{ script_dir }}/my3status"
+        dest: ~/.config/my3status
+        state: link
+
+    - name: Add apt-key for yarn
+      become: yes
+      apt_key:
+        url: https://dl.yarnpkg.com/debian/pubkey.gpg
+
+    - name: Add Yarn repo into sources list
+      become: yes
+      apt_repository:
+        repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+        state: present
+        update_cache: yes
+
+    - name: Install yarn
+      become: yes
+      apt:
+        name: yarn
+        state: present
 
     - name: Install some usefull tools
       become: yes
