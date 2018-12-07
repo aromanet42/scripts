@@ -89,11 +89,27 @@ function getPrInfo() {
         return Promise.all(prs.map(mapPr));
 
     }).catch(e => {
+        if (e.headers && e.statusCode) {
+
+            // this is an API error. We only log useful infos
+            return {
+                color: '#FF0000',
+                name: 'github_pr',
+                full_text: 'Error while fetching github PRs. ' + utils.logError({
+                    headers: e.headers,
+                    statusCode: e.statusCode,
+                    statusMessage: e.statusMessage
+                })
+            };
+        }
+
+        // we don't know what error it is. We log all we have
         return {
             color: '#FF0000',
             name: 'github_pr',
             full_text: 'Error while fetching github PRs. ' + utils.logError(e)
-        }
+        };
+
     });
 }
 
