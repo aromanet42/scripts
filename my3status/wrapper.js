@@ -17,6 +17,9 @@ const configuration = [{
     script: require('./volume.js'),
     interval: 5
 }, {
+    script: require('./battery.js'),
+    interval: 5
+}, {
     script: require('./date.js'),
 }];
 
