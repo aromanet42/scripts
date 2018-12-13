@@ -34,6 +34,7 @@ console.log("{\"version\":1, \"click_events\": true}");
 console.log("[");
 
 let firstRun = true;
+let i3bar = [];
 
 function doIt() {
 
@@ -60,17 +61,19 @@ function doIt() {
         const prefix = firstRun ? "" : ",";
 
         Promise.all(all_promises).then(blocks => {
-            let i3bar = [];
+	    let newI3bar = [];
             blocks.forEach((block, idx) => {
                 configuration[idx].cache = block;
 
                 if (Array.isArray(block)) {
-                    i3bar = i3bar.concat(block);
+                    newI3bar = newI3bar.concat(block);
                 } else {
-                    i3bar.push(block);
+                    newI3bar.push(block);
                 }
             });
 
+	    // updating i3bar once all calculations are done
+	    i3bar = newI3bar;
             console.log(prefix + JSON.stringify(i3bar));
 
             firstRun = false;
@@ -79,5 +82,44 @@ function doIt() {
 
     }, 1000);
 }
+
+// listening to stdin to handle click events
+const stdin = process.stdin;
+const exec = require('child_process').exec;
+const logError = require('./module_utils').logError;
+
+stdin.resume();
+stdin.on('data', chunk => {
+  // remove leading '[' or ','
+  const cleanedChunk = chunk.toString().replace(/^\[/, '').replace(/^,/, '');
+  const jsonChunk = JSON.parse(cleanedChunk);
+
+  const clickedItem = i3bar.find(i => i.name === jsonChunk.name);
+
+  if(clickedItem) {
+    const command = clickedItem['_onclick'];
+
+    if(command) {
+      exec(command, function(err) {
+	if(err) {
+	  logError({
+	    message: 'Error while executing command',
+	    command: command,
+	    error: err,
+	  });
+	}
+      });
+    } else {
+      logError(`Item "${clickedItem.name}" was clicked but no '_onclick' command was found`);
+    }
+
+  } else {
+    logError({
+      ...jsonChunk,
+      errorMessage: 'Could not find i3bar item',
+    });
+  }
+
+});
 
 doIt();

@@ -76,7 +76,8 @@ function mapPr(pr) {
         return {
             name: 'github_pr' + pr.id,
             full_text: output,
-            markup: 'pango' // to be able for format full_text with colors
+            markup: 'pango', // to be able for format full_text with colors
+	    _onclick: `google-chrome-stable -newtab ${pr['html_url']}`,
         };
     });
 }
