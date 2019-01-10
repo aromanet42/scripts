@@ -7,17 +7,27 @@ add mod5 = ISO_Level3_Shift
 add mod4 = Super_L Hyper_L
 
 
-!< > ≤ ≥ | ¦
-keycode 94 = less greater lessthanequal greaterthanequal bar brokenbar
-!= + ≠ + } ˛
-keycode 21 = equal plus notequal plus braceright dead_ogonek
-!c C ç Ç ¢ © 
-keycode 54 = c C ccedilla Ccedilla cent copyright
-!é 2 É 2 ~ ⅛
-keycode 11 = eacute 2 Eacute 2 asciitilde oneeighth
-!è 7 È 7 ` ⅞
-keycode 16 = egrave 7 Egrave 7 grave seveneighths
-!à 0 À 0 @ °
-keycode 19 = agrave 0 Agrave 0 at degree
-!ù % Ù % ^ ˇ 
-keycode 48 = ugrave percent Ugrave percent dead_circumflex dead_caron
+!               Ø           <Shift>         <Ctrl-R>        <Shift>+<Ctrl-R>    <AltGr>             <Shift>+<AltGr>
+!
+!               <           >               ≤               ≥                   |                   ¦
+keycode 94 = less           greater         lessthanequal   greaterthanequal    bar                 brokenbar
+
+!               =           +               ≠               +                   }                   ˛
+keycode 21 = equal          plus            notequal        plus                braceright          dead_ogonek
+
+!               c           C               ç               Ç                   ¢                   ©
+keycode 54 = c              C               ccedilla        Ccedilla            cent                copyright
+
+!               é           2               É               2                   ~                   ⅛
+keycode 11 = eacute         2               Eacute          2                   asciitilde          oneeighth
+
+!               è           7               È               7                   `                   ⅞
+keycode 16 = egrave         7               Egrave          7                   grave               seveneighths
+
+!               à           0               À               0                   @                   °
+keycode 19 = agrave         0               Agrave          0                   at                  degree
+
+!               ù           %               Ù               %                   ^                   ˇ
+keycode 48 = ugrave         percent         Ugrave          percent             dead_circumflex     dead_caron
+
+
