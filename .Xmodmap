@@ -30,4 +30,7 @@ keycode 19 = agrave         0               Agrave          0                   
 !               ù           %               Ù               %                   ^                   ˇ
 keycode 48 = ugrave         percent         Ugrave          percent             dead_circumflex     dead_caron
 
+!               ;           .               ;               .                   ×                   ·
+keycode 59 = semicolon      period          semicolon       period              multiply            periodcentered
+
 
