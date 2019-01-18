@@ -10,15 +10,17 @@ function batteryInfo() {
 
 
 function getBatteryState(state, percentage) {
+    const percentageInNumber = Number(percentage.replace(/%/, ''))
+
     if (state === 'fully-charged' || state === 'charging') {
         return "\uF1E6";
-    } else if (percentage > 90) {
+    } else if (percentageInNumber > 90) {
         return "\uF240";
-    } else if (percentage > 75) {
+    } else if (percentageInNumber > 75) {
         return "\uF241";
-    } else if (percentage > 50) {
+    } else if (percentageInNumber > 50) {
         return "\uF242";
-    } else if (percentage > 25) {
+    } else if (percentageInNumber > 25) {
         return "\uF243";
     }
     return "\uF244";
