@@ -410,7 +410,7 @@
     - name: Install some usefull tools
       become: yes
       apt:
-        name: ['libxml2-utils', 'ack-grep', 'htop', 'scrot', 'curl']
+        name: ['libxml2-utils', 'ack-grep', 'htop', 'scrot', 'curl', 'xautolock']
         state: present
 
     - name: Install lightweight image editor
