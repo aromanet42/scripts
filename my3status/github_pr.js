@@ -1,7 +1,7 @@
 const utils = require('./module_utils');
 
-const user = process.env['GITHUB_USER'];
-const token = process.env['GITHUB_TOKEN'];
+const user = process.env['REPO_USERNAME'];
+const token = process.env['REPO_TOKEN'];
 
 
 function getJson(url) {
