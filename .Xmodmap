@@ -1,6 +1,8 @@
 clear mod3
 clear mod5
 clear mod4
+clear control
+add control = Control_L
 add mod3 = Control_R
 !ISO_Level3_Shift = Alt_Gr
 add mod5 = ISO_Level3_Shift
