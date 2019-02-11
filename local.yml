@@ -186,11 +186,24 @@
         name: httpie
         state: present
 
-    - name: Install jq - json engine
-      get_url: 
+    - name: Retrieve last JQ download url
+      tags:
+        - jq
+      uri:
+        url: https://api.github.com/repos/stedolan/jq/releases/latest
+        body_format: json
+      register: jq_download_url
+
+    - name: Download JQ
+      tags: 
+       - jq
+      get_url:
+        url: "{{ item.browser_download_url }}"
         dest: ~/bin/jq
-        url: http://stedolan.github.io/jq/download/linux64/jq
         mode: 0755
+        force: yes
+      when: "{{ item.name == 'jq-linux64' }}"
+      with_items: "{{ jq_download_url.json.assets }}"
 
     - name: Install ZSH
       become: yes
