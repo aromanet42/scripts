@@ -3,7 +3,8 @@ clear mod5
 clear mod4
 clear control
 add control = Control_L
-add mod3 = Control_R
+keycode 105 = Mode_switch
+add mod3 = Mode_switch
 !ISO_Level3_Shift = Alt_Gr
 add mod5 = ISO_Level3_Shift
 add mod4 = Super_L Hyper_L
