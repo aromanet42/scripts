@@ -89,33 +89,41 @@ const logError = require('./module_utils').logError;
 
 stdin.resume();
 stdin.on('data', chunk => {
-  // remove leading '[' or ','
-  const cleanedChunk = chunk.toString().replace(/^\[/, '').replace(/^,/, '');
-  const jsonChunk = JSON.parse(cleanedChunk);
+  try {
+    // remove leading '[' or ','
+    const cleanedChunk = chunk.toString().replace(/^\[/, '').replace(/^,/, '');
+    const jsonChunk = JSON.parse(cleanedChunk);
 
-  const clickedItem = i3bar.find(i => i.name === jsonChunk.name);
+    const clickedItem = i3bar.find(i => i.name === jsonChunk.name);
 
-  if(clickedItem) {
-    const command = clickedItem['_onclick'];
+    if(clickedItem) {
+      const command = clickedItem['_onclick'];
 
-    if(command) {
-      exec(command, function(err) {
-	if(err) {
-	  logError({
-	    message: 'Error while executing command',
-	    command: command,
-	    error: err,
-	  });
-	}
-      });
+      if(command) {
+	exec(command, function(err) {
+	  if(err) {
+	    logError({
+	      message: 'Error while executing command',
+	      command: command,
+	      error: err,
+	    });
+	  }
+	});
+      } else {
+	logError(`Item "${clickedItem.name}" was clicked but no '_onclick' command was found`);
+      }
+
     } else {
-      logError(`Item "${clickedItem.name}" was clicked but no '_onclick' command was found`);
+      logError({
+	...jsonChunk,
+	errorMessage: 'Could not find i3bar item',
+      });
     }
-
-  } else {
+  } catch(error) {
     logError({
-      ...jsonChunk,
-      errorMessage: 'Could not find i3bar item',
+      message: 'Could not handle click on bar',
+      chunk,
+      error,
     });
   }
 
