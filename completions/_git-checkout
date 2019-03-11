@@ -37,6 +37,7 @@ _git-checkout() {
       branchListCommand="git branch -r | grep $arg1 | grep -v detached"
       branchesCount=`eval "$branchListCommand -c"`
       branches=`eval "$branchListCommand"`
+      branches=${branches/'origin\/'/''}
     fi
 
 
