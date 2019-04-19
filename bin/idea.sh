@@ -1,1 +1,0 @@
-/home/aromanet/dev/idea/bin/idea.sh
