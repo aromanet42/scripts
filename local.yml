@@ -150,6 +150,12 @@
         dest: "~/.config/terminator/config"
         state: link
 
+    - name: Add udev rule to launch autorandr when monitor is (un)plugged
+      copy:
+        dest: /etc/udev/rules.d/detect-monitor-change.rules
+        content: 'ACTION=="change", SUBSYSTEM=="drm", RUN+="{{ script_dir }}/bin/auto-change-monitor.sh"'
+      become: yes
+
     - name: Install ARandr
       become: yes
       apt: 
