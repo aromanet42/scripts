@@ -68,10 +68,18 @@ function mapPr(pr) {
         const statuses = prStatuses.map(status => {
             return `<span foreground='${getStatusColor(status)}'>${getStatusName(status)}</span>`
         });
-
+        
         if (statuses.length > 0) {
             output += ': ' + statuses.sort().join(' ')
         }
+
+        const labels = pr.labels.map(label => {
+          return `<span foreground='#${label.color}'>${label.name[0]}</span>`
+        });
+
+        if(labels.length > 0){
+	  output += ' (' + labels.sort().join('') + ')'
+	}
 
         return {
             name: 'github_pr' + pr.id,
