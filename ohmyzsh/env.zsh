@@ -6,19 +6,10 @@ export HISTTIMEFORMAT='%F %T ' # show history with datetime
 
 
 
-alias jdk6="rm -f $DEV/current_jdk; ln -s $DEV/jdk1.6 $DEV/current_jdk"
-alias jdk7="rm -f $DEV/current_jdk; ln -s $DEV/jdk1.7 $DEV/current_jdk"
-alias jdk8="rm -f $DEV/current_jdk; ln -s $DEV/jdk1.8 $DEV/current_jdk"
-
-
-
-export JAVA_HOME=$DEV/current_jdk
-export GRAILS_HOME=$DEV/grails
 export MAVEN_HOME=$DEV/apache-maven
-export CATALINA_HOME=$DEV/apache-tomcat
     
 
-export PATH="$PATH:$JAVA_HOME/bin:$GRAILS_HOME/bin:$MAVEN_HOME/bin:$CATALINA_HOME/bin:$SHARED_TOOLS/scripts:~/.xmonad/bin"
+export PATH="$PATH:$MAVEN_HOME/bin:$SHARED_TOOLS/scripts"
   
 
 
