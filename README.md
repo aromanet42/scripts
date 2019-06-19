@@ -70,7 +70,7 @@ Gestionnaire du clavier : [Xmodmap](https://wiki.archlinux.org/index.php/xmodmap
 - `xmodmap -pke | grep <keycode>`
 
 ### Modifier le mapping d'une touche
-- modifier le fichier _~/.Xmodmap_
+- modifier le fichier _~/.Xmodmap_. La liste des caractères (keysyms) reconnus par Xmodmap est disponible [ici](http://wiki.linuxquestions.org/wiki/List_of_Keysyms_Recognised_by_Xmodmap), par exemple
 - rafraichir xmodmap avec `xmodmap ~/.Xmodmap`
 
 Bash
