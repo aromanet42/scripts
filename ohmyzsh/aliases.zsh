@@ -12,3 +12,5 @@ alias jdk8='export JAVA_HOME=~/dev/jdk8'
 alias jdk11='export JAVA_HOME=~/dev/jdk11'
 jdk8 # by default, we use Java8
 
+alias jps='$JAVA_HOME/bin/jps'
+
