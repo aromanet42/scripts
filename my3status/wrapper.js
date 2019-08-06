@@ -20,6 +20,9 @@ const configuration = [{
     interval: 5
 }, {
     script: require('./date.js'),
+}, {
+    script: require('./control-center.js'),
+    interval: 3600
 }];
 
 // ------------------------------------------------------
