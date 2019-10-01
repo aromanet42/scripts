@@ -41,3 +41,6 @@ keycode 57 = n              N               n               N                   
 
 !               o           O               ø               Ø                   œ                   Œ
 keycode 32 = o              O               oslash          Oslash              oe                  OE
+
+!               h           H               ħ               Ħ                   ♥                   ♥
+keycode 43 = h              H               hstroke         Hstroke             heart               heart
