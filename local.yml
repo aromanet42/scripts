@@ -335,10 +335,10 @@
         - { path: ~/.oh-my-zsh/custom/custom_env.zsh, create: true }
         - { path: ~/.xsessionrc, create: false }
 
-    - name: Export JAVA_HOME in Xsession
-      lineinfile:
-        dest: ~/.xsessionrc
-        line: "export JAVA_HOME={{ dev_dir }}/current_jdk"
+    - name: Install jEnv
+      git:
+        repo: https://github.com/gcuisinier/jenv.git
+        dest: ~/.jenv
 
     - name: Download Maven
       tags:
