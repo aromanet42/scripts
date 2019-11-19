@@ -128,3 +128,8 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 
+
+export VOLTA_HOME="$HOME/.volta"
+[ -s "$VOLTA_HOME/load.sh" ] && . "$VOLTA_HOME/load.sh"
+
+export PATH="$VOLTA_HOME/bin:$PATH"

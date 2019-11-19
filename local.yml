@@ -340,6 +340,18 @@
         repo: https://github.com/gcuisinier/jenv.git
         dest: ~/.jenv
 
+    - name: Download Volta installer (Javascript tools version manager
+      tags:
+        - volta
+      get_url:
+        url: https://get.volta.sh
+        dest: /tmp/volta.sh
+
+    - name: Install Volta
+      tags:
+        - volta
+      script: /tmp/volta.sh
+
     - name: Download Maven
       tags:
         - maven
