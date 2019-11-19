@@ -25,7 +25,6 @@
   vars: 
     script_dir: "{{ absolute_path.stat.path }}"
     dev_dir: "{{ dev_abs_path.stat.path }}"
-    maven_version: "3.6.0"
 
   tasks:
 
@@ -351,6 +350,17 @@
       tags:
         - volta
       script: /tmp/volta.sh
+      
+    - name: Retrieve current maven version
+      tags: maven
+      uri:
+        url: https://maven.apache.org/ref/current/
+      register: maven_url_result
+
+    - name: Extract maven version
+      tags: maven
+      set_fact:
+        maven_version: '{{ maven_url_result.url | regex_replace(".*/ref/([0-9.]+)/", "\1") }}'
 
     - name: Download Maven
       tags:
