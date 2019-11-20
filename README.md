@@ -73,6 +73,19 @@ Gestionnaire du clavier : [Xmodmap](https://wiki.archlinux.org/index.php/xmodmap
 - modifier le fichier _~/.Xmodmap_. La liste des caractères (keysyms) reconnus par Xmodmap est disponible [ici](http://wiki.linuxquestions.org/wiki/List_of_Keysyms_Recognised_by_Xmodmap), par exemple
 - rafraichir xmodmap avec `xmodmap ~/.Xmodmap`
 
+
+Screen Recorder
+---------------
+
+J'ai choisi d'utiliser [peek](https://github.com/phw/peek) pour enregistrer l'écran. C'est l'outil le plus simple qui permet de générer des gif en sélectionnant une zone de l'écran.
+
+Pour que ça fonctionne avec i3, il faut que Peek soit lancé _derrière_ la fenêtre à enregistrer (sinon, c'est Peek qui reçoit tous les évenements souris, etc).
+- on peut avoir les deux fenêtres (celle à enregistrer et Peek) 'tabbées' (`Ctrl+T`)
+- si on ne veut enregistrer qu'une zone de l'écran, les deux fenêtres doivent être flottantes (`Ctrl+Space`). On peut peut utiliser `Ctrl+clic gauche` pour déplacer les fenêtres et `Ctrl+clic droit` pour les redimensionner. Seule la zone couverte par la fenêtre Peek sera enregistrée.
+
+Ensuite: On se place sur la fenêtre Peek (Utiliser `Mod+arrow keys` pour la sélectionner), puis lancer l'enregistrement, puis se placer sur la fenêtre à enregistrer. Faire les actions voulues, puis retourner sur Peek pour stopper l'enregistrement
+
+
 Bash
 ----
 - .zshrc

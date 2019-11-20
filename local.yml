@@ -448,6 +448,12 @@
         name: yarn
         state: present
 
+    - name: Install Peek (screen recorder)
+      become: yes
+      apt:
+        name: peek
+        state: present
+
     - name: Install some usefull tools
       become: yes
       apt:
