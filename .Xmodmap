@@ -27,8 +27,8 @@ keycode 11 = eacute         2               Eacute          2                   
 !               è           7               È               7                   `                   ⅞
 keycode 16 = egrave         7               Egrave          7                   grave               seveneighths
 
-!               à           0               À               0                   @                   °
-keycode 19 = agrave         0               Agrave          0                   at                  degree
+!               à           0               à               0                   @                   À
+keycode 19 = agrave         0               agrave          0                   at                  Agrave
 
 !               ù           %               Ù               %                   ^                   ˇ
 keycode 48 = ugrave         percent         Ugrave          percent             dead_circumflex     dead_caron
