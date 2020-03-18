@@ -481,7 +481,7 @@
     - name: Install lightweight image editor
       become: yes
       apt:
-        name: ['oxygen-icon-theme', 'kdelibs-bin', 'kdelibs5-data', 'kdelibs5-plugins', 'kolourpaint4']
+        name: 'kolourpaint4'
         state: present
 
     - name: Install Imagemagick
