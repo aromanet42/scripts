@@ -514,6 +514,11 @@
         dest: ~/.xsessionrc
         line: "mkdir -p /tmp/Downloads"
 
+    - name: Create Screenshots directory in xsession
+      lineinfile:
+        dest: ~/.xsessionrc
+        line: "mkdir -p /tmp/screenshots"
+
     - name: Add tool displaying network status in trayer in xsession
       lineinfile:
         dest: ~/.xsessionrc
