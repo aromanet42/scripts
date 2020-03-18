@@ -350,6 +350,18 @@
       tags:
         - volta
       script: /tmp/volta.sh
+
+    - name: Download JetBrains toolbox
+      tags: idea
+      get_url:
+        url: https://data.services.jetbrains.com/products/download?platform=linux&code=TBA
+        dest: /tmp/jetbrains-toolbox.tar.gz
+
+    - name: Install JetBrains toolbox
+      tags: idea
+      unarchive:
+        src: /tmp/jetbrains-toolbox.tar.gz
+        dest: ~/dev/jetbrains-toolbox
       
     - name: Retrieve current maven version
       tags: maven
