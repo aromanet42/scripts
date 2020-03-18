@@ -399,7 +399,7 @@
     - name: Copy XmodMap config
       file:
         src: "{{ script_dir }}/.Xmodmap"
-        dest: ~∕.Xmodmap
+        dest: ~/.Xmodmap
         state: link
 
     - name: Install i3
