@@ -534,6 +534,12 @@
         src: /tmp/postman.tar.gz
         dest: "{{ dev_dir}}"
 
+    - name: Install Postgresql
+      tags: psql
+      apt:
+        name: ['postgresql', 'postgresql-client']
+        state: present
+
     - name: Install Emoji font
       become: yes
       apt:
