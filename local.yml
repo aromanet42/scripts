@@ -478,6 +478,12 @@
         name: ['libxml2-utils', 'ack-grep', 'htop', 'scrot', 'curl', 'xautolock']
         state: present
 
+    - name: Install gimp
+      become: yes
+      apt:
+        name: 'gimp'
+        state: present
+
     - name: Install lightweight image editor
       become: yes
       apt:
