@@ -363,7 +363,12 @@
       unarchive:
         src: /tmp/jetbrains-toolbox.tar.gz
         dest: ~/dev/jetbrains-toolbox
-      
+
+    - name: Modify iBus setting to prevent idea crash https://youtrack.jetbrains.com/issue/IDEA-78860
+      lineinfile:
+        dest: ~/.xsessionrc
+        line: "export IBUS_ENABLE_SYNC_MODE=1"
+
     - name: Retrieve current maven version
       tags: maven
       uri:
