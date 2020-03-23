@@ -335,6 +335,7 @@
         - { path: ~/.xsessionrc, create: false }
 
     - name: Install jEnv
+      tags: jenv
       git:
         repo: https://github.com/gcuisinier/jenv.git
         dest: ~/.jenv
@@ -562,6 +563,9 @@
           ALL ALL = NOPASSWD:UPDATE_OS
         validate: '/usr/sbin/visudo -cf %s'
 
-
-
+  post_tasks:
+    - name: Print jenv command
+      tags: jenv
+      debug:
+        msg: "jenv installed. Run: 'jenv enable-plugin maven' to enjoy it"
 
