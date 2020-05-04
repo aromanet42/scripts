@@ -1,6 +1,8 @@
 const fs = require('fs');
 const httpGet = require('https').get;
 
+const DEBUG = false;
+
 function stringify(o) {
     // Note: cache should not be re-used by repeated calls to JSON.stringify.
     let cache = [];
@@ -36,13 +38,24 @@ function logError(err) {
     }
 }
 
+function logInfo(err) {
+    if(!DEBUG) {
+        return;
+    }
+
+    try {
+        fs.appendFileSync('/tmp/my3status.log', new Date().toISOString() + "-" + stringify(err) + "\n");
+    } catch (err) {
+    }
+}
+
 const httpCache = {};
 
 function get(url, headers = {}) {
     headers['User-Agent'] = 'my3status';
+    const urlCache = httpCache[url] || {};
 
     return new Promise(function (resolve, reject) {
-        const urlCache = httpCache[url] || {};
 
         const eTag = urlCache.etag;
         if (eTag) {
@@ -52,6 +65,20 @@ function get(url, headers = {}) {
         httpGet(url, {
             headers: headers
         }, response => {
+            logInfo({
+                message: 'HTTP GET',
+                cache: {
+                    etag: eTag
+                },
+                request: {
+                    url: url,
+                    headers: headers,
+                },
+                response: {
+                    statusCode: response.statusCode,
+                    headers: response.headers,
+                }
+            });
             if (response.statusCode === 304) {
                 return urlCache.response;
             }
@@ -66,8 +93,9 @@ function get(url, headers = {}) {
                 data = data + d;
             });
             response.on("end", function () {
+                // don't know why, etag header is not always using the same case....
                 httpCache[url] = {
-                    etag: response.headers['ETag'],
+                    etag: response.headers['ETag'] || response.headers['etag'],
                     response: data
                 };
 
