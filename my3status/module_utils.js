@@ -80,7 +80,10 @@ function get(url, headers = {}) {
                 }
             });
             if (response.statusCode === 304) {
-                return urlCache.response;
+                resolve({
+                    body: urlCache.response
+                });
+                return;
             }
 
             if (response.statusCode !== 200) {
