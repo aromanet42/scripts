@@ -531,6 +531,12 @@
         name: ncdu
         state: present
 
+    - name: Install network tools (netstat)
+      become: yes
+      apt:
+        name: net-tools
+        state: present
+
     - name: Create Download directory in xsession
       lineinfile:
         dest: ~/.xsessionrc
