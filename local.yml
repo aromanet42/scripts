@@ -57,6 +57,16 @@
         name: gnome-settings-daemon
         state: present
 
+    - name: Retrieve gnome sound file
+      stat:
+        path: /usr/share/sounds/freedesktop/stereo/camera-shutter.oga
+      register: gnome_sound_file
+
+    - name: Mute Gnome screenshot tools
+      become: yes
+      command: mv /usr/share/sounds/freedesktop/stereo/camera-shutter.oga /usr/share/sounds/freedesktop/stereo/camera-shutter-disabled.oga
+      when: gnome_sound_file.stat.exists
+
     - name: Install Git
       become: yes
       apt:
