@@ -368,6 +368,11 @@
         url: https://data.services.jetbrains.com/products/download?platform=linux&code=TBA
         dest: /tmp/jetbrains-toolbox.tar.gz
 
+    - name: Prepare Jetbrains directory
+      file:
+        path: ~/dev/jetbrains-toolbox
+        state: directory
+
     - name: Install JetBrains toolbox
       tags: idea
       unarchive:
