@@ -64,28 +64,31 @@ function mapPr(pr) {
         const prNumber = pr.number;
 
         let output = `${getRepoName(pr)}#${prNumber}`;
+        if (pr.draft) {
+            output = `<span foreground='#666'>${output}</span>`
+        }
 
         const statuses = prStatuses.map(status => {
             return `<span foreground='${getStatusColor(status)}'>${getStatusName(status)}</span>`
         });
-        
+
         if (statuses.length > 0) {
             output += ': ' + statuses.sort().join(' ')
         }
 
         const labels = pr.labels.map(label => {
-          return `<span foreground='#${label.color}'>${label.name[0]}</span>`
+            return `<span foreground='#${label.color}'>${label.name[0]}</span>`
         });
 
-        if(labels.length > 0){
-	  output += ' (' + labels.sort().join('') + ')'
-	}
+        if (labels.length > 0) {
+            output += ' (' + labels.sort().join('') + ')'
+        }
 
         return {
             name: 'github_pr' + pr.id,
             full_text: output,
             markup: 'pango', // to be able for format full_text with colors
-	    _onclick: `google-chrome-stable -newtab ${pr['html_url']}`,
+            _onclick: `google-chrome-stable -newtab ${pr['html_url']}`,
         };
     });
 }
