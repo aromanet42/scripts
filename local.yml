@@ -5,7 +5,7 @@
       tags:
         - always
       stat: 
-        path: "~/workspace/scripts"
+        path: "~/mirakl/scripts"
       register: absolute_path
 
     - name: Create devtools directory
@@ -21,6 +21,9 @@
       stat:
         path: "~/dev"
       register: dev_abs_path
+
+    - name: print directory
+      debug: msg="directory {{ absolute_path.stat }}."
 
   vars: 
     script_dir: "{{ absolute_path.stat.path }}"
@@ -271,10 +274,11 @@
         dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
     - name: add bin directory to PATH
+      tags:
+        - zsh
       lineinfile:
-        dest: ~/.oh-my-zsh/script_path.zsh
+        dest: ~/.oh-my-zsh/custom/custom_env.zsh
         line: "export PATH={{ script_dir }}/bin:$PATH"
-        create: yes
 
     - name: Retrieve last peco download url
       tags:
