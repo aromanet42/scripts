@@ -66,6 +66,8 @@ function mapPr(pr) {
         let output = `${getRepoName(pr)}#${prNumber}`;
         if (pr.draft) {
             output = `<span foreground='#666'>${output}</span>`
+            // for Draft PRs, only display build result. Others statuses (QA, etc) are not relevant and take too much place
+            prStatuses = prStatuses.filter(status => getStatusName(status) === 'pr');
         }
 
         const statuses = prStatuses.map(status => {
@@ -81,7 +83,7 @@ function mapPr(pr) {
         });
 
         if (labels.length > 0) {
-            output += ' (' + labels.sort().join('') + ')'
+            output += ' (' + labels.sort().join('') + ')';
         }
 
         return {
