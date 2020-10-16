@@ -40,7 +40,7 @@ module.exports = () => {
         }
 
         text += ' - 🎤 '
-        text += micro.muted ? 'OFF' : 'ON';
+        text += (micro.muted || micro.volume === 0) ? 'OFF' : 'ON';
 
         return {
             name: 'volume',
