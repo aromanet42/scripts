@@ -22,14 +22,26 @@ function getPrStatuses(pr) {
         return response['_links'].statuses.href
     }).then(statusesUrl => {
         return getJson(statusesUrl.replace('statuses', 'status')).then(response => {
-            return response.statuses;
+            let statuses = response.statuses.map(s => {
+                return {
+                    name: getStatusName(s.context.toLowerCase(), s.state),
+                    state: s.state,
+                }
+            });
+
+            if (pr.draft) {
+                // for Draft PRs, only display build result. Others statuses (QA, etc) are not relevant and take too much place
+                statuses = statuses.filter(status => getStatusName(status) === 'pr');
+            }
+
+            return statuses;
         })
+    }).catch(() => {
+        return [];
     });
 }
 
-function getStatusName(status) {
-    const statusName = status.context.toLowerCase();
-
+function getStatusName(statusName, state) {
     if (statusName.endsWith('-pr')) {
         return 'pr';
     }
@@ -38,7 +50,7 @@ function getStatusName(status) {
         return 'qa';
     }
 
-    switch (status.state) {
+    switch (state) {
         case 'pending':
             return '?';
         case 'failure':
@@ -46,6 +58,13 @@ function getStatusName(status) {
         default:
             return '✓';
     }
+}
+
+function mapCheckStatus(check) {
+    if (!check.conclusion) {
+        return 'pending';
+    }
+    return check.conclusion;
 }
 
 function getStatusColor(status) {
@@ -59,19 +78,47 @@ function getStatusColor(status) {
     }
 }
 
+function getPrChecks(pr) {
+    return getJson(pr.pull_request.url).then(fullPr => {
+        const commit = fullPr.head.sha;
+        return getJson(`${fullPr.head.repo.url}/commits/${commit}/check-suites`).then(response => {
+            const checkSuites = response.check_suites
+                .filter(c => c.latest_check_runs_count > 0);
+
+            if (!checkSuites) {
+                return [];
+            }
+
+            // pr can have multiple checkSuites if C1 was pushed, then C2, then C2 was reverted => C1 has 2 check suites, for each time it was the "last commit"
+            // we need only the most recent
+            let lastCheckSuite = checkSuites
+                .sort((c1, c2) => c2.created_at.localeCompare(c1.created_at))[0];
+
+            const status = mapCheckStatus(lastCheckSuite);
+            return {
+                name: getStatusName(lastCheckSuite.node_id, status),
+                state: status,
+            };
+        });
+    }).catch(() => {
+        return [];
+    });
+}
+
 function mapPr(pr) {
-    return getPrStatuses(pr).then(prStatuses => {
+    return Promise.all([
+        getPrStatuses(pr),
+        getPrChecks(pr),
+    ]).then(([prStatuses, checks]) => {
         const prNumber = pr.number;
 
         let output = `${getRepoName(pr)}#${prNumber}`;
         if (pr.draft) {
             output = `<span foreground='#666'>${output}</span>`
-            // for Draft PRs, only display build result. Others statuses (QA, etc) are not relevant and take too much place
-            prStatuses = prStatuses.filter(status => getStatusName(status) === 'pr');
         }
 
-        const statuses = prStatuses.map(status => {
-            return `<span foreground='${getStatusColor(status)}'>${getStatusName(status)}</span>`
+        const statuses = prStatuses.concat(checks).map(status => {
+            return `<span foreground='${getStatusColor(status)}'>${status.name}</span>`
         });
 
         if (statuses.length > 0) {
