@@ -1,5 +1,6 @@
 const fs = require('fs');
 const httpGet = require('https').get;
+const httpRequest= require('https').request;
 
 const DEBUG = false;
 
@@ -114,8 +115,41 @@ function get(url, headers = {}) {
     });
 }
 
+function deleteApi(url, headers = {}) {
+    headers['User-Agent'] = 'my3status';
+
+    return new Promise(function (resolve, reject) {
+        const req= httpRequest(url, {
+            method: 'DELETE',
+            headers: headers
+        }, response => {
+            logInfo({
+                message: 'HTTP DELETE',
+                request: {
+                    url: url,
+                    headers: headers,
+                },
+                response: {
+                    statusCode: response.statusCode,
+                    headers: response.headers,
+                }
+            });
+
+            if (response.statusCode >= 400) {
+                reject(response);
+            }
+        }).on('close', function (e) {
+            resolve();
+        }).on('error', function (e) {
+            reject(e);
+        });
+        req.end();
+    });
+}
+
 
 module.exports = {
     logError,
     get,
+    deleteApi,
 };
