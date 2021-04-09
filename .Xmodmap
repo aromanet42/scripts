@@ -21,11 +21,11 @@ keycode 21 = equal          plus            notequal        plus                
 !               c           C               ç               Ç                   ¢                   ©
 keycode 54 = c              C               ccedilla        Ccedilla            cent                copyright
 
-!               é           2               É               2                   ~                   ⅛
-keycode 11 = eacute         2               Eacute          2                   asciitilde          oneeighth
+!               é           2               ⅛               2                   ~                   É
+keycode 11 = eacute         2               oneeighth       2                   asciitilde          Eacute
 
-!               è           7               È               7                   `                   ⅞
-keycode 16 = egrave         7               Egrave          7                   grave               seveneighths
+!               è           7               ⅞               7                   `                   È
+keycode 16 = egrave         7               seveneighths    7                   grave               Egrave
 
 !               à           0               à               0                   @                   À
 keycode 19 = agrave         0               agrave          0                   at                  Agrave
