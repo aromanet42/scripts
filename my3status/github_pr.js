@@ -1,6 +1,7 @@
 const utils = require('./module_utils');
 
 const user = process.env['REPO_USERNAME'];
+// this token is defined in .xsessionrc
 const token = process.env['REPO_TOKEN'];
 
 
