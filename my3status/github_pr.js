@@ -32,7 +32,7 @@ function getPrStatuses(pr) {
 
             if (pr.draft) {
                 // for Draft PRs, only display build result. Others statuses (QA, etc) are not relevant and take too much place
-                statuses = statuses.filter(status => getStatusName(status) === 'pr');
+                statuses = statuses.filter(status => status.name === 'pr');
             }
 
             return statuses;
