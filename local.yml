@@ -183,10 +183,12 @@
         update_cache: yes
 
     - name: Install Chrome
+      tags:
+        - chrome
       become: yes
       apt:
         name: google-chrome-stable
-        state: present
+        state: latest
 
     - name: Install Httpie
       become: yes
