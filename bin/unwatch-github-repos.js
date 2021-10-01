@@ -7,6 +7,7 @@ const reposToKeepWatching = [
     'emma',
     'tools-algolia',
     'tools-translation',
+    'app-mirakl-status',
 ];
 
 
