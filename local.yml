@@ -581,6 +581,30 @@
         mode: 0755
         force: true
 
+    - name: Add apt-key for Vault
+      tags:
+        - vault
+      become: yes
+      apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+
+    - name: Add Vault repo into sources list
+      tags:
+        - vault
+      become: yes
+      apt_repository:
+        repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ lsb_release.stdout }} main"
+        state: present
+        update_cache: yes
+
+    - name: Install Vault
+      tags:
+        - vault
+      become: yes
+      apt:
+        name: vault
+        state: present
+
     - name: Install Flameshot (Screenshot tool)
       become: yes
       apt:
