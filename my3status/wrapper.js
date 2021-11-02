@@ -1,3 +1,5 @@
+const logError = require('./module_utils').logError;
+
 // configuration :
 //
 // - items will be displayed in the order defined is this configuration array
@@ -38,6 +40,20 @@ console.log("[");
 let firstRun = true;
 let i3bar = [];
 
+function callScript(scriptFn) {
+    return Promise.resolve(scriptFn())
+        .catch(err => {
+            logError({
+                message: 'Error while calling script',
+                error: err,
+            })
+            return {
+                name: 'error',
+                full_text: '[ERR]'
+            };
+        });
+}
+
 function doIt() {
 
     setTimeout(function () {
@@ -50,14 +66,14 @@ function doIt() {
             if (item.interval) {
                 if (!item.remaining || item.remaining === 0) {
                     item.remaining = item.interval;
-                    return Promise.resolve(item.script());
+                    return callScript(item.script);
                 } else {
                     item.remaining--;
                     return Promise.resolve(item.cache)
                 }
             }
 
-            return Promise.resolve(item.script());
+            return callScript(item.script);
         });
 
         const prefix = firstRun ? "" : ",";
@@ -88,7 +104,6 @@ function doIt() {
 // listening to stdin to handle click events
 const stdin = process.stdin;
 const exec = require('child_process').exec;
-const logError = require('./module_utils').logError;
 
 stdin.resume();
 stdin.on('data', chunk => {
