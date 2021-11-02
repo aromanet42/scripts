@@ -9,9 +9,9 @@ Pour installer tout ça :
 
 Pour rejouer le script en local :
 
-    ansible-playbook local.yml
+    ansible-playbook local.yml --ask-become-pass
 
-    ansible-playbook local.yml --tags postman
+    ansible-playbook local.yml --tags postman --ask-become-pass
 
 
 Create App launcher
