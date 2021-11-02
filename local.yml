@@ -25,7 +25,30 @@
     - name: print directory
       debug: msg="directory {{ absolute_path.stat }}."
 
-  vars: 
+    - name: retrieve uname kernel name
+      tags:
+        - always
+      shell: uname -s
+      register: uname_s
+
+    - name: retrieve uname machine
+      tags:
+        - always
+      shell: uname -m
+      register: uname_m
+
+    - name: retrieve Linux version codename
+      tags:
+        - always
+      shell: lsb_release -cs
+      register: lsb_release
+
+    - name: print uname
+      tags:
+        - always
+      debug: msg="uname -s={{ uname_s }} -a={{ uname_m }} // lsb_release={{ lsb_release }}"
+
+  vars:
     script_dir: "{{ absolute_path.stat.path }}"
     dev_dir: "{{ dev_abs_path.stat.path }}"
 
@@ -491,6 +514,73 @@
         name: yarn
         state: present
 
+    - name: Add apt-key for Docker
+      tags:
+        - docker
+      become: yes
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+
+    - name: Add Docker repo into sources list
+      tags:
+        - docker
+      become: yes
+      apt_repository:
+        repo: "deb https://download.docker.com/linux/ubuntu {{ lsb_release.stdout }} stable"
+        state: present
+        update_cache: yes
+
+    - name: Install Docker Engine
+      tags:
+        - docker
+      become: yes
+      apt:
+        name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+        state: present
+
+    - name: Ensure group "docker" exists
+      tags:
+        - docker
+      become: yes
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+    - name: Add my user to docker group
+      tags:
+        - docker
+      become: yes
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: yes
+
+    - name: Retrieve last release of docker-compose
+      tags:
+        - docker
+      get_url:
+        url: "https://api.github.com/repos/docker/compose/releases/latest"
+        force: yes
+        headers:
+          Accept: "application/vnd.github.v3+json"
+        dest: "/tmp/docker-compose-releases.json"
+
+    - name: Get download url
+      tags:
+        - docker
+      shell: |
+        cat "/tmp/docker-compose-releases.json" | jq '.assets | .[] | select(.browser_download_url | test("{{ uname_s.stdout | lower }}-{{ uname_m.stdout | lower }}$")) | .browser_download_url' | sed -e 's/^"//' -e 's/"$//'
+      register: "download_url"
+
+    - name: Download Docker-compose
+      tags:
+        - docker
+      get_url:
+        url: "{{ download_url.stdout }}"
+        dest: "~/bin/docker-compose"
+        mode: 0755
+        force: true
+
     - name: Install Flameshot (Screenshot tool)
       become: yes
       apt:
@@ -594,3 +684,7 @@
       debug:
         msg: "jenv installed. Run: 'jenv enable-plugin maven' to enjoy it"
 
+    - name: Print Docker refresh command
+      tags: docker
+      debug:
+        msg: "Refresh user groups with 'newgrp docker' to run Docker without sudo"
