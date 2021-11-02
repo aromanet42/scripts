@@ -28,7 +28,7 @@ function getInfo(name) {
 
 
 module.exports = () => {
-    return Promise.all([getInfo('Master'), getInfo('Capture')]).then(info => {
+    return Promise.all([getInfo('PCM'), getInfo('Mic')]).then(info => {
         const volume = info[0];
         const micro = info [1];
 
