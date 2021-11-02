@@ -565,12 +565,26 @@
           Accept: "application/vnd.github.v3+json"
         dest: "/tmp/docker-compose-releases.json"
 
-    - name: Get download url
+    - name: Register docker-compose last release in ansible variable
+      tags:
+        - docker
+      shell: cat "/tmp/docker-compose-releases.json" | jq '.name' | sed -e 's/^"//' -e 's/"$//'
+      register: "docker_compose_last_release"
+
+    - name: Retrieve current docker-compose version
+      tags:
+        - docker
+      shell: docker-compose --version --short
+      register: "docker_compose_current_release"
+      ignore_errors: yes # do not fail ansible playbook if docker-compose does not exist yet
+
+    - name: Get docker-compose download url
       tags:
         - docker
       shell: |
         cat "/tmp/docker-compose-releases.json" | jq '.assets | .[] | select(.browser_download_url | test("{{ uname_s.stdout | lower }}-{{ uname_m.stdout | lower }}$")) | .browser_download_url' | sed -e 's/^"//' -e 's/"$//'
       register: "download_url"
+      when: "docker_compose_last_release.stdout != docker_compose_current_release.stdout"
 
     - name: Download Docker-compose
       tags:
@@ -580,6 +594,7 @@
         dest: "~/bin/docker-compose"
         mode: 0755
         force: true
+      when: "docker_compose_last_release.stdout != docker_compose_current_release.stdout"
 
     - name: Add apt-key for Vault
       tags:
