@@ -1,6 +1,8 @@
 #!/bin/bash
 
-sudo apt-get install python-pip git -y
+set -e # do not continue script if failure
+
+sudo apt-get install python3-pip git -y
 pip install --upgrade pip
 
 sudo pip install ansible

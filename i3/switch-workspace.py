@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from json import loads
 from os import popen
@@ -11,7 +11,7 @@ def ipc_query(req="command", msg=""):
 if __name__ == "__main__":
   # Usage & checking args
   if len(argv) != 2:
-     print "Usage: switch-workspace.py name-of-workspace"
+     print("Usage: switch-workspace.py name-of-workspace")
      exit(-1)
 
   newworkspace = argv[1]
@@ -23,4 +23,4 @@ if __name__ == "__main__":
         active_display = w['output']
 
   # Moving workspace to active display
-  print ipc_query(msg="'workspace " + newworkspace + "; move workspace to output " + active_display + "; workspace " + newworkspace + "'")
+  print(ipc_query(msg="'workspace " + newworkspace + "; move workspace to output " + active_display + "; workspace " + newworkspace + "'"))
