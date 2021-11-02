@@ -13,17 +13,9 @@ function getBatteryState(state, percentage) {
     const percentageInNumber = Number(percentage.replace(/%/, ''))
 
     if (state === 'fully-charged' || state === 'charging') {
-        return "\uF1E6";
-    } else if (percentageInNumber > 90) {
-        return "\uF240 " + percentage;
-    } else if (percentageInNumber > 75) {
-        return "\uF241 " + percentage;
-    } else if (percentageInNumber > 50) {
-        return "\uF242 " + percentage;
-    } else if (percentageInNumber > 25) {
-        return "\uF243 " + percentage;
+        return "⚡";
     }
-    return "\uF244 " + percentage;
+    return "🔋 " + percentage;
 }
 
 const stateRegex = /state:\s*([a-z-]+)/i;
