@@ -5,7 +5,7 @@
       tags:
         - always
       stat: 
-        path: "~/mirakl/scripts"
+        path: "~/workspace/scripts"
       register: absolute_path
 
     - name: Create devtools directory
@@ -274,6 +274,14 @@
       git:
         repo: git://github.com/zsh-users/zsh-syntax-highlighting.git
         dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+    - name: Create ZSH non versioned custom_env file
+      tags:
+        - zsh
+      copy:
+        dest: ~/.oh-my-zsh/custom/custom_env.zsh
+        content: "# add your specific environment variables here\n# This file is not versioned"
+        force: no
 
     - name: add bin directory to PATH
       tags:
@@ -559,6 +567,7 @@
 
     - name: Install Postgresql
       tags: psql
+      become: yes
       apt:
         name: ['postgresql', 'postgresql-client']
         state: present

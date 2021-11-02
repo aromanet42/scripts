@@ -130,5 +130,5 @@ eval "$(jenv init -)"
 export JAVA_HOME="$(jenv prefix)"
 
 
-export VOLTA_HOME="~/.volta"
+export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
