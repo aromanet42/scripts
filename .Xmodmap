@@ -15,32 +15,34 @@ add mod4 = Super_L Hyper_L
 !               <           >               ≤               ≥                   |                   ¦
 keycode 94 = less           greater         lessthanequal   greaterthanequal    bar                 brokenbar
 
+
+!!!!!! top bar - digits
+!               é           2               ⅛               2                   ~                   É
+keycode 11 = eacute         2               oneeighth       2                   asciitilde          Eacute
+!               è           7               ⅞               7                   `                   È
+keycode 16 = egrave         7               seveneighths    7                   grave               Egrave
+!               ç           9               ^               9                   ±                   Ç
+keycode 18 = ccedilla       9               asciicircum     9                   plusminus           Ccedilla
+!               à           0               à               0                   @                   À
+keycode 19 = agrave         0               agrave          0                   at                  Agrave
 !               =           +               ≠               +                   }                   ˛
 keycode 21 = equal          plus            notequal        plus                braceright          dead_ogonek
 
+!!!!!! letters
 !               c           C               ç               Ç                   ¢                   ©
 keycode 54 = c              C               ccedilla        Ccedilla            cent                copyright
+!               h           H               ħ               Ħ                   ♥                   ♥
+keycode 43 = h              H               hstroke         Hstroke             heart               heart
+!               n           N               n               N                   ñ                   Ñ
+keycode 57 = n              N               n               N                   ntilde              Ntilde
+!               o           O               ø               Ø                   œ                   Œ
+keycode 32 = o              O               oslash          Oslash              oe                  OE
 
-!               é           2               ⅛               2                   ~                   É
-keycode 11 = eacute         2               oneeighth       2                   asciitilde          Eacute
 
-!               è           7               ⅞               7                   `                   È
-keycode 16 = egrave         7               seveneighths    7                   grave               Egrave
-
-!               à           0               à               0                   @                   À
-keycode 19 = agrave         0               agrave          0                   at                  Agrave
-
+!!!!!! punctuation and accented letters
 !               ù           %               Ù               %                   ^                   ˇ
 keycode 48 = ugrave         percent         Ugrave          percent             dead_circumflex     dead_caron
 
 !               ;           .               ;               .                   ×                   ·
 keycode 59 = semicolon      period          semicolon       period              multiply            periodcentered
 
-!               n           N               n               N                   ñ                   Ñ
-keycode 57 = n              N               n               N                   ntilde              Ntilde
-
-!               o           O               ø               Ø                   œ                   Œ
-keycode 32 = o              O               oslash          Oslash              oe                  OE
-
-!               h           H               ħ               Ħ                   ♥                   ♥
-keycode 43 = h              H               hstroke         Hstroke             heart               heart
