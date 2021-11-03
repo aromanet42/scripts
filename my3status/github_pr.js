@@ -176,5 +176,12 @@ function getPrInfo() {
 }
 
 module.exports = () => {
-    return getPrInfo();
+    if (user && token) {
+        return getPrInfo();
+    }
+    return {
+        color: '#FF0000',
+        name: 'github_pr',
+        full_text: 'github_pr needs REPO_USERNAME and REPO_TOKEN in ~/.xsessionrc file'
+    }
 };
