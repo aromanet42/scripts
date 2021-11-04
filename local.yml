@@ -620,6 +620,26 @@
         name: vault
         state: present
 
+    - name: Download aws cli
+      tags:
+        - aws
+      get_url:
+        url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+        dest: /tmp/awscli.zip
+
+    - name: Unzip aws cli
+      tags:
+        - aws
+      unarchive:
+        src: /tmp/awscli.zip
+        dest: /tmp
+
+    - name: Install aws cli
+      tags:
+        - aws
+      become: yes
+      shell: /tmp/aws/install -i /usr/local/aws-cli -b /usr/local/bin
+
     - name: Install Flameshot (Screenshot tool)
       become: yes
       apt:
