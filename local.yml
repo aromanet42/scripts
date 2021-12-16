@@ -51,6 +51,7 @@
   vars:
     script_dir: "{{ absolute_path.stat.path }}"
     dev_dir: "{{ dev_abs_path.stat.path }}"
+    golang_version: "1.17.3"
 
   tasks:
 
@@ -639,6 +640,31 @@
         - aws
       become: yes
       shell: /tmp/aws/install -i /usr/local/aws-cli -b /usr/local/bin
+
+    - name: Retrieve current GO version
+      tags:
+        - golang
+      shell: go version
+      register: "GO_current_release"
+      ignore_errors: yes # do not fail ansible playbook if GO does not exist yet
+
+    - name: Download GO
+      tags:
+        - golang
+      get_url:
+        url: "https://golang.org/dl/go{{ golang_version }}.linux-amd64.tar.gz"
+        dest: /tmp/go.tar.gz
+      when: "golang_version not in GO_current_release.stdout"
+
+    - name: Extract GO
+      tags:
+        - golang
+      become: yes
+      unarchive:
+        src: /tmp/go.tar.gz
+        dest: "/usr/local"
+        creates:
+      when: "golang_version not in GO_current_release.stdout"
 
     - name: Install Flameshot (Screenshot tool)
       become: yes
