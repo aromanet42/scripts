@@ -740,6 +740,13 @@
         src: /tmp/postman.tar.gz
         dest: "{{ dev_dir}}"
 
+    - name: Add Postman in PATH
+      tags: postman
+      file:
+        src: "{{ dev_dir}}/Postman/Postman"
+        dest: ~/bin/Postman
+        state: link
+
     - name: Install Postgresql
       tags: psql
       become: yes
