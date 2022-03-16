@@ -621,12 +621,19 @@
         name: vault
         state: present
 
+    - name: Retrieve current AWS cli version
+      tags: aws
+      shell: aws --version
+      register: awscli_version_result
+      ignore_errors: yes # do not fail ansible playbook if GO does not exist yet
+
     - name: Download aws cli
       tags:
         - aws
       get_url:
         url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
         dest: /tmp/awscli.zip
+      when: "'aws-cli' not in awscli_version_result.stdout"
 
     - name: Unzip aws cli
       tags:
@@ -634,12 +641,14 @@
       unarchive:
         src: /tmp/awscli.zip
         dest: /tmp
+      when: "'aws-cli' not in awscli_version_result.stdout"
 
     - name: Install aws cli
       tags:
         - aws
       become: yes
       shell: /tmp/aws/install -i /usr/local/aws-cli -b /usr/local/bin
+      when: "'aws-cli' not in awscli_version_result.stdout"
 
     - name: Retrieve current GO version
       tags:
