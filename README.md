@@ -4,7 +4,7 @@ Config
 Pour installer tout ça : 
 
     wget --no-check-certificate https://raw.githubusercontent.com/aromanet42/scripts/master/install_and_run_ansible.sh
-    bash install.sh
+    bash install_and_run_ansible.sh 
 
 
 Pour rejouer le script en local :
