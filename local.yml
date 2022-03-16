@@ -693,6 +693,42 @@
         name: ['libxml2-utils', 'ack-grep', 'htop', 'scrot', 'curl', 'xautolock']
         state: present
 
+    - name: Retrieve last btop download url
+      tags: btop
+      uri:
+        url: https://api.github.com/repos/aristocratos/btop/releases/latest
+        body_format: json
+      register: btop_download_url
+
+    - name: Download Btop
+      tags: btop
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: /tmp/btop.tgz
+        mode: 0755
+        force: yes
+      when: "{{ item.name == 'btop-x86_64-linux-musl.tbz' }}"
+      with_items: "{{ btop_download_url.json.assets }}"
+
+    - name: Prepare Btop working directory
+      tags: btop
+      file:
+        path: /tmp/btop
+        state: directory
+
+    - name: Unarchive btop
+      tags: btop
+      unarchive:
+        src: /tmp/btop.tgz
+        dest: /tmp/btop
+
+    - name: Install btop
+      tags: btop
+      become: yes
+      make:
+        chdir: /tmp/btop
+        target: install
+
     - name: Install gimp
       become: yes
       apt:
