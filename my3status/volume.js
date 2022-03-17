@@ -26,9 +26,18 @@ function getInfo(name) {
     });
 }
 
+function getVolumeInfo() {
+    return getInfo('Master')
+        .catch(() => getInfo('PCM'));
+}
+
+function getMicroInfo() {
+    return getInfo('Capture')
+        .catch(() => getInfo('Mic'));
+}
 
 module.exports = () => {
-    return Promise.all([getInfo('PCM'), getInfo('Mic')]).then(info => {
+    return Promise.all([getVolumeInfo(), getMicroInfo()]).then(info => {
         const volume = info[0];
         const micro = info [1];
 
