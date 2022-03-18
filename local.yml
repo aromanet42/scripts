@@ -761,9 +761,17 @@
         state: present
 
     - name: Create Download directory in xsession
+      tags: downloads
       lineinfile:
         dest: ~/.xsessionrc
         line: "mkdir -p /tmp/Downloads"
+
+    - name: Create link to Download directory
+      tags: downloads
+      file:
+        src: "/tmp/Downloads"
+        dest: ~/Downloads
+        state: link
 
     - name: Create Screenshots directory in xsession
       lineinfile:
