@@ -621,6 +621,21 @@
         name: vault
         state: present
 
+    - name: Retrieve last kubectl version
+      tags: kubectl
+      uri:
+        url: https://storage.googleapis.com/kubernetes-release/release/stable.txt
+        method: GET
+        return_content: true
+      register: kubectl_last_version
+
+    - name: Install kubectl
+      tags: kubectl
+      get_url:
+        url: https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_last_version.content }}/bin/linux/amd64/kubectl
+        dest: ~/bin/kubectl
+        mode: 0755
+
     - name: Retrieve current AWS cli version
       tags: aws
       shell: aws --version
