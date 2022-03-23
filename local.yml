@@ -397,6 +397,7 @@
         dest: /tmp/jetbrains-toolbox.tar.gz
 
     - name: Prepare Jetbrains directory
+      tags: idea
       file:
         path: ~/dev/jetbrains-toolbox
         state: directory
@@ -406,6 +407,24 @@
       unarchive:
         src: /tmp/jetbrains-toolbox.tar.gz
         dest: ~/dev/jetbrains-toolbox
+
+    - name: Find jetbrains executable
+      tags: idea
+      find:
+        paths: ~/dev/jetbrains-toolbox
+        file_type: file
+        pattern: jetbrains-toolbox
+        use_regex: yes
+        recurse: yes
+      register: jetbrains_exec_file
+
+    - name: Create link to jetbrains in bin
+      tags: idea
+      file:
+        src: "{{ item.path }}"
+        dest: "~/bin/jetbrains-toolbox"
+        state: link
+      with_items: "{{ jetbrains_exec_file.files }}"
 
     - name: Modify iBus setting to prevent idea crash https://youtrack.jetbrains.com/issue/IDEA-78860
       lineinfile:
