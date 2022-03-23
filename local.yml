@@ -815,9 +815,17 @@
         state: link
 
     - name: Create Screenshots directory in xsession
+      tags: downloads
       lineinfile:
         dest: ~/.xsessionrc
         line: "mkdir -p /tmp/screenshots"
+
+    - name: Create link to Screenshots directory
+      tags: downloads
+      file:
+        src: "/tmp/screenshots"
+        dest: ~/Images/screenshots
+        state: link
 
     - name: Add tool displaying network status in trayer in xsession
       lineinfile:
