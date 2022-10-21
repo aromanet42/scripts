@@ -801,6 +801,12 @@
         name: net-tools
         state: present
 
+    - name: Install GraphViz (UML diagrams)
+      become: yes
+      apt:
+        name: graphviz
+        state: present
+
     - name: Create Download directory in xsession
       tags: downloads
       lineinfile:
