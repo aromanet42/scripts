@@ -2,11 +2,18 @@ const utils = require('../my3status/module_utils');
 
 const reposToKeepWatching = [
     'tools-dev-info',
-    'tools-api-doc',
+    'tools-api-docs',
     'mirakl-compose',
     'emma',
     'tools-algolia',
     'tools-translation',
+  'app-calliope',
+  'calliope-translation-server',
+  'app-candydates',
+  'tools-mirakl-university',
+  'tools-checklist',
+  'app-countdown',
+  'github-actions',
     'app-mirakl-status',
 ];
 
