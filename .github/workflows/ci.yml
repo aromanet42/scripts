@@ -12,10 +12,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    working-directory: my3status-java
-
 jobs:
   ci:
     name: CI
@@ -29,8 +25,9 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: zulu
-          java-version-file: .java-version
+          java-version-file: my3status-java/.java-version
           cache: maven
 
       - name: Build
-        run: mvn clean install -T1C
+        run: mvn clean verify
+        working-directory: my3status-java
