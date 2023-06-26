@@ -51,7 +51,7 @@
   vars:
     script_dir: "{{ absolute_path.stat.path }}"
     dev_dir: "{{ dev_abs_path.stat.path }}"
-    golang_version: "1.17.3"
+    golang_version: "1.20.5"
 
   tasks:
 
@@ -719,6 +719,16 @@
       get_url:
         url: "https://golang.org/dl/go{{ golang_version }}.linux-amd64.tar.gz"
         dest: /tmp/go.tar.gz
+      when: "golang_version not in GO_current_release.stdout"
+
+    # avoid conflict between maybe previous version and the one we are trying to install
+    - name: Make sure target directory does not exist
+      tags:
+        - golang
+      become: yes
+      file:
+        path: "/usr/local/go"
+        state: absent
       when: "golang_version not in GO_current_release.stdout"
 
     - name: Extract GO
