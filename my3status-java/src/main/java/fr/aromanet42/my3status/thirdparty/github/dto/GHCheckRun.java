@@ -3,6 +3,7 @@ package fr.aromanet42.my3status.thirdparty.github.dto;
 public class GHCheckRun {
     private String name;
     private String conclusion;
+    private String externalId;
 
     // used by Jackson
     @SuppressWarnings("unused")
@@ -20,5 +21,9 @@ public class GHCheckRun {
 
     public String getConclusion() {
         return conclusion;
+    }
+
+    public String getExternalId() {
+        return externalId;
     }
 }

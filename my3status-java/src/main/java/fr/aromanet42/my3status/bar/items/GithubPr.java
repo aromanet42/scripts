@@ -121,6 +121,7 @@ public class GithubPr {
                 .toList());
         statuses.addAll(githubApiClient.getChecks(repositoryFullName, commitSha).stream()
                 .filter(s -> !Objects.equals(s.getConclusion(), "skipped"))
+                .filter(s -> s.getExternalId() == null) // when externalId is not null, this is a manually triggered check such as "deploy this PR"
                 .map(s -> new PRCheck(s.getName(), PRCheckStatus.fromCheck(s.getConclusion())))
                 .toList());
 
