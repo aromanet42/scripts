@@ -2,6 +2,13 @@
 
 # inspired from https://dev.ghost.org/prevent-master-push/
 
+if [ ! -t 1 ]
+then
+  # Push is done non-interactively. Allowing push to master
+  exit 0
+fi
+
+
 protected_branch='master'
 current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 
