@@ -689,7 +689,9 @@
       get_url:
         url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
         dest: /tmp/awscli.zip
-      when: "'aws-cli' not in awscli_version_result.stdout"
+      # task is only run when AWS is not installed yet. OR when adding 'force' in tags: ansible-playbook local.yml --tags aws,force --ask-become-pass
+      # I cannot managed to retrieve the latest version available
+      when: "'aws-cli' not in awscli_version_result.stdout or 'force' in ansible_run_tags"
 
     - name: Unzip aws cli
       tags:
@@ -697,14 +699,31 @@
       unarchive:
         src: /tmp/awscli.zip
         dest: /tmp
-      when: "'aws-cli' not in awscli_version_result.stdout"
+      when: "'aws-cli' not in awscli_version_result.stdout or 'force' in ansible_run_tags"
 
     - name: Install aws cli
       tags:
         - aws
       become: yes
-      shell: /tmp/aws/install -i /usr/local/aws-cli -b /usr/local/bin
-      when: "'aws-cli' not in awscli_version_result.stdout"
+      shell: /tmp/aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
+      when: "'aws-cli' not in awscli_version_result.stdout or 'force' in ansible_run_tags"
+
+    - name: Retrieve last aws-vault download url
+      tags: aws
+      uri:
+        url: https://api.github.com/repos/99designs/aws-vault/releases/latest
+        body_format: json
+      register: aws_download_url
+
+    - name: Download Aws-Vault
+      tags: aws
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: ~/bin/aws-vault
+        mode: 0755
+        force: yes
+      when: "item.name == 'aws-vault-linux-amd64'"
+      with_items: "{{ aws_download_url.json.assets }}"
 
     - name: Retrieve current GO version
       tags:
