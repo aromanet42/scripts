@@ -52,6 +52,7 @@
     script_dir: "{{ absolute_path.stat.path }}"
     dev_dir: "{{ dev_abs_path.stat.path }}"
     golang_version: "1.20.5"
+    teleport_version: "14.1.1"
 
   tasks:
 
@@ -676,6 +677,19 @@
         url: https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_last_version.content }}/bin/linux/amd64/kubectl
         dest: ~/bin/kubectl
         mode: 0755
+
+    - name: Download Teleport CLI (tsh) install script
+      tags:
+        - tsh
+      get_url:
+        url: https://goteleport.com/static/install.sh
+        dest: /tmp/teleport.sh
+
+    - name: Install Teleport CLI (tsh)
+      tags:
+        - tsh
+      script: /tmp/teleport.sh {{ teleport_version }}
+      become: yes
 
     - name: Retrieve current AWS cli version
       tags: aws
