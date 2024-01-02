@@ -493,6 +493,14 @@
         state: directory
         recurse: yes
 
+    - name: Mkdir i3 config directory
+      tags:
+        - i3
+      file:
+        path: "~/.config/i3"
+        state: directory
+        recurse: yes
+
     - name: Copy i3 config
       tags:
         - i3
@@ -501,43 +509,23 @@
         dest: ~/.config/i3/config
         state: link
 
-    - name: Copy i3 'switch workspace' script
+    - name: Copy other i3 files
       tags:
         - i3
       file:
-        src: "{{ script_dir }}/i3/switch-workspace.py"
-        dest: ~/.config/i3/switch-workspace.py
+        src: "{{ item }}"
+        dest: "~/.config/i3/{{ item | basename }}"
         state: link
+      with_fileglob:
+        - "{{ script_dir }}/i3/*"
 
-    - name: Copy my3status config files
+    - name: Install i3Blocks
       tags:
         - i3
-        - my3status
-      file:
-        src: "{{ script_dir }}/my3status-java"
-        dest: ~/.config/my3status
-        state: link
-
-    - name: Download GraalVM (Java VM to build native applications)
-      tags:
-        - i3
-        - my3status
-      get_url:
-        url: https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-22.3.2/graalvm-ce-java17-linux-amd64-22.3.2.tar.gz
-        dest: "/tmp/graalvm-java17.tar.gz"
-    - name: Extract GraalVM (Java VM to build native applications)
-      tags:
-        - i3
-        - my3status
-      unarchive:
-        src: "/tmp/graalvm-java17.tar.gz"
-        dest: "{{ dev_dir }}"
-    - name: Add GraalVM in jenv
-      tags:
-        - i3
-        - my3status
-      shell:
-        cmd: "jenv add {{ dev_dir }}/graalvm-ce-java17-22.3.2"
+      become: yes
+      apt:
+        name: i3blocks
+        state: present
 
     - name: Add apt-key for yarn
       become: yes

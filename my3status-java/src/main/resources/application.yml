@@ -1,8 +1,0 @@
-spring:
-  main:
-    banner-mode: "off"
-
-logging:
-  level:
-    root: info
-    fr.aromanet42: info
