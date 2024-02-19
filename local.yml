@@ -85,8 +85,16 @@
         name: gnome-settings-daemon
         state: present
 
+    - name: Add Git PPA to have latest version of Git
+      become: yes
+      tags: git
+      apt_repository:
+        repo: "ppa:git-core/ppa"
+        update_cache: yes
+
     - name: Install Git
       become: yes
+      tags: git
       apt:
         name: ['git', 'gitk']
         state: present

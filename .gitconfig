@@ -75,3 +75,7 @@
 	pruneExpire = 1.week.ago
 [init]
 	templatedir = ~/.git-templates
+
+# conditional git configurations for non personal projects
+[includeIf "hasconfig:remote.*.url:git@github.com:mirakl/**"]
+  path = ~/.gitconfig-mirakl # note: this file is not versioned, as it contains sensitive information
