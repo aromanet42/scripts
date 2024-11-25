@@ -185,44 +185,6 @@
         dest: "~/.config/terminator/config"
         state: link
 
-    - name: Add udev rule to launch autorandr when monitor is (un)plugged
-      copy:
-        dest: /etc/udev/rules.d/detect-monitor-change.rules
-        content: 'ACTION=="change", SUBSYSTEM=="drm", RUN+="{{ script_dir }}/bin/auto-change-monitor.sh"'
-      become: yes
-
-    - name: Install ARandr
-      become: yes
-      apt: 
-        name: arandr
-        state: present
-
-    - name: Install autorandr - Automatically select a display configuration based on connected devices
-      become: yes
-      pip:
-        name: autorandr
-        state: present
-
-    - name: Add Apt-key for Chrome
-      become: yes
-      apt_key: 
-        url: https://dl-ssl.google.com/linux/linux_signing_key.pub
-
-    - name: Add Chrome Repo into sources list
-      become: yes
-      apt_repository:
-        repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-        state: present
-        update_cache: yes
-
-    - name: Install Chrome
-      tags:
-        - chrome
-      become: yes
-      apt:
-        name: google-chrome-stable
-        state: latest
-
     - name: Install Httpie
       become: yes
       apt:
@@ -484,56 +446,6 @@
       tags: xmodmap
       shell:
         cmd: xmodmap ~/.Xmodmap
-
-    - name: Install i3
-      become: yes
-      tags:
-        - i3
-      apt:
-        name: i3
-        state: present
-
-    - name: Mkdir i3 config directory
-      tags:
-        - i3
-      file: 
-        path: "~/.config/i3"
-        state: directory
-        recurse: yes
-
-    - name: Mkdir i3 config directory
-      tags:
-        - i3
-      file:
-        path: "~/.config/i3"
-        state: directory
-        recurse: yes
-
-    - name: Copy i3 config
-      tags:
-        - i3
-      file:
-        src: "{{ script_dir }}/i3.conf"
-        dest: ~/.config/i3/config
-        state: link
-
-    - name: Copy other i3 files
-      tags:
-        - i3
-      file:
-        src: "{{ item }}"
-        dest: "~/.config/i3/{{ item | basename }}"
-        state: link
-      with_fileglob:
-        - "{{ script_dir }}/i3/*"
-
-    - name: Install i3Blocks
-      tags:
-        - i3
-      become: yes
-      apt:
-        name: i3blocks
-        state: present
 
     - name: Add apt-key for yarn
       become: yes
@@ -894,11 +806,6 @@
         dest: ~/Images/screenshots
         state: link
 
-    - name: Add tool displaying network status in trayer in xsession
-      lineinfile:
-        dest: ~/.xsessionrc
-        line: "nm-applet &"
-
     - name: Download Postman
       tags: postman
       command: curl -o /tmp/postman.tar.gz https://dl.pstmn.io/download/latest/linux64
@@ -922,22 +829,6 @@
       apt:
         name: ['postgresql', 'postgresql-client']
         state: present
-
-    - name: Install Emoji font
-      become: yes
-      apt:
-        name: ['ttf-ancient-fonts', 'fonts-powerline']
-        state: present
-
-    - name: Allow everyone to check for updates
-      become: yes
-      blockinfile:
-        path: /etc/sudoers
-        state: present
-        block: |
-          Cmnd_Alias UPDATE_OS = {{script_dir}}/checkupdates.sh
-          ALL ALL = NOPASSWD:UPDATE_OS
-        validate: '/usr/sbin/visudo -cf %s'
 
   post_tasks:
     - name: Print jenv command
