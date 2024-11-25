@@ -136,7 +136,7 @@
     - name: Install Vim
       become: yes
       apt:
-        name: ['vim', 'vim-gtk']
+        name: ['vim']
         state: present
 
     - name: Create Vim config directory
@@ -586,160 +586,10 @@
         dest: ~/bin/kubectl
         mode: 0755
 
-    - name: Download Teleport CLI (tsh) install script
-      tags:
-        - tsh
-      get_url:
-        url: https://goteleport.com/static/install.sh
-        dest: /tmp/teleport.sh
-
-    - name: Install Teleport CLI (tsh)
-      tags:
-        - tsh
-      script: /tmp/teleport.sh {{ teleport_version }}
-      become: yes
-
-    - name: Retrieve current AWS cli version
-      tags: aws
-      shell: aws --version
-      register: awscli_version_result
-      ignore_errors: yes # do not fail ansible playbook if GO does not exist yet
-
-    - name: Download aws cli
-      tags:
-        - aws
-      get_url:
-        url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
-        dest: /tmp/awscli.zip
-      # task is only run when AWS is not installed yet. OR when adding 'force' in tags: ansible-playbook local.yml --tags aws,force --ask-become-pass
-      # I cannot managed to retrieve the latest version available
-      when: "'aws-cli' not in awscli_version_result.stdout or 'force' in ansible_run_tags"
-
-    - name: Unzip aws cli
-      tags:
-        - aws
-      unarchive:
-        src: /tmp/awscli.zip
-        dest: /tmp
-      when: "'aws-cli' not in awscli_version_result.stdout or 'force' in ansible_run_tags"
-
-    - name: Install aws cli
-      tags:
-        - aws
-      become: yes
-      shell: /tmp/aws/install -i /usr/local/aws-cli -b /usr/local/bin --update
-      when: "'aws-cli' not in awscli_version_result.stdout or 'force' in ansible_run_tags"
-
-    - name: Retrieve last aws-vault download url
-      tags: aws
-      uri:
-        url: https://api.github.com/repos/99designs/aws-vault/releases/latest
-        body_format: json
-      register: aws_download_url
-
-    - name: Download Aws-Vault
-      tags: aws
-      get_url:
-        url: "{{ item.browser_download_url }}"
-        dest: ~/bin/aws-vault
-        mode: 0755
-        force: yes
-      when: "item.name == 'aws-vault-linux-amd64'"
-      with_items: "{{ aws_download_url.json.assets }}"
-
-    - name: Retrieve current GO version
-      tags:
-        - golang
-      shell: go version
-      register: "GO_current_release"
-      ignore_errors: yes # do not fail ansible playbook if GO does not exist yet
-
-    - name: Download GO
-      tags:
-        - golang
-      get_url:
-        url: "https://golang.org/dl/go{{ golang_version }}.linux-amd64.tar.gz"
-        dest: /tmp/go.tar.gz
-      when: "golang_version not in GO_current_release.stdout"
-
-    # avoid conflict between maybe previous version and the one we are trying to install
-    - name: Make sure target directory does not exist
-      tags:
-        - golang
-      become: yes
-      file:
-        path: "/usr/local/go"
-        state: absent
-      when: "golang_version not in GO_current_release.stdout"
-
-    - name: Extract GO
-      tags:
-        - golang
-      become: yes
-      unarchive:
-        src: /tmp/go.tar.gz
-        dest: "/usr/local"
-        creates:
-      when: "golang_version not in GO_current_release.stdout"
-
-    - name: Install Flameshot (Screenshot tool)
-      become: yes
-      apt:
-        name: flameshot
-        state: present
-
-    - name: Install Peek (screen recorder)
-      become: yes
-      apt:
-        name: peek
-        state: present
-
     - name: Install some usefull tools
       become: yes
       apt:
-        name: ['libxml2-utils', 'ack-grep', 'htop', 'scrot', 'curl', 'xautolock']
-        state: present
-
-    - name: Retrieve last btop download url
-      tags: btop
-      uri:
-        url: https://api.github.com/repos/aristocratos/btop/releases/latest
-        body_format: json
-      register: btop_download_url
-
-    - name: Download Btop
-      tags: btop
-      get_url:
-        url: "{{ item.browser_download_url }}"
-        dest: /tmp/btop.tgz
-        mode: 0755
-        force: yes
-      when: "{{ item.name == 'btop-x86_64-linux-musl.tbz' }}"
-      with_items: "{{ btop_download_url.json.assets }}"
-
-    - name: Prepare Btop working directory
-      tags: btop
-      file:
-        path: /tmp/btop
-        state: directory
-
-    - name: Unarchive btop
-      tags: btop
-      unarchive:
-        src: /tmp/btop.tgz
-        dest: /tmp/btop
-
-    - name: Install btop
-      tags: btop
-      become: yes
-      make:
-        chdir: /tmp/btop
-        target: install
-
-    - name: Install gimp
-      become: yes
-      apt:
-        name: 'gimp'
+        name: ['libxml2-utils', 'ack-grep', 'htop', 'curl']
         state: present
 
     - name: Install Xournal (PDF editor)
@@ -748,10 +598,9 @@
         name: xournal
         state: present
 
-
     - name: Install TLDR
       become: yes
-      pip:
+      pip3:
         name: tldr
         state: present
 
@@ -759,13 +608,6 @@
       become: yes
       apt:
         name: ncdu
-        state: present
-
-    - name: Install Ssh shuttle (needed by tools-remote)
-      tags: sshuttle
-      become: yes
-      apt:
-        name: sshuttle
         state: present
 
     - name: Install network tools (netstat)
