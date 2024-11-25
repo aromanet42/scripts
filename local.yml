@@ -133,6 +133,12 @@
         dest: ~/.git-templates
         state: link
 
+    - name: Install GitHub CLI
+      become: yes
+      apt:
+        name: gh
+        state: present
+
     - name: Install Vim
       become: yes
       apt:
