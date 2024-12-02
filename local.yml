@@ -291,6 +291,14 @@
         dest: ~/.oh-my-zsh/custom/custom_env.zsh
         line: "export PATH={{ script_dir }}/bin:$PATH"
 
+    - name: Install Powerline font used in ZSH theme
+      tags:
+        - zsh
+      become: yes
+      apt:
+        name: ['fonts-powerline']
+        state: present
+
     - name: Retrieve last peco download url
       tags:
         - peco

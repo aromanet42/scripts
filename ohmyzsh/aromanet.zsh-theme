@@ -90,7 +90,7 @@ function time_to_human() {
 
 # Color the text with the appropriate colors.
 # Usage:
-#   text <front> <back> <text>
+#   text <front> <text>
 #
 # if color = '-' => reinit color
 # if color = ''  => do not change color
@@ -104,37 +104,28 @@ function time_to_human() {
 #                 for code in {000..255}; do print -P -- "$code: %F{$code}Test%f"; done
 function text() {
   front=$1
-  back=$2
-  shift argv
   shift argv
 
   if [ "$front" = "-" ]; then
-    front="%f"
+    front="%{$reset_color%}"
   elif [ "$front" != "" ]; then
-    front="%F{$front}"
+    front="%{$fg[$front]%}"
   fi
 
-  if [ "$back" = "-" ]; then
-    back="%k"
-  elif [ "$back" != "" ]; then
-    back="%K{$back}"
-  fi
-
-
-  echo -n "$front$back$argv"
+  echo -n "$front$argv"
 }
 
 function prompt() {
-  echo ""                               # new line before prompt
-  text cyan '-' "%~➤"                   # current path
-  text "-" "-" " "                      # reinit color and add space
+  echo ""                           # new line before prompt
+  text cyan "%~➤"                   # current path
+  text "-" " "                      # reinit color and add space
 }
 
 function rprompt() {
-  text yellow '-' "$(git_prompt_info)$(git_prompt_ahead)$(git_prompt_behind) "
-  text white '-' "%D{%H:%M:%S}"
-  text white '-' "%(?."".%F{red} ✘%?)"
-  text white '-' "$(command_time)"
+  text yellow "$(git_prompt_info)$(git_prompt_ahead)$(git_prompt_behind) "
+  text white "%D{%H:%M:%S}"
+  text white "%(?."".%{$fg[red]%} ✘%?)"
+  text white "$(command_time)"
 }
 
 PROMPT='$(prompt)'
