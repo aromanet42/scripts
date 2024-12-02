@@ -600,6 +600,12 @@
         dest: ~/bin/kubectl
         mode: 0755
 
+    - name: Install Flameshot (Screenshot tool)
+      become: yes
+      apt:
+        name: flameshot
+        state: present
+
     - name: Install some usefull tools
       become: yes
       apt:
