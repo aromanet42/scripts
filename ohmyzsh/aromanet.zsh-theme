@@ -6,13 +6,13 @@
 #  ZSH_THEME_GIT_PROMPT_* used by $(git_prompt_info)
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
-ZSH_THEME_GIT_PROMPT_DIRTY="%F{red}✭%F{black}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}✭%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-ZSH_THEME_GIT_PROMPT_ADDED=" %F{green}✚%F{black}"
-ZSH_THEME_GIT_PROMPT_MODIFIED=" %F{blue}✹%F{black}"
-ZSH_THEME_GIT_PROMPT_DELETED=" %F{red}✖%F{black}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED=" %F{yellow}✭%F{black}"
+ZSH_THEME_GIT_PROMPT_ADDED=" ✚"
+ZSH_THEME_GIT_PROMPT_MODIFIED="✹"
+ZSH_THEME_GIT_PROMPT_DELETED=" ✖"
+ZSH_THEME_GIT_PROMPT_UNTRACKED=" ✭"
 ZSH_THEME_GIT_PROMPT_RENAMED=" ➜"
 ZSH_THEME_GIT_PROMPT_UNMERGED=" ═"
 ZSH_THEME_GIT_PROMPT_AHEAD=" ⬆"
@@ -96,7 +96,7 @@ function time_to_human() {
 # if color = ''  => do not change color
 #
 # Example:
-#   text white blue %~
+#   text white %~
 #
 # available colors :
 #   - by name : red, blue, green, black, white
@@ -122,11 +122,11 @@ function prompt() {
 }
 
 function rprompt() {
-  text yellow "$(git_prompt_info)$(git_prompt_ahead)$(git_prompt_behind) "
-  text white "%D{%H:%M:%S}"
-  text white "%(?."".%{$fg[red]%} ✘%?)"
-  text white "$(command_time)"
+  text yellow '$(git_prompt_info)$(git_prompt_ahead)$(git_prompt_behind) '
+  text "-" "%D{%H:%M:%S}"
+  text "-" "%(?."".%{$fg[red]%} ✘%?)"
+  text "-" "$(command_time)"
 }
 
 PROMPT='$(prompt)'
-RPROMPT='$(rprompt)'
+RPROMPT="$(rprompt)"
