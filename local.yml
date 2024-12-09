@@ -216,6 +216,25 @@
       when: "{{ item.name == 'jq-linux64' }}"
       with_items: "{{ jq_download_url.json.assets }}"
 
+    - name: Retrieve last YQ download url
+      tags:
+        - jq
+      uri:
+        url: https://api.github.com/repos/mikefarah/yq/releases/latest
+        body_format: json
+      register: yq_download_url
+
+    - name: Download YQ
+      tags:
+       - jq
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: ~/bin/yq
+        mode: 0755
+        force: yes
+      when: "{{ item.name == 'yq_linux_amd64' }}"
+      with_items: "{{ yq_download_url.json.assets }}"
+
     - name: Install ZSH
       become: yes
       apt:
