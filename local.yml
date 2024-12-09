@@ -618,12 +618,6 @@
         name: xournal
         state: present
 
-    - name: Install TLDR
-      become: yes
-      pip3:
-        name: tldr
-        state: present
-
     - name: Install NCDU (disk usage analyser)
       become: yes
       apt:
