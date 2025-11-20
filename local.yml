@@ -133,11 +133,31 @@
         dest: ~/.git-templates
         state: link
 
-    - name: Install GitHub CLI
+    - name: Retrieve last GH CLI download url
+      tags:
+        - gh
+      uri:
+        url: https://api.github.com/repos/cli/cli/releases/latest
+        body_format: json
+      register: gh_cli_download_url
+
+    - name: Download GH CLI
+      tags:
+        - gh
+      get_url:
+        url: "{{ item.browser_download_url }}"
+        dest: /tmp/ghcli.deb
+        mode: 0755
+        force: yes
+      when: "{{ item.name is match('gh_.*_linux_amd64.deb') }}"
+      with_items: "{{ gh_cli_download_url.json.assets }}"
+
+    - name: Install GH CLI deb package
+      tags:
+        - gh
       become: yes
       apt:
-        name: gh
-        state: present
+        deb: "/tmp/ghcli.deb"
 
     - name: Install Vim
       become: yes
