@@ -51,6 +51,8 @@
 [push]
   default = current # allows git push -u to create remote branch tracking local one
 
+[help]
+  autocorrect = prompt
 
 [diff]
   tool=diffmerge 
