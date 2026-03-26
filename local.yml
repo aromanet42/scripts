@@ -725,6 +725,21 @@
         name: ['postgresql', 'postgresql-client']
         state: present
 
+
+    - name: Create Claude config directory
+      tags: claude
+      file:
+        path: ~/.claude
+        state: directory
+
+    - name: Sym link to Claude conf
+      file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+      with_items:
+        - { src: "{{ script_dir }}/claude/CLAUDE.md", dest: '~/.claude/CLAUDE.md' }
+
   post_tasks:
     - name: Print jenv command
       tags: jenv
