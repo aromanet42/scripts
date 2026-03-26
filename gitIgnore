@@ -10,3 +10,8 @@ target/
 *.conflicts
 pom.xml.versionsBackup
 
+# ignoring custom run configuration that I don't want to commit
+*local.run.xml
+
+
+**/.claude/settings.local.json
