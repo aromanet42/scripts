@@ -28,5 +28,5 @@ Three accepted formats:
 
 - For simple tasks: **one commit only**.
 - For complex tasks: analyse whether multiple commits make sense, then confirm with me before splitting.
-- During iterative work, you may create intermediate commits using autosquash prefixes (`fixup!`, `squash!`), then consolidate with `git rebase --autosquash`.
+- During iterative work, always use autosquash prefixes for intermediate commits (`fixup!`, `squash!`), then consolidate with `git rebase --autosquash`.
 - **Never use `git reset` to undo work without my explicit consent.**
