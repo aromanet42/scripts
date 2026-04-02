@@ -2,13 +2,14 @@
 
 set -e # do not continue script if failure
 
-sudo apt-get install python3-pip git -y
-pip install --upgrade pip
+sudo apt-get install python3-pip git pipx -y
 
-sudo pip install ansible
+pipx install ansible-core
+pipx ensurepath
+
+ansible-galaxy collection install community.general
 
 mkdir -p ~/workspace/scripts
-
 
 ssh-keygen -o
 
