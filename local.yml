@@ -148,17 +148,20 @@
         deb: "/tmp/ghcli.deb"
 
     - name: Install Vim
+      tags: vim
       become: yes
       apt:
         name: ['vim']
         state: present
 
     - name: Create Vim config directory
+      tags: vim
       file:
         path: ~/.vim
         state: directory
 
     - name: Sym link to Vim conf
+      tags: vim
       file:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
@@ -169,11 +172,13 @@
         - { src: "{{ script_dir }}/Vim/autoload", dest: '~/.vim/autoload' }
 
     - name: Create Vim plugin directory
-      file: 
+      tags: vim
+      file:
         path: ~/.vim/bundle
         state: directory
 
     - name: Retrieve Vim plugins
+      tags: vim
       git:
         repo: "https://github.com/{{ item.gituser }}/{{ item.gitrepo }}.git"
         dest: "~/.vim/bundle/{{ item.gitrepo }}"
@@ -182,19 +187,22 @@
         - { gituser: "vim-scripts", gitrepo: "csv.vim" }
     
     - name: Install Terminator
+      tags: terminator
       become: yes
       apt:
         name: terminator
         state: present
 
     - name: Create Terminator config dir
+      tags: terminator
       file:
         path: "~/.config/terminator"
         state: directory
         recurse: yes
 
     - name: Copy Terminator config
-      file: 
+      tags: terminator
+      file:
         src: "{{ script_dir }}/terminator.config"
         dest: "~/.config/terminator/config"
         state: link
@@ -244,12 +252,14 @@
       with_items: "{{ yq_download_url.json.assets }}"
 
     - name: Install ZSH
+      tags: zsh
       become: yes
       apt:
         name: zsh
         state: present
 
     - name: Download Oh-My-Zsh
+      tags: zsh
       git:
         repo: https://github.com/robbyrussell/oh-my-zsh.git
         dest: "~/.oh-my-zsh"
@@ -260,45 +270,52 @@
       register: current_user
 
     - name: Change user shell to zsh
+      tags: zsh
       user:
         name: "{{ current_user.stdout }}"
         shell: /bin/zsh
       become: yes
 
     - name: Create Oh-My-Zsh completion directory
-      file: 
+      tags: zsh
+      file:
         path: ~/.oh-my-zsh/completions
         state: directory
 
     - name: Sym link to Oh-My-Zsh completions
-      file: 
+      tags: zsh
+      file:
         src: "{{ script_dir }}/completions/{{ item }}"
         dest: "~/.oh-my-zsh/completions/{{ item }}"
         state: link
       with_lines: "find {{ script_dir }}/completions/* -printf '%f\n'"
 
     - name: Copy Zsh Config
-      file: 
+      tags: zsh
+      file:
         src: "{{ script_dir }}/.zshrc"
         dest: "~/.zshrc"
         force: yes
         state: link
 
     - name: Copy Zsh themes
-      file: 
+      tags: zsh
+      file:
         src: "{{ script_dir }}/ohmyzsh/{{ item }}"
         dest: "~/.oh-my-zsh/themes/{{ item }}"
         state: link
       with_lines: "find {{ script_dir }}/ohmyzsh/*.zsh-theme -printf '%f\n'"
 
     - name: Copy Zsh custom files
-      file: 
+      tags: zsh
+      file:
         src: "{{ script_dir }}/ohmyzsh/{{ item }}"
         dest: "~/.oh-my-zsh/custom/{{ item }}"
         state: link
       with_lines: "find {{ script_dir }}/ohmyzsh/*.zsh -printf '%f\n'"
 
     - name: Install Oh-My-Zsh Syntax Highlighting plugin
+      tags: zsh
       git:
         repo: git://github.com/zsh-users/zsh-syntax-highlighting.git
         dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
@@ -439,6 +456,8 @@
       with_items: "{{ jetbrains_exec_file.files }}"
 
     - name: Modify iBus setting to prevent idea crash https://youtrack.jetbrains.com/issue/IDEA-78860
+      tags:
+        - idea
       lineinfile:
         dest: ~/.xsessionrc
         line: "export IBUS_ENABLE_SYNC_MODE=1"
@@ -490,11 +509,13 @@
 
     - name: Add apt-key for yarn
       become: yes
+      tags: yarn
       apt_key:
         url: https://dl.yarnpkg.com/debian/pubkey.gpg
 
     - name: Add Yarn repo into sources list
       become: yes
+      tags: yarn
       apt_repository:
         repo: "deb https://dl.yarnpkg.com/debian/ stable main"
         state: present
@@ -502,6 +523,7 @@
 
     - name: Install yarn
       become: yes
+      tags: yarn
       apt:
         name: yarn
         state: present
@@ -721,6 +743,7 @@
         state: directory
 
     - name: Sym link to Claude conf
+      tags: claude
       file:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
