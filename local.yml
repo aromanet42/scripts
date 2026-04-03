@@ -738,7 +738,7 @@
         dest: "{{ item.dest }}"
         state: link
       with_items:
-        - { src: "{{ script_dir }}/claude/CLAUDE.md", dest: '~/.claude/CLAUDE.md' }
+        - { src: "{{ script_dir }}/claude/skills", dest: '~/.claude/skills' }
 
   post_tasks:
     - name: Print jenv command

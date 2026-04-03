@@ -1,4 +1,7 @@
-# Personal Claude preferences — Audrey Romanet
+---
+name: git-commit
+description: Use when you need to commit code with Git
+---
 
 ## Git commit messages
 
