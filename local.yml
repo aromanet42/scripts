@@ -399,7 +399,6 @@
         create: "{{ item.create }}"
       with_items:
         - { path: ~/.oh-my-zsh/custom/custom_env.zsh, create: true }
-        - { path: ~/.xsessionrc, create: false }
 
     - name: Install jEnv
       tags: jenv
@@ -459,7 +458,8 @@
       tags:
         - idea
       lineinfile:
-        dest: ~/.xsessionrc
+        dest: ~/.config/environment.d/ibus.conf
+        create: true
         line: "export IBUS_ENABLE_SYNC_MODE=1"
 
     - name: Retrieve current maven version
@@ -685,11 +685,11 @@
         name: graphviz
         state: present
 
-    - name: Create Download directory in xsession
+    - name: Create Download directory in tmpfiles
       tags: downloads
       lineinfile:
-        dest: ~/.xsessionrc
-        line: "mkdir -p /tmp/Downloads"
+        dest: ~/.config/tmpfiles.d/myfolders.conf
+        line: "d /tmp/downloads 0755 {{ current_user.stdout }} {{ current_user.stdout }} -"
 
     - name: Create link to Download directory
       tags: downloads
@@ -697,12 +697,13 @@
         src: "/tmp/Downloads"
         dest: ~/Downloads
         state: link
+        force: yes # create link even if folder does not exist yet
 
-    - name: Create Screenshots directory in xsession
+    - name: Create Screenshots directory in tmpfiles
       tags: downloads
       lineinfile:
-        dest: ~/.xsessionrc
-        line: "mkdir -p /tmp/screenshots"
+        dest: ~/.config/tmpfiles.d/myfolders.conf
+        line: "d /tmp/screenshots 0755 {{ current_user.stdout }} {{ current_user.stdout }} -"
 
     - name: Create link to Screenshots directory
       tags: downloads
@@ -710,6 +711,7 @@
         src: "/tmp/screenshots"
         dest: ~/Images/screenshots
         state: link
+        force: yes # create link even if folder does not exist yet
 
     - name: Download Postman
       tags: postman
@@ -734,7 +736,6 @@
       apt:
         name: ['postgresql', 'postgresql-client']
         state: present
-
 
     - name: Create Claude config directory
       tags: claude
