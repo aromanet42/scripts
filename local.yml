@@ -56,23 +56,11 @@
 
   tasks:
 
-    - name: Install Ansible XML Parser
-      become: yes
-      shell: ansible-galaxy install cmprescott.xml
-
     - name: Remove Cowsay
       become: yes
       apt:
         name: cowsay
         state: absent
-
-    - name: Prepare XSessionRc File
-      lineinfile:
-        dest: ~/.xsessionrc
-        create: yes
-        line: "#!/bin/sh"
-        insertbefore: BOF
-        state: present
 
     - name: Create user bin directory
       file:
@@ -352,7 +340,7 @@
       get_url:
         url: "{{ item.browser_download_url }}"
         dest: /tmp/peco.tar.gz
-      when: "{{ item.name == 'peco_linux_amd64.tar.gz' }}"
+      when: item.name is match('peco_.*_linux_amd64.tar.gz')
       with_items: "{{ peco_download_url.json.assets }}"
 
     - name: Extract peco archive
@@ -366,7 +354,7 @@
       tags:
         - peco
       copy:
-        src: /tmp/peco_linux_amd64/peco
+        src: /tmp/peco
         dest: ~/bin/peco
 
     - name: Make peco executable
