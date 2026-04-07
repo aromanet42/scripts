@@ -694,8 +694,8 @@
     - name: Create link to Download directory
       tags: downloads
       file:
-        src: "/tmp/Downloads"
-        dest: ~/Downloads
+        src: "/tmp/downloads"
+        dest: ~/downloads
         state: link
         force: yes # create link even if folder does not exist yet
 
