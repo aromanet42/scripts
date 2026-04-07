@@ -688,7 +688,7 @@
     - name: Create Download directory in tmpfiles
       tags: downloads
       lineinfile:
-        dest: ~/.config/tmpfiles.d/myfolders.conf
+        dest: /etc/tmpfiles.d/myfolders.conf
         line: "d /tmp/downloads 0755 {{ current_user.stdout }} {{ current_user.stdout }} -"
 
     - name: Create link to Download directory
@@ -702,7 +702,7 @@
     - name: Create Screenshots directory in tmpfiles
       tags: downloads
       lineinfile:
-        dest: ~/.config/tmpfiles.d/myfolders.conf
+        dest: /etc/tmpfiles.d/myfolders.conf
         line: "d /tmp/screenshots 0755 {{ current_user.stdout }} {{ current_user.stdout }} -"
 
     - name: Create link to Screenshots directory
