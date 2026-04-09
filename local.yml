@@ -649,11 +649,36 @@
         dest: ~/bin/kubectl
         mode: 0755
 
-    - name: Install Flameshot (Screenshot tool)
+    - name: Screenshot - install gnome-screenshot and ksnip
+      tags: screenshot
       become: yes
       apt:
-        name: flameshot
+        name: ['gnome-screenshot', 'ksnip']
         state: present
+
+    - name: Screenshot - disable GNOME default screenshot shortcut
+      tags: screenshot
+      shell: gsettings set org.gnome.shell.keybindings show-screenshot-ui "[]"
+
+    - name: Screenshot - configure Print Screen custom keybinding
+      tags: screenshot
+      shell: |
+        KEY="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/screenshot/"
+        SCHEMA="org.gnome.settings-daemon.plugins.media-keys"
+        CURRENT=$(gsettings get $SCHEMA custom-keybindings)
+        if [[ "$CURRENT" != *"$KEY"* ]]; then
+          if [[ "$CURRENT" == "@as []" ]]; then
+            NEW="['$KEY']"
+          else
+            NEW=$(echo "$CURRENT" | sed "s|]$|, '$KEY']|")
+          fi
+          gsettings set $SCHEMA custom-keybindings "$NEW"
+        fi
+        gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY name 'Screenshot'
+        gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY command 'bash -c "gnome-screenshot -a -f /tmp/screenshot.png && ksnip /tmp/screenshot.png"'
+        gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY binding 'Print'
+      args:
+        executable: /bin/bash
 
     - name: Install some usefull tools
       become: yes
