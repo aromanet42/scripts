@@ -2,7 +2,8 @@
 
 export HISTTIMEFORMAT='%F %T ' # show history with datetime
 
-
+# https://korben.info/github-active-par-defaut-la-telemetrie-sur-son-outil-en-ligne-de-commande.html
+export DO_NOT_TRACK=true # disable telemetry (eg in GitHub CLI)
 
 
 
