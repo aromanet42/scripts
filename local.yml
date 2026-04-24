@@ -762,20 +762,37 @@
         name: ['postgresql', 'postgresql-client']
         state: present
 
-    - name: Create Claude config directory
+    - name: Create Claude config directories
       tags: claude
       file:
-        path: ~/.claude
+        path: "{{ item }}"
         state: directory
+      with_items:
+        - ~/.claude
+        - ~/.claude/skills
 
-    - name: Sym link to Claude conf
+    - name: Find versioned Claude skills
+      tags: claude
+      find:
+        paths: "{{ script_dir }}/claude/skills"
+        file_type: any
+        recurse: no
+      register: claude_skills
+
+    - name: Sym link Claude conf
       tags: claude
       file:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
+        src: "{{ script_dir }}/claude/CLAUDE.md"
+        dest: ~/.claude/CLAUDE.md
         state: link
-      with_items:
-        - { src: "{{ script_dir }}/claude/skills", dest: '~/.claude/skills' }
+
+    - name: Sym link Claude skills
+      tags: claude
+      file:
+        src: "{{ item.path }}"
+        dest: "~/.claude/skills/{{ item.path | basename }}"
+        state: link
+      with_items: "{{ claude_skills.files }}"
 
   post_tasks:
     - name: Print jenv command
