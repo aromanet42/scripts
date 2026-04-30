@@ -1,3 +1,7 @@
+## Git commits
+
+Always invoke the `git-commit` skill before making any commit.
+
 ## Compound commands
 
 Avoid chaining any commands with && or ;.                                                                                                                                                                                                                                                                
