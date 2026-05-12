@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: Use when you need to commit code with Git
+description: Use when you need to commit code with Git, or when writing implementation plans that include git commit steps
 ---
 
 ## Git commit messages
